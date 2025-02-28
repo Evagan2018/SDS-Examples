@@ -22,10 +22,15 @@ project:
 
   components:
     - component: CMSIS:OS Tick:SysTick
+      optimize: balanced
     - component: CMSIS:RTOS2:Keil RTX5&Source
+      optimize: balanced
     - component: CMSIS:DSP
+      optimize: balanced
     - component: CMSIS:NN Lib
+      optimize: balanced
     - component: EdgeImpulse::EdgeImpulse:SDK
+      optimize: balanced
 
   groups:
     - group: Documentation
