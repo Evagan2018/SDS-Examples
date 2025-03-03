@@ -22,18 +22,12 @@
 
 //-------- <<< Use Configuration Wizard in Context Menu >>> --------------------
 
-#ifdef   CMSIS_target_header
-#include CMSIS_target_header
-#else
-#define CMSIS_DRIVER_USBD               0
-#endif
-
 // <h>SDS IO via USB Virtual COM Port (Keil::USB:Device:CDC)
 
 //   <o>USB Device index <0-255>
 //   <i>Index of USB Device
 //   <i>Default: 0
-#define SDSIO_USB_DEVICE_INDEX  CMSIS_DRIVER_USBD
+#define SDSIO_USB_DEVICE_INDEX  0U
 
 // </h>
 
