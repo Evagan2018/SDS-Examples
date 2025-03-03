@@ -27,7 +27,7 @@ project:
         - file: README.md
     - group: Application
       files:
-        - file: TestData.c
+        - file: DataTest.c
         - file: app_main.c
         - file: rec_management.c
 
