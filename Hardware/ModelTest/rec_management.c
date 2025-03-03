@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2024 Arm Limited. All rights reserved.
+ * Copyright (c) 2025 Arm Limited. All rights reserved.
  *
  * SPDX-License-Identifier: Apache-2.0
  *
@@ -51,7 +51,7 @@ extern  int32_t  socket_startup (void);
 #endif
 
 // Recorder error information
-recError_t       recError = { 0U, 0U, NULL, 0U };
+sdsError_t       sdsError = { 0U, 0U, NULL, 0U };
 
 // Recorder active status
 volatile uint8_t recActive = 0U;
@@ -67,7 +67,7 @@ static uint8_t   rec_buf_model_out[REC_BUF_SIZE_MODEL_OUT];
 // Recorder event callback
 static void recorder_event_callback (sdsRecId_t id, uint32_t event) {
   if ((event & SDS_REC_EVENT_IO_ERROR) != 0U) {
-    REC_ASSERT(false);
+    SDS_ASSERT(false);
   }
 }
 
@@ -85,12 +85,12 @@ __NO_RETURN void threadRecManagement (void *argument) {
 #ifdef RTE_SDS_IO_SOCKET
   // Initialize socket interface
   status = socket_startup();
-  REC_ASSERT(status == 0);
+  SDS_ASSERT(status == 0);
 #endif
 
   // Initialize SDS recorder
   status = sdsRecInit(recorder_event_callback);
-  REC_ASSERT(status == SDS_REC_OK);
+  SDS_ASSERT(status == SDS_REC_OK);
 
   for (;;) {
     // Toggle LED0 every 1 second
@@ -107,34 +107,36 @@ __NO_RETURN void threadRecManagement (void *argument) {
       btn_prev = btn_val;
       if (btn_val == vioBUTTON0) {      // If push-button is pressed
         if (recActive == 0U) {
-          recActive = 1U;
-
           // Start recording of Model Input data
           recIdModelInput  = sdsRecOpen("ModelInput",
                                          rec_buf_model_in,
                                          sizeof(rec_buf_model_in),
                                          REC_IO_THRESHOLD_MODEL_IN);
-          REC_ASSERT(recIdModelInput != NULL);
+          SDS_ASSERT(recIdModelInput != NULL);
 
           // Start recording of Model Output data
           recIdModelOutput = sdsRecOpen("ModelOutput",
                                          rec_buf_model_out,
                                          sizeof(rec_buf_model_out),
                                          REC_IO_THRESHOLD_MODEL_OUT);
-          REC_ASSERT(recIdModelOutput != NULL);
+          SDS_ASSERT(recIdModelOutput != NULL);
 
-          // If recording was started turn LED1 on
-          vioSetSignal(vioLED1, vioLEDon);
+          if ((recIdModelOutput != NULL) && (recIdModelOutput != NULL)) {
+            recActive = 1U;
+
+            // If recording was started turn LED1 on
+            vioSetSignal(vioLED1, vioLEDon);
+          }
         } else {
           recActive = 0U;
 
           // Stop recording of Model Input data
           status = sdsRecClose(recIdModelInput);
-          REC_ASSERT(status == SDS_REC_OK);
+          SDS_ASSERT(status == SDS_REC_OK);
 
           // Stop recording of Model Output data
           status = sdsRecClose(recIdModelOutput);
-          REC_ASSERT(status == SDS_REC_OK);
+          SDS_ASSERT(status == SDS_REC_OK);
 
           // If recording was stopped turn LED1 off
           vioSetSignal(vioLED1, vioLEDoff);

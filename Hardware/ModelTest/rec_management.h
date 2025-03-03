@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2024 Arm Limited. All rights reserved.
+ * Copyright (c) 2025 Arm Limited. All rights reserved.
  *
  * SPDX-License-Identifier: Apache-2.0
  *
@@ -29,18 +29,22 @@ extern "C"
 #include "sds_rec.h"
 
 // Assert macro
-#define REC_ASSERT(cond)        if (((cond) == false) && (recError.occurred == 0U)) { recError.occurred = 1U; recError.file = __FILE__; recError.line = __LINE__; }
-
-// Recorder error information structure
+#ifndef NDEBUG
+// SDS error information structure
 typedef struct {
   uint8_t     occurred;
   uint8_t     reported;
   const char *file;
   uint32_t    line;
-} recError_t;
+} sdsError_t;
 
-// Recorder error information
-extern recError_t       recError;
+// SDS error information
+extern sdsError_t       sdsError;
+
+#define SDS_ASSERT(cond)        if (((cond) == false) && (sdsError.occurred == 0U)) { sdsError.occurred = 1U; sdsError.file = __FILE__; sdsError.line = __LINE__; }
+#else
+#define SDS_ASSERT(cond)
+#endif
 
 // Recorder active status
 extern volatile uint8_t recActive;

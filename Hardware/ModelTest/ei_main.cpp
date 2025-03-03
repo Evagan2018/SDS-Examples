@@ -37,7 +37,7 @@ int raw_feature_get_data(size_t offset, size_t length, float *out_ptr)
     if (recActive != 0U) {
       timestamp = osKernelGetTickCount();
       uint32_t num = sdsRecWrite(recIdModelInput, timestamp, features + offset, length * sizeof(float));
-      REC_ASSERT(num == (length * sizeof(float)));
+      SDS_ASSERT(num == (length * sizeof(float)));
     }
 
     return 0;
@@ -101,7 +101,7 @@ extern "C" int ei_main(void)
 
           // Record model output data
           uint32_t num = sdsRecWrite(recIdModelOutput, timestamp, model_out_results, EI_CLASSIFIER_NN_OUTPUT_COUNT * sizeof(float));
-          REC_ASSERT(num == (EI_CLASSIFIER_NN_OUTPUT_COUNT * sizeof(float)));
+          SDS_ASSERT(num == (EI_CLASSIFIER_NN_OUTPUT_COUNT * sizeof(float)));
         }
 
         ei_sleep(2000);
