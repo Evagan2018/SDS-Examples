@@ -112,10 +112,10 @@ __NO_RETURN void threadTestData(void *argument) {
       CreateTestData();
 
       n = sdsRecWrite(recIdDataInput, timestamp, &imu_buf, sizeof(imu_buf));
-      REC_ASSERT(n == sizeof(imu_buf));
+      SDS_ASSERT(n == sizeof(imu_buf));
 
       n = sdsRecWrite(recIdDataOutput, timestamp, &ml_buf, sizeof(ml_buf));
-      REC_ASSERT(n == sizeof(ml_buf));
+      SDS_ASSERT(n == sizeof(ml_buf));
     }
     else {
       recDone = 1U;

@@ -29,8 +29,8 @@ extern "C"
 #include "sds_rec.h"
 
 // Assert macro
-#define REC_ASSERT(cond)        if (!(cond) && (!recError.occurred)) { \
-  recError.occurred = 1U; recError.file = __FILE__; recError.line = __LINE__; }
+#define SDS_ASSERT(cond)        if (!(cond) && (!sdsError.occurred)) { \
+  sdsError.occurred = 1U; sdsError.file = __FILE__; sdsError.line = __LINE__; }
 
 // Recorder error information structure
 typedef struct {
@@ -38,10 +38,10 @@ typedef struct {
   uint8_t     reported;
   const char *file;
   uint32_t    line;
-} recError_t;
+} sdsError_t;
 
 // Recorder error information
-extern recError_t       recError;
+extern sdsError_t       sdsError;
 
 // Recorder active status
 extern volatile uint8_t recActive;

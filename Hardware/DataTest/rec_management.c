@@ -50,7 +50,7 @@ extern  int32_t  socket_startup (void);
 
 
 // Recorder error information
-recError_t       recError = { 0U, 0U, NULL, 0U };
+sdsError_t       sdsError = { 0U, 0U, NULL, 0U };
 
 // Recorder active status
 volatile uint8_t recActive = 0U;
@@ -69,7 +69,7 @@ static uint8_t   rec_buf_data_out[REC_BUF_SIZE_DATA_OUT];
 // Recorder event callback
 static void recorder_event_callback (sdsRecId_t id, uint32_t event) {
   if ((event & SDS_REC_EVENT_IO_ERROR) != 0U) {
-    REC_ASSERT(false);
+    SDS_ASSERT(false);
   }
 }
 
@@ -87,12 +87,12 @@ __NO_RETURN void threadRecManagement (void *argument) {
 #ifdef RTE_SDS_IO_SOCKET
   // Initialize socket interface
   status = socket_startup();
-  REC_ASSERT(status == 0);
+  SDS_ASSERT(status == 0);
 #endif
 
   // Initialize SDS recorder
   status = sdsRecInit(recorder_event_callback);
-  REC_ASSERT(status == SDS_REC_OK);
+  SDS_ASSERT(status == SDS_REC_OK);
 
   for (;;) {
     // Toggle LED0 every 1 second
@@ -114,14 +114,14 @@ __NO_RETURN void threadRecManagement (void *argument) {
                                         rec_buf_data_in,
                                         sizeof(rec_buf_data_in),
                                         REC_IO_THRESHOLD_DATA_IN);
-          REC_ASSERT(recIdDataInput != NULL);
+          SDS_ASSERT(recIdDataInput != NULL);
 
           // Start recording of Model Output data
           recIdDataOutput = sdsRecOpen("DataOutput",
                                         rec_buf_data_out,
                                         sizeof(rec_buf_data_out),
                                         REC_IO_THRESHOLD_DATA_OUT);
-          REC_ASSERT(recIdDataOutput != NULL);
+          SDS_ASSERT(recIdDataOutput != NULL);
 
           // If recording was started turn LED1 on
           vioSetSignal(vioLED1, vioLEDon);
@@ -138,11 +138,11 @@ __NO_RETURN void threadRecManagement (void *argument) {
 
           // Stop recording of Model Input data
           status = sdsRecClose(recIdDataInput);
-          REC_ASSERT(status == SDS_REC_OK);
+          SDS_ASSERT(status == SDS_REC_OK);
 
           // Stop recording of Model Output data
           status = sdsRecClose(recIdDataOutput);
-          REC_ASSERT(status == SDS_REC_OK);
+          SDS_ASSERT(status == SDS_REC_OK);
 
           // If recording was stopped turn LED1 off
           vioSetSignal(vioLED1, vioLEDoff);
