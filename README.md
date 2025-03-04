@@ -16,7 +16,7 @@ Directory                                                                       
 [Hardware/Model1/Play](./Hardware/Model1/Play)                                   | Model1: Playback data to an ML model
 [Hardware/Model2](./Hardware/Model2)                                             | Model2: Connects to a audio source
 [Hardware/Model3](./Hardware/Model3)                                             | Model3: Connects to a video stream
-**[Simulator/SDS_examples.csolution.yml](./Simulator/SDS_examples.csolution.yml)**  | Collection of *csolution project* SDS examples running on AVH-FVP
+**[Simulator/SDS_examples.csolution.yml](./Simulator/SDS_examples.csolution.yml)**  | **Collection of *csolution project* SDS examples running on AVH-FVP**
 [Simulator/DataTest](./Simulator/DataTest)                                       | Record test data to validate configuration and SDS interface bandwidth
 **[SDS_Interface](./SDS_Interface)**                                             | **SDS Interface implementations**
 [SDS_Interface/FileSystem](./SDS_Interface/FileSystem)                           | SDS Interface (SDS_IO via file system)
