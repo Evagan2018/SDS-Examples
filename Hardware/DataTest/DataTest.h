@@ -16,8 +16,8 @@
  * limitations under the License.
  */
 
-#ifndef TEST_DATA_H_
-#define TEST_DATA_H_
+#ifndef DATA_TEST_H_
+#define DATA_TEST_H_
 
 #include <stdint.h>
 

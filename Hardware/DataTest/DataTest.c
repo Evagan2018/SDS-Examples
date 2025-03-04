@@ -96,7 +96,7 @@ static void calc_cpu_usage(void) {
 
   // Usage calculation interval is 3 seconds
   if (++cnt >= 300) {
-    cpu_usage = (float)(48000 - cnt_idle) / 480.0;
+    cpu_usage = (float)(768000 - cnt_idle) / 7680.0;
     cnt_idle = cnt = 0;
   }
 }
@@ -129,16 +129,16 @@ __NO_RETURN void threadTestData(void *argument) {
 
 // Measure system idle time
 __NO_RETURN void osRtxIdleThread(void *argument) {
-  uint32_t tick, next = 0xFFFFFFFF;
+  uint32_t tick, tick_last = 0U;
   (void)argument;
 
   for (;;) {
     __WFI();
     tick = osKernelGetTickCount();
-    if (tick == next) {
-      // Counts in sixteenths of an interval
-      cnt_idle += (16 - 16*OS_Tick_GetCount()/OS_Tick_GetInterval());
+    if (tick != tick_last) {
+      // The counting resolution is interval/256
+      cnt_idle += (256 - 256*OS_Tick_GetCount()/OS_Tick_GetInterval());
+      tick_last = tick;
     }
-    next = tick + 1;
   }
 }
