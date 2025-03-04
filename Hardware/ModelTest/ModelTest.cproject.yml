@@ -17,7 +17,8 @@ project:
     - pack: ARM::CMSIS@^6.1.0
     - pack: ARM::CMSIS-RTX@^5.9.0
     - pack: ARM::CMSIS-DSP@1.15.0
-    - pack: ARM::CMSIS-NN@^4.1.0
+    - pack: ARM::CMSIS-NN
+      path: ./Packs/CMSIS-NN/4.1.0
     - pack: EdgeImpulse::EI-SDK
 
   components:
@@ -28,8 +29,6 @@ project:
     - component: CMSIS:DSP
       optimize: balanced
     - component: CMSIS:NN Lib
-      optimize: balanced
-    - component: EdgeImpulse::EdgeImpulse:SDK
       optimize: balanced
 
   groups:

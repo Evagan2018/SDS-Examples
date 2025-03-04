@@ -6,8 +6,6 @@ This is an standalone application using [Edge Impulse](https://edgeimpulse.com/)
 The example has trained model for continuous motion recognition using an tutorial from the Edge Impulse
 (Tutorial: Continuous motion recognition).
 
-Required Edge Impulse packs are located in the `./Packs` sub-folder and need to be installed.
- 
 This example is pre-configured for STMicroelectronics [STM32H735G-DK](https://www.st.com/en/evaluation-tools/stm32h735g-dk.html) board.
 
 It uses Ethernet interface for recording the data on the host machine.
@@ -40,6 +38,3 @@ Predictions (DSP: 1.000000 ms., Classification: 0 ms., Anomaly: 0ms.):
     wave: 0.996094
 Anomaly prediction: -0.183448
 ```
-
-> Note: CMSIS-NN in v4.1.0 did not include `arm_s8_to_s16_unordered_with_offset.c` file necessary 
->       for this example. It must be added manually for this example to build.
