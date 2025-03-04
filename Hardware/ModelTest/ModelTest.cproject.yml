@@ -19,7 +19,6 @@ project:
     - pack: ARM::CMSIS-DSP@1.15.0
     - pack: ARM::CMSIS-NN
       path: ./Packs/CMSIS-NN/4.1.0
-    - pack: EdgeImpulse::EI-SDK
 
   components:
     - component: CMSIS:OS Tick:SysTick
