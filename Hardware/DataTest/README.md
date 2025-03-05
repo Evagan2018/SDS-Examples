@@ -18,12 +18,12 @@ which also contains the `.sds.yml` metadata files.
 
 ### Configuring stream buffering
 
-The SDS framework implements stream buffering, which should be properly configured to provide
-maximum performance. Therefore, the stream buffer should be large enough to store at least
-some data records optimally. If the stream buffer is larger, more data records are buffered
-before they are output. If the stream buffer is smaller, less data is buffered and the data is
-output more frequently. To achieve optimum performance, the selected value should be close to
-the default values.
+The SDS framework implements stream buffering, which must be configured correctly in order
+to achive better performance. Therefore, the stream buffer must be large enough to store at least
+some data records. If the stream buffer is larger, more data records are buffered before they are
+written to the output device. If the stream buffer is smaller, less data is buffered and the data
+is written more frequently. In this example, the buffer sizes are selected so that at least **20 data
+records** are buffered in order to achieve optimum performance.
 
 The buffer **threshold** specifies a certain value above which the recorded data streams trigger
 internal network transmission or writing to a file. The threshold value should therefore be a few
@@ -37,7 +37,15 @@ Record size   | Record interval  | Buffer size  | Threshold
 40 bytes      | 10 ms            | 1536 bytes   | 1400 bytes
 
 **Note**
-- The SDS recorder adds an internal header to each data record, which increases the size of the recorded data.
+- The SDS recorder adds an internal header to each data record, which increases the size of
+  the recorded data.
+
+### Validation of recorded data
+
+Recorded data can be viewed with the [SDS-View](https://github.com/ARM-software/SDS-Framework/tree/main/utilities/SDS-View)
+utility program. This tool reads in the data and
+outputs a time-based diagram. You must also provide the tool with a metadata description file
+`<name>.sds.yml`.The recordings are processed and decoded based on the description in this file.
 
 ### Measuring the CPU load
 
@@ -57,7 +65,7 @@ __NO_RETURN void osRtxIdleThread(void *argument) {
     __WFI();
     tick = osKernelGetTickCount();
     if (tick != tick_last) {
-      cnt_idle += (256 - 256*OS_Tick_GetCount()/OS_Tick_GetInterval());
+      idle_time += (256 - 256*OS_Tick_GetCount()/OS_Tick_GetInterval());
       tick_last = tick;
     }
   }
@@ -65,7 +73,7 @@ __NO_RETURN void osRtxIdleThread(void *argument) {
 ```
 
 For each new system tick, the code calculates the time required to wait until the next RTOS tick
-interrupt and adds it to _cnt_idle_. The time resolution is the system interval divided by 256.
+interrupt and adds it to _idle_time_. The time resolution is the tick interval divided by 256.
 Of course, this method does not take into account user interrupts that may be in use. The RTOS
 tick interval is normally 1 millisecond, so the measurement accuracy is 1000/256 microseconds.
 
@@ -74,11 +82,11 @@ be called periodically at intervals of 10 milliseconds:
 
 ```c
 static void calc_cpu_usage(void) {
-  static uint32_t cnt;
+  static uint32_t n_calls;
 
-  if (++cnt >= 300) {
-    cpu_usage = (float)(768000 - cnt_idle) / 7680.0;
-    cnt_idle = cnt = 0;
+  if (++n_calls >= 300) {
+    cpu_usage = (float)(768000 - idle_time) / 7680.0;
+    idle_time = n_calls = 0;
   }
 }
 ```

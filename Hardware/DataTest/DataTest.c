@@ -50,8 +50,8 @@ struct OUT {
   } out;
 } ml_buf[10];
 
-// Idle tick counter in sixteenths of ms
-static uint32_t cnt_idle = 0;
+// Idle time counter
+uint32_t idle_time = 0;
 
 // Processor usage in percentage (%)
 // Add this variable in debugger watch window
@@ -92,12 +92,12 @@ static void CreateTestData () {
 
 // Calculate CPU usage in percentage
 static void calc_cpu_usage(void) {
-  static uint32_t cnt;
+  static uint32_t n_calls;
 
   // Usage calculation interval is 3 seconds
-  if (++cnt >= 300) {
-    cpu_usage = (float)(768000 - cnt_idle) / 7680.0;
-    cnt_idle = cnt = 0;
+  if (++n_calls >= 300) {
+    cpu_usage = (float)(768000 - idle_time) / 7680.0;
+    idle_time = n_calls = 0;
   }
 }
 
@@ -136,8 +136,8 @@ __NO_RETURN void osRtxIdleThread(void *argument) {
     __WFI();
     tick = osKernelGetTickCount();
     if (tick != tick_last) {
-      // The counting resolution is interval/256
-      cnt_idle += (256 - 256*OS_Tick_GetCount()/OS_Tick_GetInterval());
+      // Counting resolution is tick_interval/256
+      idle_time += (256 - 256*OS_Tick_GetCount()/OS_Tick_GetInterval());
       tick_last = tick;
     }
   }
