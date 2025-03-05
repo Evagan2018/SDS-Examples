@@ -16,18 +16,24 @@ solution:
 
   # List different hardware targets that are used to deploy the solution.
   target-types:
+    - type:   B-U585I-IOT02A_USB
+      device: STMicroelectronics::STM32U585AIIx
+      board:  STMicroelectronics::B-U585I-IOT02A
+      variables:
+        - Board-Layer:         $SolutionDir()$/../Boards/B-U585I-IOT02A/USBD_WiFi_Sensors_AC6/Board.clayer.yml
+        - SDS_Interface-Layer: $SolutionDir()$/../SDS_Interface/USB/SDS_Interface.clayer.yml
     - type:   STM32H735G-DK_NETWORK
       device: STM32H735IGKx
       board:  STM32H735G-DK:Rev.B
       variables:
-        - Board-Layer:         ../../../Boards/STM32H735G-DK/Board.clayer.yml
-        - SDS_Interface-Layer: ../../../SDS_Interface/Network/SDS_Interface.clayer.yml
+        - Board-Layer:         $SolutionDir()$/../Boards/STM32H735G-DK/Board.clayer.yml
+        - SDS_Interface-Layer: $SolutionDir()$/../SDS_Interface/Network/SDS_Interface.clayer.yml
     - type:   STM32H735G-DK_USB
       device: STM32H735IGKx
       board:  STM32H735G-DK:Rev.B
       variables:
-        - Board-Layer:         ../../../Boards/STM32H735G-DK/Board.clayer.yml
-        - SDS_Interface-Layer: ../../../SDS_Interface/USB/SDS_Interface.clayer.yml
+        - Board-Layer:         $SolutionDir()$/../Boards/STM32H735G-DK/Board.clayer.yml
+        - SDS_Interface-Layer: $SolutionDir()$/../SDS_Interface/USB/SDS_Interface.clayer.yml
 
   # List of different build configurations.
   build-types:
