@@ -16,18 +16,18 @@ solution:
 
   # List different hardware targets that are used to deploy the solution.
   target-types:
-    - type: STM32H735G-DK_NETWORK
+    - type:   STM32H735G-DK_NETWORK
       device: STM32H735IGKx
-      board: STM32H735G-DK:Rev.B
+      board:  STM32H735G-DK:Rev.B
       variables:
-        - Board-Layer: ../../Boards/STM32H735G-DK/Board.clayer.yml
-        - SDS_Interface-Layer: ../../SDS_Interface/Network/SDS_Interface.clayer.yml
-    - type: STM32H735G-DK_USB
+        - Board-Layer:         ../../../Boards/STM32H735G-DK/Board.clayer.yml
+        - SDS_Interface-Layer: ../../../SDS_Interface/Network/SDS_Interface.clayer.yml
+    - type:   STM32H735G-DK_USB
       device: STM32H735IGKx
-      board: STM32H735G-DK:Rev.B
+      board:  STM32H735G-DK:Rev.B
       variables:
-        - Board-Layer: ../../Boards/STM32H735G-DK/Board.clayer.yml
-        - SDS_Interface-Layer: ../../SDS_Interface/USB/SDS_Interface.clayer.yml
+        - Board-Layer:         ../../../Boards/STM32H735G-DK/Board.clayer.yml
+        - SDS_Interface-Layer: ../../../SDS_Interface/USB/SDS_Interface.clayer.yml
 
   # List of different build configurations.
   build-types:
@@ -42,7 +42,7 @@ solution:
   # List related projects.
   projects:
     - project: DataTest/DataTest.cproject.yml
-    - project: ModelTest/ModelTest.cproject.yml
-    # - project: ModelSensor/ModelSensor.cproject.yml
+    - project: Model1/Test/ModelTest.cproject.yml
+    # - project: Model1/Sensor/ModelSensor.cproject.yml
 
   compiler: AC6

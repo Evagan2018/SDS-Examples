@@ -30,7 +30,7 @@
 
 // Configuration
 
-// SDS Recorder data buffers
+// SDS Recorder data buffers size
 #ifndef REC_BUF_SIZE_MODEL_IN
 #define REC_BUF_SIZE_MODEL_IN           8192U
 #endif
@@ -50,8 +50,10 @@
 extern  int32_t  socket_startup (void);
 #endif
 
-// Recorder error information
+// SDS error information
+#ifndef NDEBUG
 sdsError_t       sdsError = { 0U, 0U, NULL, 0U };
+#endif
 
 // Recorder active status
 volatile uint8_t recActive = 0U;
@@ -60,9 +62,9 @@ volatile uint8_t recActive = 0U;
 sdsRecId_t       recIdModelInput  = NULL;
 sdsRecId_t       recIdModelOutput = NULL;
 
-// Recorder buffers
-static uint8_t   rec_buf_model_in [REC_BUF_SIZE_MODEL_IN];
-static uint8_t   rec_buf_model_out[REC_BUF_SIZE_MODEL_OUT];
+// SDS Recorder buffers
+static uint8_t   sds_rec_buf_model_in [REC_BUF_SIZE_MODEL_IN];
+static uint8_t   sds_rec_buf_model_out[REC_BUF_SIZE_MODEL_OUT];
 
 // Recorder event callback
 static void recorder_event_callback (sdsRecId_t id, uint32_t event) {
@@ -109,15 +111,15 @@ __NO_RETURN void threadRecManagement (void *argument) {
         if (recActive == 0U) {
           // Start recording of Model Input data
           recIdModelInput  = sdsRecOpen("ModelInput",
-                                         rec_buf_model_in,
-                                         sizeof(rec_buf_model_in),
+                                         sds_rec_buf_model_in,
+                                         sizeof(sds_rec_buf_model_in),
                                          REC_IO_THRESHOLD_MODEL_IN);
           SDS_ASSERT(recIdModelInput != NULL);
 
           // Start recording of Model Output data
           recIdModelOutput = sdsRecOpen("ModelOutput",
-                                         rec_buf_model_out,
-                                         sizeof(rec_buf_model_out),
+                                         sds_rec_buf_model_out,
+                                         sizeof(sds_rec_buf_model_out),
                                          REC_IO_THRESHOLD_MODEL_OUT);
           SDS_ASSERT(recIdModelOutput != NULL);
 
@@ -138,11 +140,12 @@ __NO_RETURN void threadRecManagement (void *argument) {
           status = sdsRecClose(recIdModelOutput);
           SDS_ASSERT(status == SDS_REC_OK);
 
-          // If recording was stopped turn LED1 off
+          // Turn LED1 off
           vioSetSignal(vioLED1, vioLEDoff);
         }
       }
     }
+
     (void)osDelay(100U);                // Delay for button debouncing
   }
 }

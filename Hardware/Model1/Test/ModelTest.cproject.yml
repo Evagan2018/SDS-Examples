@@ -18,7 +18,7 @@ project:
     - pack: ARM::CMSIS-RTX@^5.9.0
     - pack: ARM::CMSIS-DSP@1.15.0
     - pack: ARM::CMSIS-NN
-      path: ./Packs/CMSIS-NN/4.1.0
+      path: ../../../Packs/CMSIS-NN/4.1.0
 
   components:
     - component: CMSIS:OS Tick:SysTick

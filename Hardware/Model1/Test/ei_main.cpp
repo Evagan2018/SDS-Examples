@@ -24,7 +24,7 @@
 #include "rec_management.h"
 
 // Timestamp of read of input data for inference
-uint32_t timestamp;
+static uint32_t timestamp;
 
 /**
  * @brief      Get raw features from the static features array

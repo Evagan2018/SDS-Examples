@@ -17,7 +17,7 @@ Model input data:
 Model output data:
 - results of inference executed every 2 seconds, containing probabilities for 4 possible classification groups
 
-Examples of 20 second of captured data are available in the `./SDS Recordings` sub-folder, containing also
+Examples of 20 second of recorder data are available in the `./SDS Recordings` sub-folder, containing also
 `.sds.yml` metadata files.
 
 The debug output of this example running looks like below:
