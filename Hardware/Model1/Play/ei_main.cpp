@@ -34,10 +34,13 @@ int raw_feature_get_data(size_t offset, size_t length, float *out_ptr)
     uint32_t num = sdsPlayRead(playIdModelInput, &timestamp, (void *)out_ptr, (length * sizeof(float)));
 
     if (num != (length * sizeof(float))) {
-      // No more playback data available
-
+      // Not enough data read, probably end of playback
       // Clear last buffer for inference to allow inference to execute
       memset((void *)out_ptr, 0, (length * sizeof(float)));
+    }
+
+    if (sdsPlayEndOfStream(playIdModelInput) != 0) {
+      // No more playback data available
 
       // Stop Playback/Recording
       playRecActive = 0U;
