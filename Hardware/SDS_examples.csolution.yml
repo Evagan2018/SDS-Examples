@@ -20,7 +20,7 @@ solution:
       device: STMicroelectronics::STM32U585AIIx
       board:  STMicroelectronics::B-U585I-IOT02A
       variables:
-        - Board-Layer:         $SolutionDir()$/../Boards/B-U585I-IOT02A/USBD_WiFi_Sensors_AC6/Board.clayer.yml
+        - Board-Layer:         $SolutionDir()$/../Boards/B-U585I-IOT02A/USBD_WiFi_Sensors_GCC/Board.clayer.yml
         - SDS_Interface-Layer: $SolutionDir()$/../SDS_Interface/USB/SDS_Interface.clayer.yml
     - type:   STM32H735G-DK_NETWORK
       device: STM32H735IGKx
@@ -52,4 +52,4 @@ solution:
     - project: Model1/Play/ModelPlay.cproject.yml
     - project: Model1/Sensor/ModelSensor.cproject.yml
 
-  compiler: AC6
+  compiler: GCC
