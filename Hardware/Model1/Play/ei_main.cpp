@@ -14,7 +14,8 @@
  *
  */
 
-#include <stdio.h>
+#include <string.h>
+
 #include "ei_run_classifier.h"
 #include "edge-impulse-sdk/porting/ei_classifier_porting.h"
 #include "edge-impulse-sdk/classifier/ei_run_classifier.h"
@@ -60,12 +61,12 @@ extern "C" int ei_main(void)
     ei_printf("Edge Impulse standalone inferencing\n");
 
     // summary of inferencing settings (from model_metadata.h)
-    printf("Inferencing settings:\n");
-    printf("\tClassifier interval: %.2f ms.\n", (float)EI_CLASSIFIER_INTERVAL_MS);
-    printf("\tInput frame size: %d\n", EI_CLASSIFIER_DSP_INPUT_FRAME_SIZE);
-    printf("\tRaw sample count: %d samples.\n", EI_CLASSIFIER_RAW_SAMPLE_COUNT);
-    printf("\tRaw samples per frame: %d samples.\n", EI_CLASSIFIER_RAW_SAMPLES_PER_FRAME);
-    printf("\tNumber of output classes: %d\n", sizeof(ei_classifier_inferencing_categories) / sizeof(ei_classifier_inferencing_categories[0]));
+    ei_printf("Inferencing settings:\n");
+    ei_printf("\tClassifier interval: %.2f ms.\n", (float)EI_CLASSIFIER_INTERVAL_MS);
+    ei_printf("\tInput frame size: %d\n", EI_CLASSIFIER_DSP_INPUT_FRAME_SIZE);
+    ei_printf("\tRaw sample count: %d samples.\n", EI_CLASSIFIER_RAW_SAMPLE_COUNT);
+    ei_printf("\tRaw samples per frame: %d samples.\n", EI_CLASSIFIER_RAW_SAMPLES_PER_FRAME);
+    ei_printf("\tNumber of output classes: %d\n", sizeof(ei_classifier_inferencing_categories) / sizeof(ei_classifier_inferencing_categories[0]));
         
     signal_t features_signal;
     features_signal.total_length = EI_CLASSIFIER_DSP_INPUT_FRAME_SIZE;
@@ -97,7 +98,7 @@ extern "C" int ei_main(void)
             float model_out_results[EI_CLASSIFIER_NN_OUTPUT_COUNT];
 
             for (uint8_t i = 0U; i < EI_CLASSIFIER_NN_OUTPUT_COUNT; i++) {
-              model_out_results[i] = result.classification[i].value;
+                model_out_results[i] = result.classification[i].value;
             }
 
             // Record model output data

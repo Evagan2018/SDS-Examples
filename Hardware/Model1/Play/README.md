@@ -1,14 +1,15 @@
 # About this application
 
 This is an standalone application using [Edge Impulse](https://edgeimpulse.com/) Machine Learning and
-[SDS Player/Recorder](https://github.com/ARM-software/SDS-Framework) for playback of recorded input data to ML model and recording of ML model output data.
+[SDS Player/Recorder](https://github.com/ARM-software/SDS-Framework) for playback of recorded input data to ML model
+and recording of ML model output data.
 
 The example has trained model for continuous motion recognition using an tutorial from the Edge Impulse
 (Tutorial: Continuous motion recognition).
 
-This example is pre-configured for STMicroelectronics [STM32H735G-DK](https://www.st.com/en/evaluation-tools/stm32h735g-dk.html) board.
+This example is pre-configured for STMicroelectronics [B-U585I-IOT02A](https://www.st.com/en/evaluation-tools/b-u585i-iot02a.html) board.
 
-It uses Ethernet interface for playback/recording the data from/on the host machine.
+It uses USB interface for playback/recording the data from/on the host machine.
 
 Model input data:
 - recorded data in `./SDS Recordings/ModelInput.0.sds` file

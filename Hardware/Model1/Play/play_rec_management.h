@@ -20,6 +20,7 @@
 #define PLAY_REC_MANAGEMENT_H_
 
 #include <stdint.h>
+#include <stdbool.h>
 
 #ifdef  __cplusplus
 extern "C"

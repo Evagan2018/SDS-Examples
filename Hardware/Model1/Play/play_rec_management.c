@@ -18,9 +18,6 @@
 
 #include "play_rec_management.h"
 
-#include <stdio.h>
-#include <stdbool.h>
-
 #include "RTE_Components.h"
 
 #include "cmsis_os2.h"
