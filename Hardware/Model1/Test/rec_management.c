@@ -18,9 +18,6 @@
 
 #include "rec_management.h"
 
-#include <stdio.h>
-#include <stdbool.h>
-
 #include "RTE_Components.h"
 
 #include "cmsis_os2.h"
@@ -40,7 +37,7 @@
 
 // SDS Recorder IO thresholds
 #ifndef REC_IO_THRESHOLD_MODEL_IN
-#define REC_IO_THRESHOLD_MODEL_IN       (REC_BUF_SIZE_MODEL_IN-512U)
+#define REC_IO_THRESHOLD_MODEL_IN       (REC_BUF_SIZE_MODEL_IN/2)
 #endif
 #ifndef REC_IO_THRESHOLD_MODEL_OUT
 #define REC_IO_THRESHOLD_MODEL_OUT      (REC_BUF_SIZE_MODEL_OUT-64U)

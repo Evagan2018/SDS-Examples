@@ -5,10 +5,13 @@ sds:
   content:
   - value: x
     type:  float
+    scale: 0.1
     unit:  G
   - value: y
     type:  float
+    scale: 0.1
     unit:  G
   - value: z
     type:  float
+    scale: 0.1
     unit:  G

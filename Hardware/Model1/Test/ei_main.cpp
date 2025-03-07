@@ -14,7 +14,8 @@
  *
  */
 
-#include <stdio.h>
+#include <string.h>
+
 #include "ei_run_classifier.h"
 #include "edge-impulse-sdk/porting/ei_classifier_porting.h"
 #include "edge-impulse-sdk/classifier/ei_run_classifier.h"
@@ -59,12 +60,12 @@ extern "C" int ei_main(void)
     }
 
     // summary of inferencing settings (from model_metadata.h)
-    printf("Inferencing settings:\n");
-    printf("\tClassifier interval: %.2f ms.\n", (float)EI_CLASSIFIER_INTERVAL_MS);
-    printf("\tInput frame size: %d\n", EI_CLASSIFIER_DSP_INPUT_FRAME_SIZE);
-    printf("\tRaw sample count: %d samples.\n", EI_CLASSIFIER_RAW_SAMPLE_COUNT);
-    printf("\tRaw samples per frame: %d samples.\n", EI_CLASSIFIER_RAW_SAMPLES_PER_FRAME);
-    printf("\tNumber of output classes: %d\n", sizeof(ei_classifier_inferencing_categories) / sizeof(ei_classifier_inferencing_categories[0]));
+    ei_printf("Inferencing settings:\n");
+    ei_printf("\tClassifier interval: %.2f ms.\n", (float)EI_CLASSIFIER_INTERVAL_MS);
+    ei_printf("\tInput frame size: %d\n", EI_CLASSIFIER_DSP_INPUT_FRAME_SIZE);
+    ei_printf("\tRaw sample count: %d samples.\n", EI_CLASSIFIER_RAW_SAMPLE_COUNT);
+    ei_printf("\tRaw samples per frame: %d samples.\n", EI_CLASSIFIER_RAW_SAMPLES_PER_FRAME);
+    ei_printf("\tNumber of output classes: %d\n", sizeof(ei_classifier_inferencing_categories) / sizeof(ei_classifier_inferencing_categories[0]));
         
     // the features are stored into flash, and we don't want to load everything into RAM
     signal_t features_signal;
@@ -92,16 +93,16 @@ extern "C" int ei_main(void)
 
         // If recording is active then record model output data
         if (recActive != 0U) {
-          // Prepare model output data for recording
-          float model_out_results[EI_CLASSIFIER_NN_OUTPUT_COUNT];
+            // Prepare model output data for recording
+            float model_out_results[EI_CLASSIFIER_NN_OUTPUT_COUNT];
 
-          for (uint8_t i = 0U; i < EI_CLASSIFIER_NN_OUTPUT_COUNT; i++) {
-            model_out_results[i] = result.classification[i].value;
-          }
+            for (uint8_t i = 0U; i < EI_CLASSIFIER_NN_OUTPUT_COUNT; i++) {
+                model_out_results[i] = result.classification[i].value;
+            }
 
-          // Record model output data
-          uint32_t num = sdsRecWrite(recIdModelOutput, timestamp, model_out_results, EI_CLASSIFIER_NN_OUTPUT_COUNT * sizeof(float));
-          SDS_ASSERT(num == (EI_CLASSIFIER_NN_OUTPUT_COUNT * sizeof(float)));
+            // Record model output data
+            uint32_t num = sdsRecWrite(recIdModelOutput, timestamp, model_out_results, EI_CLASSIFIER_NN_OUTPUT_COUNT * sizeof(float));
+            SDS_ASSERT(num == (EI_CLASSIFIER_NN_OUTPUT_COUNT * sizeof(float)));
         }
 
         ei_sleep(2000);

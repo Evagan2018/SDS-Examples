@@ -6,19 +6,19 @@ This is an standalone application using [Edge Impulse](https://edgeimpulse.com/)
 The example has trained model for continuous motion recognition using an tutorial from the Edge Impulse
 (Tutorial: Continuous motion recognition).
 
-This example is pre-configured for STMicroelectronics [STM32H735G-DK](https://www.st.com/en/evaluation-tools/stm32h735g-dk.html) board.
+This example is pre-configured for STMicroelectronics [B-U585I-IOT02A](https://www.st.com/en/evaluation-tools/b-u585i-iot02a.html) board.
 
-It uses Ethernet interface for recording the data on the host machine.
+It uses USB interface for recording the data on the host machine.
 
 Model input data:
-- const data containing 1 window of 2 seconds worth of data (375 float numbers) stored in an `features` array in the 
-  `features.h` file
+- const data containing 1 window of 2 seconds worth of data (375 float numbers) stored in an `features` array
+  in the features.h` file
 
 Model output data:
 - results of inference executed every 2 seconds, containing probabilities for 4 possible classification groups
 
-Examples of 20 second of recorder data are available in the `./SDS Recordings` sub-folder, containing also
-`.sds.yml` metadata files.
+Examples of 20 second of recorder data are available in the `./SDS Recordings` sub-folder, containing
+also `.sds.yml` metadata files.
 
 The debug output of this example running looks like below:
 
