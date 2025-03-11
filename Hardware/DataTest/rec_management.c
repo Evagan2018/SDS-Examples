@@ -27,6 +27,7 @@
 #include "cmsis_vio.h"
 
 #include "sds_rec.h"
+#include "DataTest.h"
 
 // Configuration
 
@@ -55,8 +56,8 @@ sdsError_t       sdsError = { 0U, 0U, NULL, 0U };
 // Recorder active status
 volatile uint8_t recActive = 0U;
 
-// Recording done flag
-volatile uint8_t recDone;
+// Idle time counter
+volatile uint32_t idle_cnt;
 
 // Recorder identifiers
 sdsRecId_t       recIdDataInput  = NULL;
@@ -83,6 +84,13 @@ __NO_RETURN void threadRecManagement (void *argument) {
   uint8_t led0_cnt = 0U;
   uint8_t led0_val = 0U;
   int32_t status;
+  uint32_t no_load_cnt, prev_cnt;
+  uint32_t timestamp, cnt = 0U;
+
+  // Initialize idle counter
+  idle_cnt = 0U;
+  osDelay(1000U);
+  no_load_cnt = idle_cnt;
 
 #ifdef RTE_SDS_IO_SOCKET
   // Initialize socket interface
@@ -94,9 +102,14 @@ __NO_RETURN void threadRecManagement (void *argument) {
   status = sdsRecInit(recorder_event_callback);
   SDS_ASSERT(status == SDS_REC_OK);
 
+  osThreadNew(threadTestData, NULL, NULL);
+
+  timestamp = osKernelGetTickCount();
+  prev_cnt  = idle_cnt;
+
   for (;;) {
     // Toggle LED0 every 1 second
-    if (led0_cnt++ >= 10U) {
+    if (++led0_cnt >= 10U) {
       led0_cnt  = 0U;
       led0_val ^= 1U;
       vioSetSignal(vioLED0, led0_val);
@@ -109,14 +122,14 @@ __NO_RETURN void threadRecManagement (void *argument) {
       btn_prev = btn_val;
       if (btn_val == vioBUTTON0) {      // If push-button is pressed
         if (recActive == 0U) {
-          // Start recording of Model Input data
+          // Start recording of Input data
           recIdDataInput  = sdsRecOpen("DataInput",
                                         rec_buf_data_in,
                                         sizeof(rec_buf_data_in),
                                         REC_IO_THRESHOLD_DATA_IN);
           SDS_ASSERT(recIdDataInput != NULL);
 
-          // Start recording of Model Output data
+          // Start recording of Output data
           recIdDataOutput = sdsRecOpen("DataOutput",
                                         rec_buf_data_out,
                                         sizeof(rec_buf_data_out),
@@ -125,30 +138,41 @@ __NO_RETURN void threadRecManagement (void *argument) {
 
           // If recording was started turn LED1 on
           vioSetSignal(vioLED1, vioLEDon);
-
+          printf("Start Recording\n");
           recActive = 1U;
-          recDone   = 0U;
         } else {
           recActive = 0U;
 
-          // Poll for recording done flag
-          do {
-            osDelay(10U);
-          } while (recDone == 0U);
-
-          // Stop recording of Model Input data
+          // Stop recording of Input data
           status = sdsRecClose(recIdDataInput);
           SDS_ASSERT(status == SDS_REC_OK);
 
-          // Stop recording of Model Output data
+          // Stop recording of Output data
           status = sdsRecClose(recIdDataOutput);
           SDS_ASSERT(status == SDS_REC_OK);
 
           // If recording was stopped turn LED1 off
           vioSetSignal(vioLED1, vioLEDoff);
+          printf("Stop Recording\n");
         }
       }
     }
-    (void)osDelay(100U);                // Delay for button debouncing
+    timestamp += 100U;
+    osDelayUntil(timestamp);            // Delay for button debouncing
+
+    if (++cnt == 10U) {
+      printf("%d%% idle\n",(idle_cnt - prev_cnt) / (no_load_cnt / 100U));
+      prev_cnt = idle_cnt;
+      cnt      = 0U;
+    }
+  }
+}
+
+// Measure system idle time
+__NO_RETURN void osRtxIdleThread(void *argument) {
+  (void)argument;
+
+  for (;;) {
+    idle_cnt++;
   }
 }

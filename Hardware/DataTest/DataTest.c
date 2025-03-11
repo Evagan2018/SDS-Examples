@@ -24,7 +24,6 @@
 #include "cmsis_vio.h"
 
 #include "main.h"
-#include "os_tick.h"
 #include "rec_management.h"
 #include "sds_rec.h"
 
@@ -49,13 +48,6 @@ struct OUT {
     uint16_t y;
   } out;
 } ml_buf[10];
-
-// Idle time counter
-uint32_t idle_time = 0;
-
-// Processor usage in percentage (%)
-// Add this variable in debugger watch window
-float cpu_usage;
 
 // Create dummy test data
 static void CreateTestData () {
@@ -90,17 +82,6 @@ static void CreateTestData () {
   index_out = (index_out + i) % 1000;
 }
 
-// Calculate CPU usage in percentage
-static void calc_cpu_usage(void) {
-  static uint32_t n_calls;
-
-  // Usage calculation interval is 3 seconds
-  if (++n_calls >= 300) {
-    cpu_usage = (float)(768000 - idle_time) / 7680.0;
-    idle_time = n_calls = 0;
-  }
-}
-
 // Thread for generating simulated data
 __NO_RETURN void threadTestData(void *argument) {
   uint32_t n, timestamp;
@@ -117,28 +98,8 @@ __NO_RETURN void threadTestData(void *argument) {
       n = sdsRecWrite(recIdDataOutput, timestamp, &ml_buf, sizeof(ml_buf));
       SDS_ASSERT(n == sizeof(ml_buf));
     }
-    else {
-      recDone = 1U;
-    }
-    calc_cpu_usage();
 
     timestamp += 10U;
     osDelayUntil(timestamp);
-  }
-}
-
-// Measure system idle time
-__NO_RETURN void osRtxIdleThread(void *argument) {
-  uint32_t tick, tick_last = 0U;
-  (void)argument;
-
-  for (;;) {
-    __WFI();
-    tick = osKernelGetTickCount();
-    if (tick != tick_last) {
-      // Counting resolution is tick_interval/256
-      idle_time += (256 - 256*OS_Tick_GetCount()/OS_Tick_GetInterval());
-      tick_last = tick;
-    }
   }
 }

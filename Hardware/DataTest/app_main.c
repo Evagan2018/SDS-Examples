@@ -18,7 +18,6 @@
 
 #include "cmsis_os2.h"
 
-#include "DataTest.h"
 #include "rec_management.h"
 
 
@@ -27,7 +26,6 @@
  *----------------------------------------------------------------------------*/
 int32_t app_main (void) {
   osKernelInitialize();
-  osThreadNew(threadTestData,      NULL, NULL);
   osThreadNew(threadRecManagement, NULL, NULL);
   osKernelStart();
   return 0;

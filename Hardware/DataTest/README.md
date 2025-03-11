@@ -49,50 +49,39 @@ outputs a time-based diagram. You must also provide the tool with a metadata des
 
 ### Measuring the CPU load
 
-The idle time is the time during which the CPU does not execute the application code.
-This means that it executes the code of the idle thread and waits for an interrupt with
-the `WFI` instruction. The CPU load is then calculated as the ratio between the active time
-and the measurement interval (3 seconds by default). 
-
-The code for measuring the idle time is located in the `osRtxIdle_Thread`:
+The idle time is the time during which the CPU is not executing the application code. This means that it executes
+the code of the idle thread, incrementing the `idle_cnt` counter. The code for incrementing the idle counter is located
+in the `osRtxIdle_Thread`:
 
 ```c
 __NO_RETURN void osRtxIdleThread(void *argument) {
-  uint32_t tick, tick_last = 0U;
   (void)argument;
 
   for (;;) {
-    __WFI();
-    tick = osKernelGetTickCount();
-    if (tick != tick_last) {
-      idle_time += (256 - 256*OS_Tick_GetCount()/OS_Tick_GetInterval());
-      tick_last = tick;
-    }
+    idle_cnt++;
   }
 }
 ```
 
-For each new system tick, the code calculates the time required to wait until the next RTOS tick
-interrupt and adds it to _idle_time_. The time resolution is the tick interval divided by 256.
-Of course, this method does not take into account user interrupts that may be in use. The RTOS
-tick interval is normally 1 millisecond, so the measurement accuracy is 1000/256 microseconds.
-
-The `calc_cpu_usage` function calculates the CPU utilization for each 3-second interval. It must
-be called periodically at intervals of 10 milliseconds:
+The counter is incremented for one second, then the idle factor is calculated as the ratio between the idle counter
+and the measured idle counter for the system without load `no_load_cnt` and displayed on the debug console:
 
 ```c
-static void calc_cpu_usage(void) {
-  static uint32_t n_calls;
-
-  if (++n_calls >= 300) {
-    cpu_usage = (float)(768000 - idle_time) / 7680.0;
-    idle_time = n_calls = 0;
-  }
+if (++cnt == 10U) {
+  printf("%d%% idle\n",(idle_cnt - prev_cnt) / (no_load_cnt / 100U));
+  prev_cnt = idle_cnt;
+  cnt      = 0U;
 }
 ```
 
-To see the value of the variable _cpu_usage_, you must enter it in the debugger's watch window
-or output it on the debug console.
+For a correct measurement, the loop interval must be exact, which is why the `osDelayUntil` function is used to generate
+time intervals in the measurement loop:
 
-The concept assumes that the CPU remains in the idle thread until the next RTX-SysTick interrupt.
-If other system interrupts are also used, the measurement accuracy is reduced.
+```c
+timestamp = osKernelGetTickCount();
+for (;;) {
+   :
+  timestamp += 100U;
+  osDelayUntil(timestamp);
+}
+```
