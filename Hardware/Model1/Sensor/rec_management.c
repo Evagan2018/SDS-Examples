@@ -93,11 +93,12 @@ __NO_RETURN void threadRecManagement (void *argument) {
 
   for (;;) {
     // Toggle LED0 every 1 second
-    if (led0_cnt++ >= 10U) {
+    if (led0_cnt == 10U) {
       led0_cnt  = 0U;
       led0_val ^= 1U;
       vioSetSignal(vioLED0, led0_val);
     }
+    led0_cnt += 1U;
 
     // Monitor user button
     btn_val = vioGetSignal(vioBUTTON0);

@@ -44,7 +44,7 @@
 #define SENSOR_BUF_SIZE                 128U    // Temporary sensor data buffer
 #endif
 
-#define FEATURES_SIZE                   375     // ML input data size (window for inference)
+#define SENSOR_SLICE_SIZE               (125 * SENSOR_ITEMS_PER_SAMPLE) // ML input data size (slice for inference)
 
 // Timestamp of read of input data for inference
 uint32_t rec_timestamp;
@@ -66,28 +66,28 @@ typedef struct {
 } accelerometer_sample_t;
 
 // ML input data
-static float features[FEATURES_SIZE];
+static float sensor_data[SENSOR_SLICE_SIZE];
 
 // ML input data busy flag
-static volatile uint8_t features_busy = 0U;
+static volatile uint8_t sensor_data_busy = 0U;
 
 // ML input data filling offset
-static uint32_t features_offset = 0U;
+static uint32_t sensor_data_offset = 0U;
 
 
 // Get sensor data for inference
 int sensor_get_data (size_t offset, size_t length, float *out_ptr)
 {
-    memcpy(out_ptr, features + offset, length * sizeof(float));
+    memcpy(out_ptr, sensor_data + offset, length * sizeof(float));
 
     // If recording is active then record model input data
     if (recActive != 0U) {
       rec_timestamp = osKernelGetTickCount();
-      uint32_t num  = sdsRecWrite(recIdModelInput, rec_timestamp, features + offset, length * sizeof(float));
+      uint32_t num  = sdsRecWrite(recIdModelInput, rec_timestamp, sensor_data + offset, length * sizeof(float));
       SDS_ASSERT(num == (length * sizeof(float)));
     }
 
-    features_busy = 0U;
+    sensor_data_busy = 0U;
 
     return 0;
 }
@@ -98,7 +98,7 @@ __NO_RETURN void threadSensor (void *argument) {
   uint32_t num_max;
   uint32_t timestamp;
   accelerometer_sample_t *ptr_acc_sample;
-  float   *ptr_feature;
+  float   *ptr_sensor_data;
   (void)   argument;
 
   // Get sensor identifier
@@ -112,38 +112,38 @@ __NO_RETURN void threadSensor (void *argument) {
 
   timestamp = osKernelGetTickCount();
   for (;;) {
-    if ((features_busy == 0U) &&                                        // If feature is not busy do we can write to it and
+    if ((sensor_data_busy == 0U) &&                                     // If sensor data is not busy do we can write to it and
         (sensorGetStatus(sensorId_accelerometer).active != 0U)) {       // if sensor is active
 
       // Calculate maximum number of samples we want to read
       num_max = sizeof(sensorBuf) / sensorConfig_accelerometer->sample_size;
-      if (num_max > ((FEATURES_SIZE - features_offset)/3U)) {
-        num_max = ((FEATURES_SIZE - features_offset)/3U);
+      if (num_max > ((SENSOR_SLICE_SIZE - sensor_data_offset)/3U)) {
+        num_max = ((SENSOR_SLICE_SIZE - sensor_data_offset)/3U);
       }
 
       // Read samples
       num = sensorReadSamples(sensorId_accelerometer, num_max, sensorBuf, sizeof(sensorBuf));
 
       if (num != 0U) {                  // If more than 0 samples were read from sensor
-        ptr_acc_sample = (accelerometer_sample_t *)sensorBuf;
-        ptr_feature    = &features[features_offset];
+        ptr_acc_sample  = (accelerometer_sample_t *)sensorBuf;
+        ptr_sensor_data = &sensor_data[sensor_data_offset];
         for (uint32_t i = 0U; i < num; i ++) {
           // Convert each sample value for x, y, z from int16 to float scaled to range used during model training
-          ptr_feature[0]   = ((float)ptr_acc_sample->x) / 1638.4f;
-          ptr_feature[1]   = ((float)ptr_acc_sample->y) / 1638.4f;
-          ptr_feature[2]   = ((float)ptr_acc_sample->z) / 1638.4f;
-          ptr_acc_sample  += 1U;
-          ptr_feature     += SENSOR_ITEMS_PER_SAMPLE;
-          features_offset += SENSOR_ITEMS_PER_SAMPLE;
+          ptr_sensor_data[0]  = ((float)ptr_acc_sample->x) / 1638.4f;
+          ptr_sensor_data[1]  = ((float)ptr_acc_sample->y) / 1638.4f;
+          ptr_sensor_data[2]  = ((float)ptr_acc_sample->z) / 1638.4f;
+          ptr_acc_sample     += 1U;
+          ptr_sensor_data    += SENSOR_ITEMS_PER_SAMPLE;
+          sensor_data_offset += SENSOR_ITEMS_PER_SAMPLE;
 
           // Used for debugging to check data
-          // printf("Acc x=%i, y=%i, z=%i\r\n",         ptr_acc_data->x           ,         ptr_acc_data->y           ,         ptr_acc_data->z           );
-          // printf("Acc x=%f, y=%f, z=%f\r\n", ((float)ptr_acc_data->x) / 1638.4f, ((float)ptr_acc_data->y) / 1638.4f, ((float)ptr_acc_data->z) / 1638.4f);
+          // printf("Acc x=%i, y=%i, z=%i\r\n",         ptr_acc_sample->x           ,         ptr_acc_sample->y           ,         ptr_acc_sample->z           );
+          // printf("Acc x=%f, y=%f, z=%f\r\n", ((float)ptr_acc_sample->x) / 1638.4f, ((float)ptr_acc_sample->y) / 1638.4f, ((float)ptr_acc_sample->z) / 1638.4f);
         }
 
-        if (features_offset == FEATURES_SIZE) { // If all the data for inference was prepared
-          features_offset = 0U;
-          features_busy   = 1U;                 // Prevent further write to features until data was consumed by ML and sent to SDS Recorder if necessary
+        if (sensor_data_offset == SENSOR_SLICE_SIZE) {  // If all the data for inference was prepared
+          sensor_data_offset = 0U;
+          sensor_data_busy   = 1U;              // Prevent further write to sensor data until data was consumed by ML and sent to SDS Recorder if necessary
 
           // Inform main ML thread that sensor data is ready
           osThreadFlagsSet(thrId_threadMLInference, SENSOR_DATA_READY_FLAG);
