@@ -64,18 +64,19 @@ __NO_RETURN void osRtxIdleThread(void *argument) {
 ```
 
 The counter is incremented for one second, then the idle factor is calculated as the ratio between the idle counter
-and the measured idle counter for the system without load `no_load_cnt` and displayed on the debug console:
+and the evaluated idle counter for the system without load `no_load_cnt` and output on the debug console:
 
 ```c
 if (++cnt == 10U) {
-  printf("%d%% idle\n",(idle_cnt - prev_cnt) / (no_load_cnt / 100U));
+  cnt = 0U;
+
+  printf("%d%% idle\n",(idle_cnt - prev_cnt) / no_load_cnt);
   prev_cnt = idle_cnt;
-  cnt      = 0U;
 }
 ```
 
-For a correct measurement, the loop interval must be exact, which is why the `osDelayUntil` function is used to generate
-time intervals in the measurement loop:
+For a correct measurement, the loop interval must really be periodic, therefore the function `osDelayUntil` is used
+to create time intervals in the measurement loop:
 
 ```c
 timestamp = osKernelGetTickCount();

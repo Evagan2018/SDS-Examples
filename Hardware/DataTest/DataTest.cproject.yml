@@ -29,7 +29,7 @@ project:
       files:
         - file: DataTest.c
         - file: app_main.c
-        - file: rec_management.c
+        - file: sds_control.c
 
   layers:
     - layer: $Board-Layer$

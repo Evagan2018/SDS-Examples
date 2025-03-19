@@ -16,8 +16,8 @@
  * limitations under the License.
  */
 
-#ifndef REC_MANAGEMENT_H_
-#define REC_MANAGEMENT_H_
+#ifndef SDS_CONTROL_H_
+#define SDS_CONTROL_H_
 
 #include <stdint.h>
 
@@ -27,6 +27,12 @@ extern "C"
 #endif
 
 #include "sds_rec.h"
+
+// SDSIO control states
+#define SDSIO_CLOSED    0       // No SDS I/O pipes open
+#define SDSIO_OPEN      1       // SDS I/O pipes open and ready for read/write operations
+#define SDSIO_CLOSING   2       // Request to terminate the current algorithm execution
+#define SDSIO_HALTED    3       // Algorithm execution completed after SDSIO_CLOSING state 
 
 // Assert macro
 #define SDS_ASSERT(cond)        if (!(cond) && (!sdsError.occurred)) { \
@@ -44,17 +50,14 @@ typedef struct {
 extern sdsError_t       sdsError;
 
 // Recorder active status
-extern volatile uint8_t recActive;
-
-// Recording done flag
-extern volatile uint8_t recDone;
+extern volatile uint8_t sdsio_state;
 
 // Recorder identifiers
 extern sdsRecId_t       recIdDataInput;
 extern sdsRecId_t       recIdDataOutput;
 
-// Recording management thread function
-extern void threadRecManagement (void *argument);
+// SDS control thread function
+extern void sdsControlThread (void *argument);
 
 #ifdef  __cplusplus
 }

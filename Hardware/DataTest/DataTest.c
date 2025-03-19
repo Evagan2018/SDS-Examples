@@ -16,16 +16,8 @@
  * limitations under the License.
  */
 
-#include <stdio.h>
-
-#include "RTE_Components.h"
-
 #include "cmsis_os2.h"
-#include "cmsis_vio.h"
-
-#include "main.h"
-#include "rec_management.h"
-#include "sds_rec.h"
+#include "sds_control.h"
 
 // IMU sensor buffer
 struct IMU {
@@ -83,20 +75,26 @@ static void CreateTestData () {
 }
 
 // Thread for generating simulated data
-__NO_RETURN void threadTestData(void *argument) {
+__NO_RETURN void AlgorithmThread (void *argument) {
   uint32_t n, timestamp;
   (void)argument;
 
   timestamp = osKernelGetTickCount();
   for (;;) {
-    if (recActive != 0U) {
-      CreateTestData();
+    switch (sdsio_state) {
+      case SDSIO_OPEN:
+        CreateTestData();
 
-      n = sdsRecWrite(recIdDataInput, timestamp, &imu_buf, sizeof(imu_buf));
-      SDS_ASSERT(n == sizeof(imu_buf));
+        n = sdsRecWrite(recIdDataInput, timestamp, &imu_buf, sizeof(imu_buf));
+        SDS_ASSERT(n == sizeof(imu_buf));
 
-      n = sdsRecWrite(recIdDataOutput, timestamp, &ml_buf, sizeof(ml_buf));
-      SDS_ASSERT(n == sizeof(ml_buf));
+        n = sdsRecWrite(recIdDataOutput, timestamp, &ml_buf, sizeof(ml_buf));
+        SDS_ASSERT(n == sizeof(ml_buf));
+        break;
+      case SDSIO_CLOSING:
+        // Algorithm execution stopped, transit to halted state
+        sdsio_state = SDSIO_HALTED;
+        break;
     }
 
     timestamp += 10U;

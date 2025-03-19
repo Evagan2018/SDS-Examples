@@ -18,7 +18,7 @@
 
 #include "cmsis_os2.h"
 
-#include "rec_management.h"
+#include "sds_control.h"
 
 
 /*-----------------------------------------------------------------------------
@@ -26,7 +26,7 @@
  *----------------------------------------------------------------------------*/
 int32_t app_main (void) {
   osKernelInitialize();
-  osThreadNew(threadRecManagement, NULL, NULL);
+  osThreadNew(sdsControlThread, NULL, NULL);
   osKernelStart();
   return 0;
 }
