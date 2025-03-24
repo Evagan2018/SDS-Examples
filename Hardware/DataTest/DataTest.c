@@ -16,6 +16,7 @@
  * limitations under the License.
  */
 
+#include <stdlib.h>
 #include "cmsis_os2.h"
 #include "sds_control.h"
 
@@ -77,9 +78,13 @@ static void CreateTestData () {
 // Thread for generating simulated data
 __NO_RETURN void AlgorithmThread (void *argument) {
   uint32_t n, timestamp;
+  uint32_t ts, tstamp;
+  int32_t diff;
   (void)argument;
 
   timestamp = osKernelGetTickCount();
+  tstamp    = timestamp;
+
   for (;;) {
     switch (sdsio_state) {
       case SDSIO_OPEN:
@@ -91,11 +96,18 @@ __NO_RETURN void AlgorithmThread (void *argument) {
         n = sdsRecWrite(recIdDataOutput, timestamp, &ml_buf, sizeof(ml_buf));
         SDS_ASSERT(n == sizeof(ml_buf));
         break;
+
       case SDSIO_CLOSING:
         // Algorithm execution stopped, transit to halted state
         sdsio_state = SDSIO_HALTED;
         break;
     }
+
+    // Measure jitter in ticks
+    ts   = osKernelGetTickCount();
+    diff = abs((int32_t)(ts - tstamp));
+    if (diff > jitter) jitter = diff;
+    tstamp = ts + 10U;
 
     timestamp += 10U;
     osDelayUntil(timestamp);

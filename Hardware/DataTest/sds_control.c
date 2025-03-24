@@ -52,6 +52,9 @@ sdsError_t       sdsError = { 0U, 0U, NULL, 0U };
 // Recorder active status
 volatile uint8_t sdsio_state;
 
+// Recorder jitter
+volatile int32_t jitter;
+
 // Recorder identifiers
 sdsRecId_t       recIdDataInput  = NULL;
 sdsRecId_t       recIdDataOutput = NULL;
@@ -165,8 +168,12 @@ __NO_RETURN void sdsControlThread (void *argument) {
       cnt = 0U;
 
       // Print idle factor
-      printf("%d%% idle\n",(idle_cnt - prev_cnt) / no_load_cnt);
+      printf("%d%% idle",(idle_cnt - prev_cnt) / no_load_cnt);
       prev_cnt = idle_cnt;
+
+      // Print jitter
+      printf(", jitter %d\n", jitter);
+      jitter = 0;
 
       // Toggle LED0
       led0_val ^= 1U;

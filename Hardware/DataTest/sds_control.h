@@ -52,6 +52,9 @@ extern sdsError_t       sdsError;
 // Recorder active status
 extern volatile uint8_t sdsio_state;
 
+// Recorder jitter
+extern volatile int32_t jitter;
+
 // Recorder identifiers
 extern sdsRecId_t       recIdDataInput;
 extern sdsRecId_t       recIdDataOutput;
