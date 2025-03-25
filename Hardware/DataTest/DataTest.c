@@ -77,39 +77,29 @@ static void CreateTestData () {
 
 // Thread for generating simulated data
 __NO_RETURN void AlgorithmThread (void *argument) {
-  uint32_t n, timestamp;
-  uint32_t ts, tstamp;
-  int32_t diff;
+  uint32_t n, timestamp, interval_time;
   (void)argument;
 
-  timestamp = osKernelGetTickCount();
-  tstamp    = timestamp;
+  interval_time = osKernelGetTickCount();
 
   for (;;) {
-    switch (sdsio_state) {
-      case SDSIO_OPEN:
-        CreateTestData();
+    if (sdsio_state == SDSIO_OPEN) {
+      timestamp = osKernelGetTickCount();
+      CreateTestData();
 
-        n = sdsRecWrite(recIdDataInput, timestamp, &imu_buf, sizeof(imu_buf));
-        SDS_ASSERT(n == sizeof(imu_buf));
+      n = sdsRecWrite(recIdDataInput, timestamp, &imu_buf, sizeof(imu_buf));
+      SDS_ASSERT(n == sizeof(imu_buf));
 
-        n = sdsRecWrite(recIdDataOutput, timestamp, &ml_buf, sizeof(ml_buf));
-        SDS_ASSERT(n == sizeof(ml_buf));
-        break;
-
-      case SDSIO_CLOSING:
-        // Algorithm execution stopped, transit to halted state
-        sdsio_state = SDSIO_HALTED;
-        break;
+      n = sdsRecWrite(recIdDataOutput, timestamp, &ml_buf, sizeof(ml_buf));
+      SDS_ASSERT(n == sizeof(ml_buf));
     }
 
-    // Measure jitter in ticks
-    ts   = osKernelGetTickCount();
-    diff = abs((int32_t)(ts - tstamp));
-    if (diff > jitter) jitter = diff;
-    tstamp = ts + 10U;
-
-    timestamp += 10U;
-    osDelayUntil(timestamp);
+    if (sdsio_state == SDSIO_CLOSING) {
+      // Algorithm execution stopped, transit to halted state
+      sdsio_state = SDSIO_HALTED;
+    }
+ 
+    interval_time += 10U;
+    osDelayUntil(interval_time);
   }
 }

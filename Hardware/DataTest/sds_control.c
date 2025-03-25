@@ -50,10 +50,7 @@ extern  int32_t  socket_startup (void);
 sdsError_t       sdsError = { 0U, 0U, NULL, 0U };
 
 // Recorder active status
-volatile uint8_t sdsio_state;
-
-// Recorder jitter
-volatile int32_t jitter;
+volatile uint8_t sdsio_state = SDSIO_CLOSED;
 
 // Recorder identifiers
 sdsRecId_t       recIdDataInput  = NULL;
@@ -83,7 +80,7 @@ __NO_RETURN void sdsControlThread (void *argument) {
   uint8_t led0_val = 0U;
   int32_t status;
   uint32_t no_load_cnt, prev_cnt;
-  uint32_t timestamp, cnt = 0U;
+  uint32_t interval_time, cnt = 0U;
 
   // Initialize idle counter
   idle_cnt = 0U;
@@ -100,11 +97,10 @@ __NO_RETURN void sdsControlThread (void *argument) {
   status = sdsRecInit(recorder_event_callback);
   SDS_ASSERT(status == SDS_REC_OK);
 
-  sdsio_state = SDSIO_CLOSED;
   osThreadNew(AlgorithmThread, NULL, NULL);
 
-  timestamp = osKernelGetTickCount();
-  prev_cnt  = idle_cnt;
+  interval_time = osKernelGetTickCount();
+  prev_cnt      = idle_cnt;
 
   for (;;) {
     // Monitor user button
@@ -160,20 +156,16 @@ __NO_RETURN void sdsControlThread (void *argument) {
         break;
     }
 
-    timestamp += 100U;
-    osDelayUntil(timestamp);
+    interval_time += 100U;
+    osDelayUntil(interval_time);
 
     // Do 1 second interval
     if (++cnt == 10U) {
       cnt = 0U;
 
       // Print idle factor
-      printf("%d%% idle",(idle_cnt - prev_cnt) / no_load_cnt);
+      printf("%d%% idle\n",(idle_cnt - prev_cnt) / no_load_cnt);
       prev_cnt = idle_cnt;
-
-      // Print jitter
-      printf(", jitter %d\n", jitter);
-      jitter = 0;
 
       // Toggle LED0
       led0_val ^= 1U;
