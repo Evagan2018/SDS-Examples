@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2023-2024 Arm Limited. All rights reserved.
+ * Copyright (c) 2023-2025 Arm Limited. All rights reserved.
  *
  * SPDX-License-Identifier: Apache-2.0
  *
@@ -15,22 +15,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *
- * Name:    sds_rec_config.h
- * Purpose: SDS Recorder configuration options
- * Rev.:    V2.0.0
+ * Name:    sds_config.h
+ * Purpose: SDS Buffer configuration options
+ * Rev.:    V1.0.0
  */
 
 //-------- <<< Use Configuration Wizard in Context Menu >>> --------------------
 
-// <h>SDS Recorder
+// <h>Synchronous Data Stream (SDS) Buffer
 
-//   <o>Maximum number of recorder streams <1-31>
+//   <o>Maximum number of SDS Buffer streams
 //   <i>Default: 16
-#define SDS_REC_MAX_STREAMS     16U
-
-//   <o>Size of a temporary recorder buffer
-//   <i>Default: 8192
-#define SDS_REC_BUF_SIZE        8192U
+#define SDS_BUFFER_MAX_STREAMS  16U
 
 // </h>
 

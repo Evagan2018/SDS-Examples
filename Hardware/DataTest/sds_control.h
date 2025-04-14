@@ -26,7 +26,7 @@ extern "C"
 {
 #endif
 
-#include "sds_rec.h"
+#include "sds_rec_play.h"
 
 // SDSIO control states
 #define SDSIO_CLOSED    0       // No SDS I/O pipes open
@@ -53,8 +53,8 @@ extern sdsError_t       sdsError;
 extern volatile uint8_t sdsio_state;
 
 // Recorder identifiers
-extern sdsRecId_t       recIdDataInput;
-extern sdsRecId_t       recIdDataOutput;
+extern sdsRecPlayId_t   recIdDataInput;
+extern sdsRecPlayId_t   recIdDataOutput;
 
 // SDS control thread function
 extern void sdsControlThread (void *argument);

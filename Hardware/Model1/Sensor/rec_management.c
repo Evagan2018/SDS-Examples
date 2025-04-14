@@ -23,7 +23,7 @@
 #include "cmsis_os2.h"
 #include "cmsis_vio.h"
 
-#include "sds_rec.h"
+#include "sds_rec_play.h"
 
 // Configuration
 
@@ -33,14 +33,6 @@
 #endif
 #ifndef REC_BUF_SIZE_MODEL_OUT
 #define REC_BUF_SIZE_MODEL_OUT          576U
-#endif
-
-// SDS Recorder IO thresholds
-#ifndef REC_IO_THRESHOLD_MODEL_IN
-#define REC_IO_THRESHOLD_MODEL_IN       (REC_BUF_SIZE_MODEL_IN/2)
-#endif
-#ifndef REC_IO_THRESHOLD_MODEL_OUT
-#define REC_IO_THRESHOLD_MODEL_OUT      (REC_BUF_SIZE_MODEL_OUT-64U)
 #endif
 
 #ifdef  RTE_SDS_IO_SOCKET
@@ -56,16 +48,16 @@ sdsError_t       sdsError = { 0U, 0U, NULL, 0U };
 volatile uint8_t recActive = 0U;
 
 // Recorder identifiers
-sdsRecId_t       recIdModelInput  = NULL;
-sdsRecId_t       recIdModelOutput = NULL;
+sdsRecPlayId_t   recIdModelInput  = NULL;
+sdsRecPlayId_t   recIdModelOutput = NULL;
 
 // SDS Recorder buffers
 static uint8_t   sds_rec_buf_model_in [REC_BUF_SIZE_MODEL_IN];
 static uint8_t   sds_rec_buf_model_out[REC_BUF_SIZE_MODEL_OUT];
 
 // Recorder event callback
-static void recorder_event_callback (sdsRecId_t id, uint32_t event) {
-  if ((event & SDS_REC_EVENT_IO_ERROR) != 0U) {
+static void recorder_event_callback (sdsRecPlayId_t id, uint32_t event) {
+  if ((event & SDS_REC_PLAY_EVENT_IO_ERROR) != 0U) {
     SDS_ASSERT(false);
   }
 }
@@ -88,8 +80,8 @@ __NO_RETURN void threadRecManagement (void *argument) {
 #endif
 
   // Initialize SDS recorder
-  status = sdsRecInit(recorder_event_callback);
-  SDS_ASSERT(status == SDS_REC_OK);
+  status = sdsRecPlayInit(recorder_event_callback);
+  SDS_ASSERT(status == SDS_REC_PLAY_OK);
 
   for (;;) {
     // Toggle LED0 every 1 second
@@ -110,15 +102,13 @@ __NO_RETURN void threadRecManagement (void *argument) {
           // Start recording of Model Input data
           recIdModelInput  = sdsRecOpen("ModelInput",
                                          sds_rec_buf_model_in,
-                                         sizeof(sds_rec_buf_model_in),
-                                         REC_IO_THRESHOLD_MODEL_IN);
+                                         sizeof(sds_rec_buf_model_in));
           SDS_ASSERT(recIdModelInput != NULL);
 
           // Start recording of Model Output data
           recIdModelOutput = sdsRecOpen("ModelOutput",
                                          sds_rec_buf_model_out,
-                                         sizeof(sds_rec_buf_model_out),
-                                         REC_IO_THRESHOLD_MODEL_OUT);
+                                         sizeof(sds_rec_buf_model_out));
           SDS_ASSERT(recIdModelOutput != NULL);
 
           if ((recIdModelOutput != NULL) && (recIdModelOutput != NULL)) {
@@ -132,11 +122,11 @@ __NO_RETURN void threadRecManagement (void *argument) {
 
           // Stop recording of Model Input data
           status = sdsRecClose(recIdModelInput);
-          SDS_ASSERT(status == SDS_REC_OK);
+          SDS_ASSERT(status == SDS_REC_PLAY_OK);
 
           // Stop recording of Model Output data
           status = sdsRecClose(recIdModelOutput);
-          SDS_ASSERT(status == SDS_REC_OK);
+          SDS_ASSERT(status == SDS_REC_PLAY_OK);
 
           // Turn LED1 off
           vioSetSignal(vioLED1, vioLEDoff);

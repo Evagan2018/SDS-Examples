@@ -28,7 +28,7 @@ extern "C"
 #endif
 
 #include "sds_play.h"
-#include "sds_rec.h"
+#include "sds_rec_play.h"
 
 // Assert macro
 #ifndef NDEBUG
@@ -55,8 +55,8 @@ extern volatile uint8_t playRecActive;
 extern volatile uint8_t playRecStop;
 
 // Player/Recorder identifiers
-extern sdsPlayId_t      playIdModelInput;
-extern sdsRecId_t       recIdModelOutput;
+extern sdsRecPlayId_t   playIdModelInput;
+extern sdsRecPlayId_t   recIdModelOutput;
 
 // Player/Recorder management thread function
 extern void threadPlayRecManagement (void *argument);

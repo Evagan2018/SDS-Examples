@@ -26,8 +26,6 @@ extern "C"
 {
 #endif
 
-#include "sds_rec.h"
-
 // Thread for generating simulated data
 extern void AlgorithmThread (void *argument);
 

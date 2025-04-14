@@ -22,16 +22,14 @@
 #define RTE_CMSIS_RTOS2                 /* CMSIS-RTOS2 */
 #define RTE_CMSIS_RTOS2_RTX5            /* CMSIS-RTOS2 Keil RTX5 */
 #define RTE_CMSIS_RTOS2_RTX5_SOURCE     /* CMSIS-RTOS2 Keil RTX5 Source */
-/* ARM::SDS:Buffer@1.0.0 */
-#define RTE_SDS_BUFFER                  /* Synchronous Data Stream (Buffer) */
-/* ARM::SDS:IO:VCOM&MDK USB@1.0.1 */
-#define RTE_SDS_IO                       /* Synchronous Data Stream Input/Output */
-#define RTE_SDS_IO_VCOM                  /* Synchronous Data Stream Input/Output (VCOM) */
-#define RTE_SDS_IO_VCOM_MDK_USB          /* Synchronous Data Stream Input/Output (VCOM - MDK USB) */
-/* ARM::SDS:Player&CMSIS-RTOS2@2.0.0 */
-#define RTE_SDS_PLAYER                  /* Synchronous Data Stream Player */
-/* ARM::SDS:Recorder&CMSIS-RTOS2@2.0.0 */
-#define RTE_SDS_RECORDER                /* Synchronous Data Stream Recorder */
+/* ARM::SDS:Buffer@2.0.0 */
+#define RTE_SDS_BUFFER                          /* Synchronous Data Stream Buffer */
+/* ARM::SDS:IO:VCOM&MDK USB@1.0.2 */
+#define RTE_SDS_IO                              /* Synchronous Data Stream Input/Output */
+#define RTE_SDS_IO_VCOM                         /* Synchronous Data Stream Input/Output (VCOM) */
+#define RTE_SDS_IO_VCOM_MDK_USB                 /* Synchronous Data Stream Input/Output (VCOM - MDK USB) */
+/* ARM::SDS:RecPlay&CMSIS-RTOS2@1.0.0 */
+#define RTE_SDS_REC_PLAY                        /* Synchronous Data Stream Recorder and Player */
 /* Keil::CMSIS Driver:GPIO@1.1.0 */
 #define RTE_Drivers_GPIO0               /* Driver GPIO0 */
 /* Keil::CMSIS Driver:I2C@3.0.0 */

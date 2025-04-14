@@ -22,7 +22,7 @@
 #include "cmsis_os2.h"
 #include "cmsis_vio.h"
 #include "sds_control.h"
-#include "sds_rec.h"
+#include "sds_rec_play.h"
 #include "DataTest.h"
 
 // Configuration
@@ -35,14 +35,6 @@
 #define REC_BUF_SIZE_DATA_OUT           1536U
 #endif
 
-// SDS Recorder IO thresholds
-#ifndef REC_IO_THRESHOLD_DATA_IN
-#define REC_IO_THRESHOLD_DATA_IN        7400U
-#endif
-#ifndef REC_IO_THRESHOLD_DATA_OUT
-#define REC_IO_THRESHOLD_DATA_OUT       1400U
-#endif
-
 extern  int32_t  socket_startup (void);
 
 
@@ -53,8 +45,8 @@ sdsError_t       sdsError = { 0U, 0U, NULL, 0U };
 volatile uint8_t sdsio_state = SDSIO_CLOSED;
 
 // Recorder identifiers
-sdsRecId_t       recIdDataInput  = NULL;
-sdsRecId_t       recIdDataOutput = NULL;
+sdsRecPlayId_t   recIdDataInput  = NULL;
+sdsRecPlayId_t   recIdDataOutput = NULL;
 
 // Idle time counter
 static volatile  uint32_t idle_cnt;
@@ -64,8 +56,8 @@ static uint8_t   rec_buf_data_in [REC_BUF_SIZE_DATA_IN];
 static uint8_t   rec_buf_data_out[REC_BUF_SIZE_DATA_OUT];
 
 // Recorder event callback
-static void recorder_event_callback (sdsRecId_t id, uint32_t event) {
-  if ((event & SDS_REC_EVENT_IO_ERROR) != 0U) {
+static void recorder_event_callback (sdsRecPlayId_t id, uint32_t event) {
+  if ((event & SDS_REC_PLAY_EVENT_IO_ERROR) != 0U) {
     SDS_ASSERT(false);
   }
 }
@@ -94,8 +86,8 @@ __NO_RETURN void sdsControlThread (void *argument) {
 #endif
 
   // Initialize SDS recorder
-  status = sdsRecInit(recorder_event_callback);
-  SDS_ASSERT(status == SDS_REC_OK);
+  status = sdsRecPlayInit(recorder_event_callback);
+  SDS_ASSERT(status == SDS_REC_PLAY_OK);
 
   osThreadNew(AlgorithmThread, NULL, NULL);
 
@@ -116,14 +108,12 @@ __NO_RETURN void sdsControlThread (void *argument) {
         // Start recording the data
         recIdDataInput  = sdsRecOpen("DataInput",
                                       rec_buf_data_in,
-                                      sizeof(rec_buf_data_in),
-                                      REC_IO_THRESHOLD_DATA_IN);
+                                      sizeof(rec_buf_data_in));
         SDS_ASSERT(recIdDataInput != NULL);
 
         recIdDataOutput = sdsRecOpen("DataOutput",
                                       rec_buf_data_out,
-                                      sizeof(rec_buf_data_out),
-                                      REC_IO_THRESHOLD_DATA_OUT);
+                                      sizeof(rec_buf_data_out));
         SDS_ASSERT(recIdDataOutput != NULL);
 
         printf("Start Recording\n");
@@ -143,10 +133,10 @@ __NO_RETURN void sdsControlThread (void *argument) {
       case SDSIO_HALTED:
         // Stop recording the data
         status = sdsRecClose(recIdDataInput);
-        SDS_ASSERT(status == SDS_REC_OK);
+        SDS_ASSERT(status == SDS_REC_PLAY_OK);
 
         status = sdsRecClose(recIdDataOutput);
-        SDS_ASSERT(status == SDS_REC_OK);
+        SDS_ASSERT(status == SDS_REC_PLAY_OK);
 
         printf("Stop Recording\n");
 
