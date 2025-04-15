@@ -6,8 +6,7 @@ project:
       provides:
         - CMSIS-RTOS2
       consumes:
-        - SDS_Player
-        - SDS_Recorder
+        - SDS_REC_PLAY
         - CMSIS_VIO
         - STDIN
         - STDOUT
