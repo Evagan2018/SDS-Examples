@@ -17,8 +17,8 @@ layer:
     - pack: Keil::MDK-Middleware@^8.0.0
 
   components:
-    - component: ARM::SDS:Buffer
-    - component: ARM::SDS:IO:VCOM&MDK USB
+    - component: SDS:Buffer
+    - component: SDS:IO:VCOM&MDK USB
     - component: SDS:RecPlay&CMSIS-RTOS2
     - component: USB&MDK:CORE
     - component: USB&MDK:Device

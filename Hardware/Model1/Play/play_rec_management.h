@@ -27,7 +27,6 @@ extern "C"
 {
 #endif
 
-#include "sds_play.h"
 #include "sds_rec_play.h"
 
 // Assert macro

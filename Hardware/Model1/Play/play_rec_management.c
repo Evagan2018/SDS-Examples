@@ -23,9 +23,6 @@
 #include "cmsis_os2.h"
 #include "cmsis_vio.h"
 
-#include "sds_play.h"
-#include "sds_rec_play.h"
-
 // Configuration
 
 // SDS Player/Recorder data buffers size
@@ -59,15 +56,8 @@ sdsRecPlayId_t   recIdModelOutput = NULL;
 static uint8_t   sds_play_buf_model_in[PLAY_BUF_SIZE_MODEL_IN];
 static uint8_t   sds_rec_buf_model_out[REC_BUF_SIZE_MODEL_OUT];
 
-// Player event callback
-static void player_event_callback (sdsPlayId_t id, uint32_t event) {
-  if ((event & SDS_PLAY_EVENT_IO_ERROR) != 0U) {
-    SDS_ASSERT(false);
-  }
-}
-
-// Recorder event callback
-static void recorder_event_callback (sdsRecId_t id, uint32_t event) {
+// Recorder/Player event callback
+static void recorder_event_callback (sdsRecPlayId_t id, uint32_t event) {
   if ((event & SDS_REC_PLAY_EVENT_IO_ERROR) != 0U) {
     SDS_ASSERT(false);
   }
@@ -90,11 +80,7 @@ __NO_RETURN void threadPlayRecManagement (void *argument) {
   SDS_ASSERT(status == 0);
 #endif
 
-  // Initialize SDS player
-  status = sdsPlayInit(player_event_callback);
-  SDS_ASSERT(status == SDS_PLAY_OK);
-
-  // Initialize SDS recorder
+  // Initialize SDS recorder/player
   status = sdsRecPlayInit(recorder_event_callback);
   SDS_ASSERT(status == SDS_REC_PLAY_OK);
 
@@ -142,7 +128,7 @@ __NO_RETURN void threadPlayRecManagement (void *argument) {
 
       // Stop playback of previously recorded Model Input data
       status = sdsPlayClose(playIdModelInput);
-      SDS_ASSERT(status == SDS_PLAY_OK);
+      SDS_ASSERT(status == SDS_REC_PLAY_OK);
 
       // Stop recording of Model Output data
       status = sdsRecClose(recIdModelOutput);

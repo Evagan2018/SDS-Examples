@@ -18,9 +18,10 @@ solution:
   target-types:
     - type:   B-U585I-IOT02A_USB
       device: STMicroelectronics::STM32U585AIIx
-      board:  STMicroelectronics::B-U585I-IOT02A
+      board:  STMicroelectronics::B-U585I-IOT02A:Rev.C
       variables:
         - Board-Layer:         $SolutionDir()$/../Boards/B-U585I-IOT02A/USBD_WiFi_Sensors_GCC/Board.clayer.yml
+#       - Board-Layer:         $SolutionDir()$/../Boards/B-U585I-IOT02A/USBD_WiFi_Sensors_AC6/Board.clayer.yml
         - SDS_Interface-Layer: $SolutionDir()$/../SDS_Interface/USB/SDS_Interface.clayer.yml
     - type:   STM32H735G-DK_NETWORK
       device: STM32H735IGKx

@@ -19,7 +19,7 @@
 #include "edge-impulse-sdk/classifier/ei_run_classifier.h"
 #include "model-parameters/model_variables.h"
 #include "cmsis_os2.h"
-#include "sensor.h"
+#include "sensor_vstream.h"
 #include "rec_management.h"
 
 /**

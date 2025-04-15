@@ -14,7 +14,7 @@ project:
         - Heap: 65536
 
   packs:
-    - pack: ARM::CMSIS@^6.1.0
+    - pack: ARM::CMSIS@^6.1.0-0
     - pack: ARM::CMSIS-RTX@^5.9.0
     - pack: ARM::CMSIS-DSP@1.15.0
     - pack: ARM::CMSIS-NN
@@ -39,7 +39,7 @@ project:
         - file: app_main.c
         - file: ei_main.cpp
         - file: rec_management.c
-        - file: sensor.c
+        - file: sensor_vstream.c
     - group: Port
       files:
         - file: ./Port/ei_classifier_porting.cpp
@@ -51,3 +51,7 @@ project:
       type:  Board
     - layer: $SDS_Interface-Layer$
       type:  SDS_Interface
+
+  output:
+    type:
+    - map

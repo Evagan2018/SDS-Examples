@@ -1,3 +1,11 @@
+/******************************************************************************
+ * @file     vstream_accelerometer.h
+ * @brief    CMSIS Virtual Streaming interface Driver header for
+ *           Accelerometer sensor (ISM330DHCX) on the
+ *           STMicroelectronics B-U585I-IOT02A board
+ * @version  V1.0.0
+ * @date     11. April 2025
+ ******************************************************************************/
 /*
  * Copyright (c) 2025 Arm Limited. All rights reserved.
  *
@@ -16,28 +24,19 @@
  * limitations under the License.
  */
 
-#ifndef SENSOR_H_
-#define SENSOR_H_
-
-#include <stddef.h>
-#include <stdint.h>
-
-// Thread flag for signaling sensor data available
-#define SENSOR_DATA_READY_FLAG              1U
+#ifndef VSTREAM_ACCELEROMETER_H_
+#define VSTREAM_ACCELEROMETER_H_
 
 #ifdef  __cplusplus
-extern "C"
+extern  "C"
 {
 #endif
 
-// Timestamp of read of input data for inference
-extern uint32_t rec_timestamp;
+#include "cmsis_vstream.h"
 
-// Get sensor data for inference
-extern int sensor_get_data (size_t offset, size_t length, float *out_ptr);
+// External driver structure
 
-// Thread function that activates sensor and does polling of sensor data
-extern void threadSensor (void *argument);
+extern vStreamDriver_t Driver_vStreamAccelerometer;
 
 #ifdef  __cplusplus
 }

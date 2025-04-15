@@ -5,6 +5,8 @@
   * @brief   This file provides a set of functions needed to manage the
   *          motion sensors mounted on the B_U585I_IOT02A board.
   ******************************************************************************
+  * @note    modified by Arm
+  *
   * @attention
   *
   * Copyright (c) 2021 STMicroelectronics.
@@ -47,6 +49,8 @@
 /** @defgroup B_U585I_IOT02A_MOTION_SENSORS_Exported_Variables MOTION SENSORS Exported Variables
   * @{
   */
+ISM330DHCX_Object_t        ISM330DHCX_Obj;
+
 MOTION_SENSOR_Ctx_t        Motion_Sensor_Ctx[MOTION_SENSOR_INSTANCES_NBR] = {{0}, {0}};
 void                      *Motion_Sensor_CompObj[MOTION_SENSOR_INSTANCES_NBR] = {0, 0};
 MOTION_SENSOR_CommonDrv_t *Motion_Sensor_Drv[MOTION_SENSOR_INSTANCES_NBR] = {0, 0};
@@ -600,7 +604,6 @@ static int32_t ISM330DHCX_Probe(uint32_t Functions)
   int32_t                 status = BSP_ERROR_NONE;
   ISM330DHCX_IO_t            IOCtx;
   uint8_t                 ism330dlc_id;
-  static ISM330DHCX_Object_t ISM330DHCX_Obj;
 
   /* Configure the motion sensor driver */
   IOCtx.BusType     = ISM330DHCX_I2C_BUS;

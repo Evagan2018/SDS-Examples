@@ -5,6 +5,8 @@
   * @brief   This file contains the common defines and functions prototypes for
   *          the b_u585i_iot02a_motion_sensors.c driver.
   ******************************************************************************
+  * @note    modified by Arm
+  *
   * @attention
   *
   * Copyright (c) 2021 STMicroelectronics.
@@ -106,6 +108,8 @@ typedef struct
 /** @addtogroup B_U585I_IOT02A_MOTION_SENSORS_Exported_Variables MOTION SENSORS Exported Variables
   * @{
   */
+extern ISM330DHCX_Object_t        ISM330DHCX_Obj;
+
 extern MOTION_SENSOR_Ctx_t        Motion_Sensor_Ctx[MOTION_SENSOR_INSTANCES_NBR];
 extern void                      *Motion_Sensor_CompObj[MOTION_SENSOR_INSTANCES_NBR];
 extern MOTION_SENSOR_CommonDrv_t *Motion_Sensor_Drv[MOTION_SENSOR_INSTANCES_NBR];

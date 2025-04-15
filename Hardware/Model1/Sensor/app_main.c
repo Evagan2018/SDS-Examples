@@ -20,7 +20,7 @@
 
 #include "ei_main.h"
 #include "rec_management.h"
-#include "sensor.h"
+#include "sensor_vstream.h"
 
 // Thread identifiers
 osThreadId_t thrId_threadSensor        = NULL;

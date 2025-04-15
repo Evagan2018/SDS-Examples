@@ -23,8 +23,6 @@
 #include "cmsis_os2.h"
 #include "cmsis_vio.h"
 
-#include "sds_rec_play.h"
-
 // Configuration
 
 // SDS Recorder data buffers size

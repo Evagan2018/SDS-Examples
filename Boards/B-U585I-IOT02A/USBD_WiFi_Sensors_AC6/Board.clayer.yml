@@ -19,6 +19,7 @@ layer:
         - CMSIS_USART
         - CMSIS_USB_Device
         - CMSIS_VIO
+        - CMSIS_vStream_Accelerometer
 #       - CMSIS_WiFi
         - ARDUINO_UNO_I2C
         - ARDUINO_UNO_SPI
@@ -64,6 +65,7 @@ layer:
     - component: CMSIS Driver:USART
     - component: CMSIS Driver:USB Device
     - component: CMSIS Driver:VIO:Board
+    - component: CMSIS Driver:vStream:Custom
 #   - component: CMSIS Driver:WiFi:EMW3080&SPI
 
     - component: CMSIS-Compiler:CORE
@@ -143,10 +145,9 @@ layer:
       files:
         - file: ./Drivers/Sensors/Include/audio_drv.h
         - file: ./Drivers/Sensors/Source/Audio_B-U585I-IOT02A.c
-        - file: ./Drivers/Sensors/Config/sensor_config.h
-        - file: ./Drivers/Sensors/Include/sensor_drv.h
-        - file: ./Drivers/Sensors/Source/sensor_drv.c
-        - file: ./Drivers/Sensors/Source/sensor_drv_hw.c
+        - file: ./Drivers/Sensors/Config/vstream_accelerometer_config.h
+        - file: ./Drivers/Sensors/Include/vstream_accelerometer.h
+        - file: ./Drivers/Sensors/Source/vstream_accelerometer.c
 
   linker:
     - script:  ./RTE/Device/STM32U585AIIx/ac6_linker_script.sct.src

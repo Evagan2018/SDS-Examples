@@ -83,8 +83,6 @@ PCD_HandleTypeDef hpcd_USB_OTG_FS;
 
 /* USER CODE BEGIN PV */
 
-ISM330DHCX_Object_t ISM330DHCX_Obj;
-
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -134,46 +132,6 @@ static void GPIO_SignalEvent (ARM_GPIO_Pin_t pin, uint32_t event) {
       }
       break;
   }
-}
-
-/* BSP Sensors Init */
-static void BSP_SENSOR_Init (void) {
-  ISM330DHCX_IO_t IOCtx;
-
-  BSP_ENV_SENSOR_Init      (0U, ENV_TEMPERATURE);
-  BSP_ENV_SENSOR_Init      (0U, ENV_HUMIDITY);
-  BSP_ENV_SENSOR_Init      (1U, ENV_PRESSURE);
-  BSP_MOTION_SENSOR_Init   (0U, MOTION_ACCELERO);
-  BSP_MOTION_SENSOR_Init   (0U, MOTION_GYRO);
-  BSP_MOTION_SENSOR_Init   (1U, MOTION_MAGNETO);
-
-  BSP_ENV_SENSOR_Disable   (0U, ENV_TEMPERATURE);
-  BSP_ENV_SENSOR_Disable   (0U, ENV_HUMIDITY);
-  BSP_ENV_SENSOR_Disable   (1U, ENV_PRESSURE);
-  BSP_MOTION_SENSOR_Disable(0U, MOTION_ACCELERO);
-  BSP_MOTION_SENSOR_Disable(0U, MOTION_GYRO);
-  BSP_MOTION_SENSOR_Disable(1U, MOTION_MAGNETO);
-
-  IOCtx.BusType  = ISM330DHCX_I2C_BUS;
-  IOCtx.Address  = ISM330DHCX_I2C_ADD_H;
-  IOCtx.Init     = BSP_I2C2_Init;
-  IOCtx.DeInit   = BSP_I2C2_DeInit;
-  IOCtx.ReadReg  = BSP_I2C2_ReadReg;
-  IOCtx.WriteReg = BSP_I2C2_WriteReg;
-  IOCtx.GetTick  = BSP_GetTick;
-
-  ISM330DHCX_RegisterBusIO         (&ISM330DHCX_Obj, &IOCtx);
-  ISM330DHCX_Init                  (&ISM330DHCX_Obj);
-
-  ISM330DHCX_ACC_SetFullScale      (&ISM330DHCX_Obj, ISM330DHCX_2g);
-  ISM330DHCX_ACC_SetOutputDataRate (&ISM330DHCX_Obj, 52.0f);
-  ISM330DHCX_FIFO_ACC_Set_BDR      (&ISM330DHCX_Obj, 52.0f);
-
-  ISM330DHCX_GYRO_SetFullScale     (&ISM330DHCX_Obj, ISM330DHCX_2000dps);
-  ISM330DHCX_GYRO_SetOutputDataRate(&ISM330DHCX_Obj, 52.0f);
-  ISM330DHCX_FIFO_GYRO_Set_BDR     (&ISM330DHCX_Obj, 52.0f);
-
-  ISM330DHCX_FIFO_Set_Mode         (&ISM330DHCX_Obj, ISM330DHCX_STREAM_MODE);
 }
 
 /* Configure SRAMs to allow non-secure/unprivileged accesses.
@@ -269,8 +227,6 @@ int main(void)
   MX_ADC4_Init();
   MX_ICACHE_Init();
   /* USER CODE BEGIN 2 */
-
-  BSP_SENSOR_Init();                    /* Initialize on-board environment and motion sensors */
 
   stdio_init();                         /* Initialize STDIO */
 
