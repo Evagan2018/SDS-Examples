@@ -4,7 +4,7 @@ The Network SDS Interface uses the Ethernet-based IoT Socket communication imple
 It is based on the following components:
 
 - [SDS Recorder](https://github.com/ARM-software/SDS-Framework/tree/main/sds#synchronous-data-stream-recorder) data streaming,
-- [IoT Socket](https://mdk-packs.github.io/IoT_Socket/html/index.html) communication interface,
+- [IoT Socket](https://mdk-packs.github.io/IoT_Socket/latest/index.html) communication interface,
 - [MDK-Middleware Network](https://arm-software.github.io/MDK-Middleware/latest/Network/index.html) protocol stack,
 - [CMSIS-Driver Ethernet](https://arm-software.github.io/CMSIS_6/latest/Driver/index.html) physical interface.
 
@@ -14,8 +14,7 @@ The following SDS components are required:
 
 - `SDS:Buffer`
 - `SDS:IO:Socket`
-- `SDS:Recorder&CMSIS-RTOS2`
-- `SDS:Player&CMSIS-RTOS2`
+- `SDS:RecPlay&CMSIS-RTOS2`
 
 The IP address of the SDSIO server must be updated in `sdsio_config_socket.h` with the
 address reported by the SDSIO server at startup:
@@ -56,7 +55,7 @@ You can leave the other configuration settings at their default values.
 ## Starting SDSIO server
 
 SDSIO server is a Python-based SDS I/O server utility for PC included in the
-[SDS-Framework](https://github.com/ARM-software/SDS-Framework/tree/main/utilities/SDSIO-Server) pack.
+[SDS-Framework](https://github.com/ARM-software/SDS-Framework/tree/main/documentation/utilities.md#sdsio-server) pack.
 
 To start the SDSIO server, run it from the SDSIO-Server root folder with:
 
@@ -65,7 +64,7 @@ python sdsio-server.py socket
 ```
 
 This activates the server with the default settings. Further information about the SDSIO server application
-can be found in [SDS-Framework](https://github.com/ARM-software/SDS-Framework/tree/main/utilities/SDSIO-Server).
+can be found in [SDS-Framework](https://github.com/ARM-software/SDS-Framework/tree/main/documentation/utilities.md#sdsio-server).
 
 ***Note***
 
