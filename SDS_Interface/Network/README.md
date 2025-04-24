@@ -10,39 +10,45 @@ It is based on the following components:
 
 ## SDS Configuration
 
-The following SDS components are required:
+The following SDS software components are required:
 
-- `SDS:Buffer`
-- `SDS:IO:Socket`
-- `SDS:RecPlay&CMSIS-RTOS2`
+```yml
+  - component: SDS:Buffer
+  - component: SDS:IO:Socket
+  - component: SDS:RecPlay&CMSIS-RTOS2
+```
 
 The IP address of the SDSIO server must be updated in `sdsio_config_socket.h` with the
 address reported by the SDSIO server at startup:
 
 ```c
-#define SDSIO_SERVER_IP           "0.0.0.0"
+#define SDSIO_SOCKET_SERVER_IP    "0.0.0.0"
 ```
 
 You can leave the other configuration settings at their default values.
 
 ## IoT Socket Configuration
 
-The following IoT Utility components are required:
+The following IoT Utility software components are required:
 
-- `IoT Utility:Socket:MDK Network`
+```yml
+  - component: IoT Utility:Socket:MDK Network
+```
 
-No other configuration settings are required.
+No further configuration settings are required.
 
 ## Network Configuration
 
-The following MDK-Middleware Network components are required:
+The following MDK-Middleware Network software components are required:
 
-- `Network&MDK:CORE`
-- `Network&MDK:Interface:ETH`
-- `Network&MDK:Service:DNS Client`
-- `Network&MDK:Socket:BSD`
-- `Network&MDK:Socket:TCP`
-- `Network&MDK:Socket:UDP`
+```yml
+  - component: Network&MDK:CORE
+  - component: Network&MDK:Interface:ETH
+  - component: Network&MDK:Service:DNS Client
+  - component: Network&MDK:Socket:BSD
+  - component: Network&MDK:Socket:TCP
+  - component: Network&MDK:Socket:UDP
+```
 
 The communication does not use the **IPv6** protocol, therefore the variant `IPv4 only` can be selected in `Net_Config.h`:
 
@@ -54,12 +60,12 @@ You can leave the other configuration settings at their default values.
 
 ## Starting SDSIO server
 
-SDSIO server is a Python-based SDS I/O server utility for PC included in the
+SDSIO server is a Python-based SDS I/O server utility for PC, which is included in the
 [SDS-Framework](https://github.com/ARM-software/SDS-Framework/tree/main/documentation/utilities.md#sdsio-server) pack.
 
-To start the SDSIO server, run it from the SDSIO-Server root folder with:
+To start the SDSIO server, run it from the SDSIO-Server root directory with:
 
-```cmd
+```txt
 python sdsio-server.py socket
 ```
 
