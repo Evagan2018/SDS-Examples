@@ -24,16 +24,16 @@
 #define RTE_CMSIS_RTOS2_RTX5_SOURCE     /* CMSIS-RTOS2 Keil RTX5 Source */
 /* ARM::SDS:Buffer@2.0.0 */
 #define RTE_SDS_BUFFER                          /* Synchronous Data Stream Buffer */
-/* ARM::SDS:IO:Socket@1.0.2 */
+/* ARM::SDS:IO:Socket@2.0.0 */
 #define RTE_SDS_IO                              /* Synchronous Data Stream Input/Output */
 #define RTE_SDS_IO_SOCKET                       /* Synchronous Data Stream Input/Output (Socket) */
 /* ARM::SDS:RecPlay&CMSIS-RTOS2@1.0.0 */
 #define RTE_SDS_REC_PLAY                        /* Synchronous Data Stream Recorder and Player */
-/* Keil::CMSIS Driver:Ethernet MAC@3.0.0 */
+/* Keil::CMSIS Driver:Ethernet MAC@3.1.0 */
 #define RTE_Drivers_ETH_MAC0            /* Driver ETH_MAC0 */
 /* Keil::CMSIS Driver:Ethernet PHY:LAN8742A@1.3.0 */
 #define RTE_Drivers_PHY_LAN8742A        /* Driver PHY LAN8742A */
-/* Keil::CMSIS Driver:GPIO@1.1.0 */
+/* Keil::CMSIS Driver:GPIO@1.2.0 */
 #define RTE_Drivers_GPIO0               /* Driver GPIO0 */
 /* Keil::CMSIS Driver:I2C@3.0.0 */
 #define RTE_Drivers_I2C1                /* Driver I2C1 */
@@ -44,7 +44,7 @@
 #define RTE_Drivers_I2C6                /* Driver I2C6 */
 #define RTE_Drivers_I2C7                /* Driver I2C7 */
 #define RTE_Drivers_I2C8                /* Driver I2C8 */
-/* Keil::CMSIS Driver:MCI@3.1.0 */
+/* Keil::CMSIS Driver:MCI@3.2.0 */
 #define RTE_Drivers_MCI1                /* Driver MCI1 */
 #define RTE_Drivers_MCI2                /* Driver MCI2 */
 /* Keil::CMSIS Driver:SPI@3.0.0 */

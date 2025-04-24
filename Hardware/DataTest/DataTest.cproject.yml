@@ -36,3 +36,7 @@ project:
       type: Board
     - layer: $SDS_Interface-Layer$
       type:  SDS_Interface
+
+  output:
+    type:
+    - map
