@@ -19,7 +19,7 @@ layer:
         - CMSIS_USART
         - CMSIS_USB_Device
         - CMSIS_VIO
-        - CMSIS_vStream_Accelerometer
+        - CMSIS_VSTREAM_ACCELEROMETER
 #       - CMSIS_WiFi
         - ARDUINO_UNO_I2C
         - ARDUINO_UNO_SPI
@@ -51,7 +51,7 @@ layer:
     - pack: Keil::STM32U5xx_DFP@^3.0.0-0
     - pack: Keil::B-U585I-IOT02A_BSP@^2.0.0-0
     - pack: ARM::CMSIS-Driver_STM32@^1.0.0-0
-    - pack: ARM::CMSIS@^6.0.0
+    - pack: ARM::CMSIS@^6.2.0-0
     - pack: ARM::CMSIS-Compiler@^2.0.0
 
   components:
