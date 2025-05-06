@@ -1,9 +1,9 @@
 layer:
-  type: SDS_Recorder
-  description: SDS recording via USB Device VCOM (MDK USBD)
+  type: SDS_Interface
+  description: SDS recording/playback via USB Device VCOM (MDK USBD)
 
   connections:
-    - connect: SDS Recorder
+    - connect: SDS RecPlay
       consumes:
         - CMSIS_USBD
         - CMSIS-RTOS2
