@@ -97,7 +97,7 @@ static int32_t ReleaseBlock (void);
 static __NO_RETURN void threadPollingAccelerometer (void *argument);
 
 
-// Local function definitions ----------s
+// Local function definitions ----------
 
 /**
   \fn           int32_t Initialize (vStreamEvent_t event_cb)

@@ -97,7 +97,7 @@ static int32_t ReleaseBlock (void);
 static __NO_RETURN void threadPollingAccelerometer (void *argument);
 
 
-// Local function definitions ----------s
+// Local function definitions ----------
 
 /**
   \fn           int32_t Initialize (vStreamEvent_t event_cb)
@@ -327,7 +327,7 @@ static int32_t ReleaseBlock (void) {
 
   // Check if buffer information is not valid
   if (vstream_info.data_buf == NULL) {
-    return NULL;
+    return VSTREAM_ERROR;
   }
 
   // Check if size of available data is less than 1 block
