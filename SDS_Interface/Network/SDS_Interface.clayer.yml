@@ -1,9 +1,9 @@
 layer:
-  type: SDS_Recorder
-  description: SDS recording via Ethernet interface (MDK ETH)
+  type: SDS_Interface
+  description: SDS recording/playback via Ethernet interface (MDK ETH)
 
   connections:
-    - connect: SDS Recorder
+    - connect: SDS RecPlay
       consumes:
         - CMSIS_ETH
         - CMSIS-RTOS2

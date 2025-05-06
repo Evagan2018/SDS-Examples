@@ -1,12 +1,12 @@
-# Network SDS Interface
+# SDS Interface - Network (Ethernet)
 
-The Network SDS Interface uses the Ethernet-based IoT Socket communication implemented with the MDK-Middleware Network.
+This SDS Interface uses the Ethernet-based IoT Socket communication implemented with the MDK-Middleware Network component.
 It is based on the following components:
 
-- [SDS Recorder](https://github.com/ARM-software/SDS-Framework/tree/main/sds#synchronous-data-stream-recorder) data streaming,
+- [SDS Recorder and Player](https://arm-software.github.io/SDS-Framework/main/SDS_API/group__SDS__Recorder__Player.html) data streaming,
 - [IoT Socket](https://mdk-packs.github.io/IoT_Socket/latest/index.html) communication interface,
 - [MDK-Middleware Network](https://arm-software.github.io/MDK-Middleware/latest/Network/index.html) protocol stack,
-- [CMSIS-Driver Ethernet](https://arm-software.github.io/CMSIS_6/latest/Driver/index.html) physical interface.
+- [CMSIS-Driver Ethernet](https://arm-software.github.io/CMSIS_6/latest/Driver/group__eth__interface__gr.html) physical interface.
 
 ## SDS Configuration
 
@@ -19,7 +19,7 @@ The following SDS software components are required:
 ```
 
 The IP address of the SDSIO server must be updated in `sdsio_config_socket.h` with the
-address reported by the SDSIO server at startup:
+address reported by the SDSIO Server at startup:
 
 ```c
 #define SDSIO_SOCKET_SERVER_IP    "0.0.0.0"
@@ -58,20 +58,18 @@ The communication does not use the **IPv6** protocol, therefore the variant `IPv
 
 You can leave the other configuration settings at their default values.
 
-## Starting SDSIO server
+## Starting SDSIO Server
 
-SDSIO server is a Python-based SDS I/O server utility for PC, which is included in the
-[SDS-Framework](https://github.com/ARM-software/SDS-Framework/tree/main/documentation/utilities.md#sdsio-server) pack.
+The **SDSIO Server** is a Python-based utility for PC, which is included in the
+[SDS-Framework](https://github.com/ARM-software/SDS-Framework/tree/main/utilities) pack.
 
-To start the SDSIO server, run it from the SDSIO-Server root directory with:
+To start the SDSIO Server, run it from the `./utilities` directory with:
 
 ```txt
 python sdsio-server.py socket
 ```
 
-This activates the server with the default settings. Further information about the SDSIO server application
-can be found in [SDS-Framework](https://github.com/ARM-software/SDS-Framework/tree/main/documentation/utilities.md#sdsio-server).
+This activates the Server with the default settings. Further information about the SDSIO Server application
+can be found in the [SDS-Framework documentation](https://github.com/ARM-software/SDS-Framework/tree/main/documentation/utilities.md#sdsio-server).
 
-***Note***
-
-- The evaluation board and the PC must be in the same network in order to establish a connection.
+> ***Important Note***: The evaluation board and the PC must be in the same network in order to establish a connection.
