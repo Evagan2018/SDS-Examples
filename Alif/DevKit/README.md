@@ -36,18 +36,19 @@ Default bandwidth is configured to `100000U` which means approximately 100000 by
 
 For **recording** test, follow the steps below:
 
-1. Start the [SDSIO-Server](https://arm-software.github.io/SDS-Framework/main/utilities.html#sdsio-server):
+1. Connect development board to the local network with Ethernet cable
+2. Start the [SDSIO-Server](https://arm-software.github.io/SDS-Framework/main/utilities.html#sdsio-server):
    ```bash
    python sdsio-server.py socket
    ```
-2. Open `SDS.csolution.yml` in Visual Studio Code:
+3. Open `SDS.csolution.yml` in Visual Studio Code:
    - Select **Target Type**: `AE722F80F55D5LS`
    - Choose **Project Name**: `DataTest` and **Build Type**: `DebugRec` to record SDS data files.
-3. Open `./sdsio/network/RTE/SDS/sdsio_config_socket.h` file and edit `SDSIO_SOCKET_SERVER_IP` value to one reported by SDSIO-Server
+4. Open `./sdsio/network/RTE/SDS/sdsio_config_socket.h` file and edit `SDSIO_SOCKET_SERVER_IP` value to one reported by SDSIO-Server
    For more details see [documentation](./sdsio/network/README.md)
-4. Build and run the application on the hardware.
-5. Press a joystick (SW2) to start recording.
-6. Press a joystick (SW2) again to stop recording.
+5. Build and run the application on the hardware.
+6. Press a joystick (SW2) to start recording.
+7. Press a joystick (SW2) again to stop recording.
 
 **Results**
 
@@ -57,22 +58,25 @@ Results should be two generated files: `DataInput.0.sds` and `DataOutput.0.sds` 
 
 `DataOutput.0.sds` contains recorded output data of a simple checksum algorithm.
 
+> Note: [SDS-Check](https://arm-software.github.io/SDS-Framework/main/utilities.html#sds-check) utility can be used for SDS file verification.
+
 #### Playback
 
 For **playback** test, follow the steps below:
 
-1. Start the [SDSIO-Server](https://arm-software.github.io/SDS-Framework/main/utilities.html#sdsio-server):
+1. Connect development board to the local network with Ethernet cable
+2. Start the [SDSIO-Server](https://arm-software.github.io/SDS-Framework/main/utilities.html#sdsio-server):
    ```bash
    python sdsio-server.py socket
    ```
-2. Open `SDS.csolution.yml` in Visual Studio Code:
+3. Open `SDS.csolution.yml` in Visual Studio Code:
    - Select **Target Type**: `AE722F80F55D5LS`
    - Choose **Project Name**: `DataTest` and **Build Type**: `DebugPlay` to playback/record SDS data files.
-3. Open `./sdsio/network/RTE/SDS/sdsio_config_socket.h` file and edit `SDSIO_SOCKET_SERVER_IP` value to one reported by SDSIO-Server
+4. Open `./sdsio/network/RTE/SDS/sdsio_config_socket.h` file and edit `SDSIO_SOCKET_SERVER_IP` value to one reported by SDSIO-Server
    For more details see [documentation](./sdsio/network/README.md)
-4. Build and run the application on the hardware.
-5. Press a joystick (SW2) to start playback and recording.
-6. Wait for playback to finish, it will finish automatically when all data from `DataInput.1.sds` SDS file was played back.
+5. Build and run the application on the hardware.
+6. Press a joystick (SW2) to start playback and recording.
+7. Wait for playback to finish, it will finish automatically when all data from `DataInput.1.sds` SDS file was played back.
 
 **Results**
 
@@ -80,7 +84,7 @@ Result should be one generated file `DataInput.1.sds` in the folder where SDSIO-
 
 `DataOutput.1.sds` contains recorded output data of simple checksum algorithm using input data played from `DataInput.0.sds` file.
 
-To verify the SDS component usage on hardware is reliable the two recordings of algorithm output data generated during recording and playback: 
+To verify that the SDS component usage on hardware is reliable the two recordings of algorithm output data generated during recording and playback: 
 `DataOutput.0.sds` and `DataOutput.1.sds` should be binary identical.
 
 
@@ -122,5 +126,5 @@ Result should be one generated file `DataInput.1.sds` in the folder where SDSIO-
 
 `DataOutput.1.sds` contains recorded output data of simple checksum algorithm using input data played from `DataInput.0.sds` file.
 
-To verify the SDS component usage on hardware is reliable the two recordings of algorithm output data generated during recording and playback: 
+To verify that the SDS component usage on hardware is reliable the two recordings of algorithm output data generated during recording and playback: 
 `DataOutput.0.sds` and `DataOutput.1.sds` should be binary identical.
