@@ -59,36 +59,39 @@ layer:
     - component: BSP:Conductor Tool support
     - component: BSP:External peripherals:Ethernet PHY
 
+    - component: CMSIS:CORE
+
     - component: CMSIS Driver:Ethernet MAC
+    - component: CMSIS Driver:Ethernet PHY:Custom
     - component: CMSIS Driver:GPIO
     - component: CMSIS Driver:I2C
     - component: CMSIS Driver:SAI
     - component: CMSIS Driver:SPI
     - component: CMSIS Driver:USART
     - component: CMSIS Driver:USB Device
-    - component: CMSIS Driver:vStream:AudioIn&DevKit-E7
-
-    - component: Device:Startup
-    - component: Device:SKU&AE722F80F55D5
-
-    - component: Services:Retarget IO:STDERR
-    - component: Services:Retarget IO:STDIN
-    - component: Services:Retarget IO:STDOUT
-
-    - component: Device:SOC Peripherals:DMA
-    - component: Device:SOC Peripherals:PINCONF
-
-    - component: CMSIS:CORE
-
-    - component: CMSIS Driver:Ethernet PHY:Custom
     - component: CMSIS Driver:VIO:Board&DevKit-E7
+    - component: CMSIS Driver:vStream:AudioIn&DevKit-E7
 
     - component: CMSIS-Compiler:CORE
     - component: CMSIS-Compiler:STDERR:Custom
     - component: CMSIS-Compiler:STDIN:Custom
     - component: CMSIS-Compiler:STDOUT:Custom
 
+    - component: Device:Startup
+    - component: Device:SKU&AE722F80F55D5
+
+    - component: Device:SOC Peripherals:DMA
+    - component: Device:SOC Peripherals:MHU
+    - component: Device:SOC Peripherals:PINCONF
+
     - component: Machine Learning:NPU Support:Ethos-U Driver&Generic U55
+
+    - component: Services:Secure Enclave:core&Source
+    - component: Services:Secure Enclave:Initialization Helper&Source
+
+    - component: Services:Retarget IO:STDERR
+    - component: Services:Retarget IO:STDIN
+    - component: Services:Retarget IO:STDOUT
 
   groups:
     - group: Board
