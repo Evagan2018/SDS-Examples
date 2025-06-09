@@ -38,7 +38,7 @@
 // CMSIS Drivers
 extern ARM_DRIVER_SAI     Driver_SAI3;            /* I2S Microphones  */
 extern ARM_DRIVER_USART   Driver_USART4;          /* PRG USB          */
-extern ARM_DRIVER_USBD    Driver_USBD0;           /* USB Device 0     */
+extern ARM_DRIVER_USBD    Driver_USBD0;           /* USB Device       */
 extern vStreamDriver_t    Driver_vStreamAudioIn;  /* Audio In Stream  */
 extern vStreamDriver_t    Driver_vStreamVideoIn;  /* Video In Stream  */
 extern vStreamDriver_t    Driver_vStreamVideoOut; /* Video Out Stream */

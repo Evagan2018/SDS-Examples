@@ -25,8 +25,7 @@
 
 #include "conductor_board_config.h"
 #include "ethosu_driver.h"
-// Disable ext_int as it requires Camera, LCD and Alif GPIO drivers
-//#include "ext_init.h"
+#include "ext_init.h"
 #include "main.h"
 
 #include "se_services_port.h"
@@ -99,6 +98,7 @@ void clock_init(void) {
     return;
   }
 
+  /* Enable USB_CLK */
   rval = SERVICES_clocks_enable_clock(se_services_s_handle, CLKEN_USB, true, &error_code);
   if ((rval != 0) || (error_code != 0)) {
     return;
@@ -110,6 +110,7 @@ void clock_init(void) {
     return;
   }
 
+  /* Enable power to USB phy */
   runp.phy_pwr_gating |= USB_PHY_MASK;
 
   /* Set the current run configuration to SE */
@@ -154,8 +155,7 @@ int main (void) {
   clock_init();
 
   /* Initialize board devices I/Os */
-// Disable ext_int as it requires Camera, LCD and Alif GPIO drivers
-// ext_init();
+  ext_init();
 
   /* Initialize MIPI PHY */
   vbat_init();
