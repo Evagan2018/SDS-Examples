@@ -24,6 +24,13 @@ solution:
       variables:
         - Board-Layer: $SolutionDir()$/Board/AppKit-E7_M55_HP/Board.clayer.yml
         - SDSIO-Layer: $SolutionDir()$/sdsio/usb/sdsio_usb.clayer.yml
+      target-set:
+        - set:
+          debugger:
+            name: JLink Server
+            start-pname: M55_HP
+          images:
+            - project-context: DataTest.DebugRec
 
     - type: AVH-SSE-300 # simulator target
       board: ARM::V2M-MPS3-SSE-300-FVP

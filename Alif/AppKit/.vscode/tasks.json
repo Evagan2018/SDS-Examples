@@ -1,0 +1,69 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "AVH-FVP",
+            "type": "shell",
+            "command": "FVP_Corstone_SSE-300_Ethos-U55",
+            "args": [
+                "-f",
+                "Board/Corstone-300/fvp_config.txt",
+                "${command:cmsis-csolution.getBinaryFile}"
+            ],
+            "problemMatcher": []
+        },
+        {
+            "label": "CMSIS Erase",
+            "type": "shell",
+            "command": [
+                "echo Connect > .cmd.jlink &&",
+                "echo Erase >> .cmd.jlink &&",
+                "echo Exit >> .cmd.jlink &&",
+                "jlink -device AE722F80F55D5_HP -if SWD -speed auto -commandfile .cmd.jlink"
+            ],
+            "problemMatcher": []
+        },
+        {
+            "label": "CMSIS Load",
+            "type": "shell",
+            "command": [
+                "echo Connect > .cmd.jlink &&",
+                "echo LoadFile \"out/DataTest/AE722F80F55D5LS/DebugRec/DataTest.hex\" >> .cmd.jlink &&",
+                "echo Exit >> .cmd.jlink &&",
+                "jlink -device AE722F80F55D5_HP -if SWD -speed auto -commandfile .cmd.jlink"
+            ],
+            "problemMatcher": []
+        },
+        {
+            "label": "CMSIS Run",
+            "type": "shell",
+            "command": "JLinkGDBServerCL",
+            "args": [
+                "-device",
+                "AE722F80F55D5_HP",
+                "-endian",
+                "little",
+                "-if",
+                "SWD",
+                "-speed",
+                "auto",
+                "-nohalt",
+                "-noir",
+                "-nogui",
+                "-localhostonly",
+                "-port",
+                "3333"
+            ],
+            "problemMatcher": []
+        },
+        {
+            "label": "CMSIS Load+Run",
+            "dependsOn": [
+                "CMSIS Load",
+                "CMSIS Run"
+            ],
+            "dependsOrder": "sequence",
+            "problemMatcher": []
+        }
+    ]
+}
