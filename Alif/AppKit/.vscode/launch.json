@@ -55,7 +55,7 @@
                 "port": "3333"
             },
             "cmsis": {
-                "updateConfiguration": "auto"
+                "updateConfiguration": "manual"
             }
         },
         {
@@ -87,7 +87,7 @@
                 "port": "3334"
             },
             "cmsis": {
-                "updateConfiguration": "auto"
+                "updateConfiguration": "manual"
             }
         }
     ]
