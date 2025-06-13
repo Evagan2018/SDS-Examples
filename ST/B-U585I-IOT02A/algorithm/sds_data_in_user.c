@@ -161,7 +161,9 @@ int32_t GetInputData (uint8_t *buf, uint32_t max_len) {
 
     // Release data block
     ptrDriver_vStreamAccelerometer->ReleaseBlock();
+
+    return SENSOR_COND_SLICE_SIZE_IN_BYTES;
   }
 
-  return SENSOR_COND_SLICE_SIZE_IN_BYTES;
+  return -1;
 }

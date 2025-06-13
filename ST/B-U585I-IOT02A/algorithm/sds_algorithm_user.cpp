@@ -78,7 +78,7 @@ extern "C" int32_t ExecuteAlgorithm (const uint8_t *in_buf, uint32_t in_num, uin
   // Run the classifier
   EI_IMPULSE_ERROR res = run_classifier(&features_signal, &result, false);
 
-  if (run_classifier(&features_signal, &result, false) != 0) {
+  if (res != 0) {
     ei_printf("ERR: Failed to run classifier\n");
     return -1;
   }
