@@ -1,0 +1,13 @@
+sds:
+  name: ML Model Data Output
+  description: Clessification results
+  frequency: 0.417
+  content:
+  - value: idle
+    type:  float
+  - value: snake
+    type:  float
+  - value: updown
+    type:  float
+  - value: wave
+    type:  float
