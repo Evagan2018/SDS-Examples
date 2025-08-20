@@ -14,7 +14,7 @@ solution:
 
   # List of miscellaneous tool-specific controls
   misc:
-    - for-compiler: AC6      # GDB requires DWARF 5, remove when using uVision Debugger
+    - for-compiler: AC6 # GDB requires DWARF 5, remove when using uVision Debugger
       C-CPP:
         - -gdwarf-5
       ASM:
@@ -69,3 +69,6 @@ solution:
   projects:
     - project: datatest/DataTest.cproject.yml
     - project: algorithm/AlgorithmTest.cproject.yml
+      not-for-context:
+        - .DebugRec+AVH-SSE-300
+        - .ReleaseRec+AVH-SSE-300

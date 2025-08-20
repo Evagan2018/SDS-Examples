@@ -1,7 +1,7 @@
 # SDS Application on STMicroelectronics B-U585I-IOT02A board with SDSIO using USB Interface
 
 This application is an example of using **Edge Impulse Continuous Motion Recognition ML algorithm** on a physical board.
-It enables recording and playback of real-world data streams using physical hardware or simulation models using (Arm Virtual Hardware - FVP).
+It enables recording and playback of real-world data streams using physical hardware or just playback using simulation models (Arm Virtual Hardware - FVP).
 The real-world data streams are captured in SDS data files.
 
 There are two SDS I/O interfaces available to the application:
@@ -11,7 +11,7 @@ There are two SDS I/O interfaces available to the application:
 ## Projects
 
 - **`DataTest.cproject.yml`**: Verifies SDSIO interface on hardware.
-- **`AlgorithmTest.cproject.yml`**: Verifies a EI Continuous Motion Recognition algorithm with recording and playback of SDS data files.
+- **`AlgorithmTest.cproject.yml`**: Verifies a EI Continuous Motion Recognition algorithm with recording (on hardware only) and playback of SDS data files.
 
 ## Build Targets
 
