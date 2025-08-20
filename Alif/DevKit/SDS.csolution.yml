@@ -13,12 +13,12 @@ solution:
   # Refer to https://open-cmsis-pack.github.io/cmsis-toolbox/ReferenceApplications/ for more information
 
   packs:
-    - pack: ARM::SDS
-    - pack: AlifSemiconductor::Ensemble
+    - pack: ARM::SDS@^2.0.0
+    - pack: AlifSemiconductor::Ensemble@^2.0.2
 
   # List of miscellaneous tool-specific controls
   misc:
-    - for-compiler: AC6      # GDB requires DWARF 5, remove when using uVision Debugger
+    - for-compiler: AC6 # GDB requires DWARF 5, remove when using uVision Debugger
       C-CPP:
         - -gdwarf-5
       ASM:

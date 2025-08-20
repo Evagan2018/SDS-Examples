@@ -23,6 +23,8 @@ layer:
         - STDOUT
         - STDERR
         - Heap: 32768
+      consumes:
+        - CMSIS-RTOS2
 
   # List of #define statements passed via the command line to the build tool.
   define:
@@ -81,7 +83,7 @@ layer:
     - component: CMSIS-Compiler:STDOUT:Custom
 
     - component: Device:Startup
-    - component: Device:SKU&AE722F80F55D5
+    - component: BSP:Board Config
 
     - component: Device:SOC Peripherals:CDC
     - component: Device:SOC Peripherals:CPI
