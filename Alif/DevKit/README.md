@@ -1,7 +1,7 @@
 # SDS Application on Alif DevKit board with SDSIO using Ethernet Interface
 
 This application provides a test framework for DSP and ML algorithms. It enables recording and playback of real-world data streams using physical hardware
-or simulation models using (Arm Virtual Hardware - FVP) to an user algorithm under test. The real-world data streams are captured in SDS data files.
+or simulation models (Arm Virtual Hardware - FVP) to an user algorithm under test. The real-world data streams are captured in SDS data files.
 
 There are two SDS I/O interfaces available to the application:
 - **Ethernet Interface** is used for SDS file I/O on hardware.
