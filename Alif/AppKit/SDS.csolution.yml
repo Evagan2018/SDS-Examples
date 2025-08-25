@@ -9,6 +9,8 @@ solution:
     - compiler: GCC
     - compiler: IAR
 
+  compiler: AC6
+
   # This is a CMSIS-Toolbox Reference Application that requires a compatible board layer
   # Refer to https://open-cmsis-pack.github.io/cmsis-toolbox/ReferenceApplications/ for more information
 
@@ -38,7 +40,7 @@ solution:
             name: JLink Server
             start-pname: M55_HP
           images:
-            - project-context: DataTest.DebugRec
+            - project-context: DataTest.DebugPlay
 
     - type: AVH-SSE-300 # simulator target
       board: ARM::V2M-MPS3-SSE-300-FVP

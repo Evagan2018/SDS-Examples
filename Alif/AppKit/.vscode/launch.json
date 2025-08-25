@@ -2,92 +2,64 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "M55_HP JLink (launch)",
+            "name": "CMSIS_DAP@pyOCD (launch)",
             "type": "gdbtarget",
             "request": "launch",
             "cwd": "${workspaceFolder}/",
-            "program": "out/DataTest/AE722F80F55D5LS/DebugRec/DataTest.axf",
+            "program": "out\\DataTest\\AVH-SSE-300\\DebugRec\\DataTest.axf",
             "gdb": "arm-none-eabi-gdb",
             "preLaunchTask": "CMSIS Load",
             "initCommands": [
-                "monitor reset",
+                "monitor reset halt",
                 "tbreak main"
             ],
             "customResetCommands": [
-                "monitor reset"
+                "monitor reset halt",
+                "tbreak main",
+                "continue"
             ],
             "target": {
-                "server": "JLinkGDBServerCL",
+                "server": "pyocd",
                 "serverParameters": [
-                    "-device",
-                    "AE722F80F55D5_HP",
-                    "-endian",
-                    "little",
-                    "-if",
-                    "SWD",
-                    "-speed",
-                    "auto",
-                    "-noir",
-                    "-vd",
-                    "-nogui",
-                    "-localhostonly"
+                    "gdbserver",
+                    "--probe",
+                    "cmsisdap:",
+                    "--connect",
+                    "attach",
+                    "--cbuild-run",
+                    "${command:cmsis-csolution.getCbuildRunFile}",
+                    "--quiet",
+                    "--log",
+                    "*.cbuild_run,*server=info"
                 ],
                 "port": "3333"
             },
             "cmsis": {
-                "updateConfiguration": "manual"
+                "cbuildRunFile": "${command:cmsis-csolution.getCbuildRunFile}",
+                "updateConfiguration": "auto"
             }
         },
         {
-            "name": "M55_HP JLink (attach)",
+            "name": "CMSIS_DAP@pyOCD (attach)",
             "type": "gdbtarget",
             "request": "attach",
             "cwd": "${workspaceFolder}/",
-            "program": "out/DataTest/AE722F80F55D5LS/DebugRec/DataTest.axf",
+            "program": "out\\DataTest\\AVH-SSE-300\\DebugRec\\DataTest.axf",
             "gdb": "arm-none-eabi-gdb",
             "initCommands": [
                 ""
             ],
             "customResetCommands": [
-                "monitor reset"
+                "monitor reset halt",
+                "tbreak main",
+                "continue"
             ],
             "target": {
                 "port": "3333"
             },
             "cmsis": {
-                "updateConfiguration": "manual"
-            }
-        },
-        {
-            "name": "M55_HE JLink (launch)",
-            "type": "gdbtarget",
-            "request": "launch",
-            "cwd": "${workspaceFolder}/",
-            "program": "",
-            "gdb": "arm-none-eabi-gdb",
-            "initCommands": [
-                ""
-            ],
-            "target": {
-                "server": "JLinkGDBServerCL",
-                "serverParameters": [
-                    "-device",
-                    "AE722F80F55D5_HE",
-                    "-endian",
-                    "little",
-                    "-if",
-                    "SWD",
-                    "-speed",
-                    "auto",
-                    "-noir",
-                    "-vd",
-                    "-nogui",
-                    "-localhostonly"
-                ],
-                "port": "3334"
-            },
-            "cmsis": {
-                "updateConfiguration": "manual"
+                "cbuildRunFile": "${command:cmsis-csolution.getCbuildRunFile}",
+                "updateConfiguration": "auto"
             }
         }
     ]
