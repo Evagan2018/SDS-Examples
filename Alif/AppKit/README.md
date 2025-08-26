@@ -39,12 +39,10 @@ The `SDS.csolution.yml` application is configured for the targets [Alif AppKit-E
 
 ## Layer Type: Board
 
-The file `Board_HP.clayer.yml` implements the Hardware Abstraction Layer (HAL) layer for the Alif AppKit and is configured for the High-Performance (HP) core of the device.
+The board layer implements the Hardware Abstraction Layer (HAL) layer. Depending on the active target that is selected, a different board layers with I/O interfaces is used:
 
-There are two I/O interfaces available to the application:
-
-- **USB Interface** is used for SDS file I/O on hardware.
-- **VSI Interface** is used for SDS file I/O on AVH.
+- `Board/AppKit-E7_M55_HP/Board_HP.clayer.yml`` uses the **USB Interface** for SDS file I/O on the Alif AppKit and is configured for the High-Performance (HP) core of the device.
+- `Board/Corstone-300/Board-U55.clayer.yml' uses the **VSI Interface** for SDS file I/O on AVH.
 
 ## Build Types
 
@@ -169,41 +167,46 @@ Stream closed: DataOutput (DataOutput.3.sds).
 
 ## DataTest Project on AVH-FVP Simulation
 
-#### Recording
+The DataTest can be also executed on [AVH-FVP](https://github.com/ARM-software/AVH) simulation models using the steps below.
 
-For **recording** test, follow the steps below:
+1. Use **Manage Solution Settings** and select:
+     - Active target `AVH-SSE-300`
+     - Active Project **DataTest** with Build Type **DebugRec** or **DebugPlay**.
+2. **Build solution** to create an executable image.
+3. **Load and Run** starts the application on the AVH-FVP simulation.  The output is shown in the Terminal console.
 
-1. Open `SDS.csolution.yml` in Visual Studio Code:
-   - Select **Target Type**: `AVH-SSE-300`
-   - Choose **Project Name**: `DataTest` and **Build Type**: `DebugRec` to record SDS data files.
-2. Build and run the application on the simulator
-3. Activate/deactivate a virtual button (vioButton0) to start recording.
-4. Activate/deactivate a virtual button (vioButton0) again to stop recording.
+> NOTE
+>
+> The user button is simulated with the function `simGetSignal` in the file `sds_control.c`.
 
-**Results**
+**Output of DebugRec**
 
-Results should be two generated files: `DataInput.0.sds` and `DataOutput.0.sds` in the folder where SDSIO-Server was started.
+```txt
+*  Executing task: FVP_Corstone_SSE-300 -f Board/Corstone-300/fvp_config.txt -a out\DataTest\AVH-SSE-300\DebugRec\DataTest.axf  
 
-`DataInput.0.sds` contains recorded generated test data representing input data to a simple checksum algorithm.
+97% idle
+97% idle
+SDS recording started
+97% idle
+  :
+SDS recording stopped
+ :
+Info: /OSCI/SystemC: Simulation stopped by user.
+Stream closed: DataOutput (DataOutput.3.sds).
+```
 
-`DataOutput.0.sds` contains recorded output data of a simple checksum algorithm.
+**Output of DebugPlay**
 
-#### Playback
+```txt
+*  Executing task: FVP_Corstone_SSE-300 -f Board/Corstone-300/fvp_config.txt -a out\DataTest\AVH-SSE-300\DebugPlay\DataTest.axf  
 
-For **playback** test, follow the steps below:
-
-1. Open `SDS.csolution.yml` in Visual Studio Code:
-   - Select **Target Type**: `AVH-SSE-300`
-   - Choose **Project Name**: `DataTest` and **Build Type**: `DebugPlay` to playback/record SDS data files.
-2. Build and run the application on the simulator.
-3. Activate/deactivate a virtual button (vioButton0) to start playback and recording.
-4. Wait for playback to finish, it will finish automatically when all data from `DataInput.1.sds` SDS file was played back.
-
-**Results**
-
-Result should be one generated file `DataInput.1.sds` in the folder where SDSIO-Server was started.
-
-`DataOutput.1.sds` contains recorded output data of simple checksum algorithm using input data played from `DataInput.0.sds` file.
-
-To verify that the SDS component usage on hardware is reliable the two recordings of algorithm output data generated during recording and playback: 
-`DataOutput.0.sds` and `DataOutput.1.sds` should be binary identical.
+100% idle
+100% idle
+SDS playback and recording started
+98% idle
+  :
+SDS playback and recording stopped
+99% idle
+  :
+Info: /OSCI/SystemC: Simulation stopped by user.
+```

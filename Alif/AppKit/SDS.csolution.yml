@@ -1,6 +1,6 @@
 solution:
   description: SDS recorder/player reference example
-  created-for: CMSIS-Toolbox@2.9.0
+  created-for: CMSIS-Toolbox@2.10.0
   cdefault:
 
   # List of tested compilers that can be selected
@@ -40,7 +40,7 @@ solution:
             name: JLink Server
             start-pname: M55_HP
           images:
-            - project-context: DataTest.DebugPlay
+            - project-context: DataTest.DebugRec
 
     - type: AVH-SSE-300 # simulator target
       board: ARM::V2M-MPS3-SSE-300-FVP
@@ -50,6 +50,15 @@ solution:
       variables:
         - Board-Layer: $SolutionDir()$/Board/Corstone-300/Board.clayer.yml
         - SDSIO-Layer: $SolutionDir()$/sdsio/fvp/sdsio_fvp.clayer.yml
+      target-set:
+        - set:
+          images:
+            - project-context: DataTest.DebugRec
+          debugger:
+            name: AVH-FVP
+            model: FVP_Corstone_SSE-300_Ethos-U55
+            config: Board/Corstone-300/fvp_config.txt
+            args: []
 
   # List of different build configurations.
   build-types:

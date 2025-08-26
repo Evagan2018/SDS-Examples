@@ -1,6 +1,6 @@
 solution:
   description: SDS recorder/player reference example
-  created-for: CMSIS-Toolbox@2.9.0
+  created-for: CMSIS-Toolbox@2.10.0
   cdefault:
 
   # List of tested compilers that can be selected

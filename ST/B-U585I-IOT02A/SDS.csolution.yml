@@ -1,6 +1,6 @@
 solution:
   description: SDS recorder/player reference example
-  created-for: CMSIS-Toolbox@2.9.0
+  created-for: CMSIS-Toolbox@2.10.0
   cdefault:
 
   # List of tested compilers that can be selected
@@ -8,6 +8,8 @@ solution:
     - compiler: AC6
     - compiler: GCC
     - compiler: IAR
+
+  compiler: AC6 # select compiler for solution
 
   # This is a CMSIS-Toolbox Reference Application that requires a compatible board layer
   # Refer to https://open-cmsis-pack.github.io/cmsis-toolbox/ReferenceApplications/ for more information
@@ -33,6 +35,15 @@ solution:
       variables:
         - Board-Layer: $SolutionDir()$/Board/B-U585I-IOT02A/Board.clayer.yml
         - SDSIO-Layer: $SolutionDir()$/sdsio/usb/sdsio_usb.clayer.yml
+      target-set:
+        - set:
+          images:
+            - project-context: DataTest.DebugRec
+          debugger:
+            name: ST-Link@pyOCD
+            port: 3333
+            protocol: swd
+            clock: 10000000
 
     - type: AVH-SSE-300 # simulator target
       board: ARM::V2M-MPS3-SSE-300-FVP
@@ -42,6 +53,15 @@ solution:
       variables:
         - Board-Layer: $SolutionDir()$/Board/Corstone-300/Board.clayer.yml
         - SDSIO-Layer: $SolutionDir()$/sdsio/fvp/sdsio_fvp.clayer.yml
+      target-set:
+        - set:
+          images:
+            - project-context: DataTest.DebugRec
+          debugger:
+            name: AVH-FVP
+            model: FVP_Corstone_SSE-300
+            config: Board/Corstone-300/fvp_config.txt
+            args: []
 
   # List of different build configurations.
   build-types:

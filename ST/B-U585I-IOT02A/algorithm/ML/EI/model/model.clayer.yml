@@ -9,7 +9,10 @@ layer:
       path: ../../Packs/EgdeImpulse/EI-SDK/1.69.7
     - pack: EdgeImpulse::Tutorial_Continuous_motion_recog
       path: ../../Packs/EgdeImpulse/Tutorial_Continuous_motion_recog/162.0.0
-
+    - pack: ARM::CMSIS-DSP@1.15.0
+    - pack: ARM::CMSIS-NN
+      path: ../../Packs/CMSIS-NN/4.1.0
+  
   components:
     - component: EdgeImpulse::EdgeImpulse:SDK
     - component: EdgeImpulse:model:Tutorial_Continuous_motion_recog
