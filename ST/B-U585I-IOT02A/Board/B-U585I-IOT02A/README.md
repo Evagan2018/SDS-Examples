@@ -1,6 +1,6 @@
 # Board: STMicroelectronics [B-U585I-IOT02A](https://www.st.com/en/evaluation-tools/b-u585i-iot02a.html)
 
-## Board Layer supporting USB Device, Audio, Environment and Motion Sensors
+## Board Layer supporting USB Device, Audio In, WiFi, Accelerometer Sensor
 
 Device: **STM32U585AII6QU**
 
@@ -31,7 +31,8 @@ Refer to ["Configure STM32 Devices with CubeMX"](https://open-cmsis-pack.github.
 | Driver_USART2               | USART2                | ST-Mod pins 2S1, 3S1 (CN3)                    | CMSIS_USART
 | Driver_USART1               | USART1                | ST-LINK connector (CN8)                       | STDIN, STDOUT, STDERR
 | Driver_USBD0                | USB_OTG_FS            | User USB connector (CN1)                      | CMSIS_USB_Device
-| Driver_vStreamAccelerometer | I2C2                  | iNEMO inertial module ISM330DHCX              | CMSIS_vStream_Accelerometer
+| Driver_vStreamAccelerometer | I2C2                  | iNEMO inertial module ISM330DHCX              | CMSIS_VSTREAM_ACCELEROMETER
+| Driver_vStreamAudioIn       | MDF (DMA)             | On-board digital microphone (MIC1)            | CMSIS_VSTREAM_AUDIO_IN
 | Driver_WiFi0                | SPI2 (DMA), GPIO      | MXCHIP EMW3080                                | CMSIS_WiFi
 | CMSIS-Driver VIO            | GPIO                  | LEDs (LD6, LD7) and USER button (B3)          | CMSIS_VIO
 

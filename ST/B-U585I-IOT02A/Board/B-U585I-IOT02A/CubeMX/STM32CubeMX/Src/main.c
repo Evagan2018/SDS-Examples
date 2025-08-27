@@ -26,7 +26,7 @@
 
 #include "cmsis_vio.h"
 #include "GPIO_STM32.h"
-//#include "WiFi_EMW3080.h"
+#include "WiFi_EMW3080.h"
 
 #include "b_u585i_iot02a_bus.h"
 #include "b_u585i_iot02a_audio.h"
@@ -76,8 +76,8 @@ UART_HandleTypeDef huart4;
 UART_HandleTypeDef huart1;
 UART_HandleTypeDef huart2;
 UART_HandleTypeDef huart3;
-DMA_HandleTypeDef handle_GPDMA1_Channel7;
-DMA_HandleTypeDef handle_GPDMA1_Channel6;
+DMA_HandleTypeDef handle_GPDMA1_Channel9;
+DMA_HandleTypeDef handle_GPDMA1_Channel8;
 
 PCD_HandleTypeDef hpcd_USB_OTG_FS;
 
@@ -116,15 +116,15 @@ static void MX_ICACHE_Init(void);
 static void GPIO_SignalEvent (ARM_GPIO_Pin_t pin, uint32_t event) {
  
   switch (pin) {
-//    case GPIO_PIN_ID_PORTD(14):                         // MXCHIP_NOTIFY pin (PD14)
-//      if ((event & ARM_GPIO_EVENT_RISING_EDGE) != 0U) { // If rising edge was detected
-//        WiFi_EMW3080_Pin_NOTIFY_Rising_Edge();
-//      }
-//      break;
-//    case GPIO_PIN_ID_PORTG(15):                         // MXCHIP_FLOW pin (PG15)
-//      if ((event & ARM_GPIO_EVENT_RISING_EDGE) != 0U) { // If rising edge was detected
-//        WiFi_EMW3080_Pin_FLOW_Rising_Edge();
-//      }
+    case GPIO_PIN_ID_PORTD(14):                         // MXCHIP_NOTIFY pin (PD14)
+      if ((event & ARM_GPIO_EVENT_RISING_EDGE) != 0U) { // If rising edge was detected
+        WiFi_EMW3080_Pin_NOTIFY_Rising_Edge();
+      }
+      break;
+    case GPIO_PIN_ID_PORTG(15):                         // MXCHIP_FLOW pin (PG15)
+      if ((event & ARM_GPIO_EVENT_RISING_EDGE) != 0U) { // If rising edge was detected
+        WiFi_EMW3080_Pin_FLOW_Rising_Edge();
+      }
       break;
     case GPIO_PIN_ID_PORTE(8):                          // UCPD_FLT pin (PE8)
       if ((event & ARM_GPIO_EVENT_FALLING_EDGE) != 0U) {// If falling edge was detected
@@ -216,7 +216,6 @@ int main(void)
   MX_SPI2_Init();
   MX_UART4_Init();
   MX_USART1_UART_Init();
-  MX_ADF1_Init();
   MX_USB_OTG_FS_PCD_Init();
   MX_SPI1_Init();
   MX_USART2_UART_Init();
@@ -467,10 +466,10 @@ static void MX_GPDMA1_Init(void)
     HAL_NVIC_EnableIRQ(GPDMA1_Channel4_IRQn);
     HAL_NVIC_SetPriority(GPDMA1_Channel5_IRQn, 8, 0);
     HAL_NVIC_EnableIRQ(GPDMA1_Channel5_IRQn);
-    HAL_NVIC_SetPriority(GPDMA1_Channel6_IRQn, 8, 0);
-    HAL_NVIC_EnableIRQ(GPDMA1_Channel6_IRQn);
-    HAL_NVIC_SetPriority(GPDMA1_Channel7_IRQn, 8, 0);
-    HAL_NVIC_EnableIRQ(GPDMA1_Channel7_IRQn);
+    HAL_NVIC_SetPriority(GPDMA1_Channel8_IRQn, 8, 0);
+    HAL_NVIC_EnableIRQ(GPDMA1_Channel8_IRQn);
+    HAL_NVIC_SetPriority(GPDMA1_Channel9_IRQn, 8, 0);
+    HAL_NVIC_EnableIRQ(GPDMA1_Channel9_IRQn);
 
   /* USER CODE BEGIN GPDMA1_Init 1 */
 
@@ -1117,8 +1116,8 @@ static void MX_USB_OTG_FS_PCD_Init(void)
 static void MX_GPIO_Init(void)
 {
   GPIO_InitTypeDef GPIO_InitStruct = {0};
-/* USER CODE BEGIN MX_GPIO_Init_1 */
-/* USER CODE END MX_GPIO_Init_1 */
+  /* USER CODE BEGIN MX_GPIO_Init_1 */
+  /* USER CODE END MX_GPIO_Init_1 */
 
   /* GPIO Ports Clock Enable */
   __HAL_RCC_GPIOG_CLK_ENABLE();
@@ -1264,7 +1263,7 @@ static void MX_GPIO_Init(void)
   HAL_NVIC_SetPriority(EXTI15_IRQn, 8, 0);
   HAL_NVIC_EnableIRQ(EXTI15_IRQn);
 
-/* USER CODE BEGIN MX_GPIO_Init_2 */
+  /* USER CODE BEGIN MX_GPIO_Init_2 */
 
   // Configure MXCHIP_NOTIFY pin (PD14) to generate event on the rising edge
   Driver_GPIO0.Setup          (GPIO_PIN_ID_PORTD(14), GPIO_SignalEvent);
@@ -1282,7 +1281,7 @@ static void MX_GPIO_Init(void)
   Driver_GPIO0.SetDirection   (GPIO_PIN_ID_PORTE(8) , ARM_GPIO_INPUT);
   Driver_GPIO0.SetEventTrigger(GPIO_PIN_ID_PORTE(8) , ARM_GPIO_TRIGGER_FALLING_EDGE);
 
-/* USER CODE END MX_GPIO_Init_2 */
+  /* USER CODE END MX_GPIO_Init_2 */
 }
 
 /* USER CODE BEGIN 4 */
@@ -1302,7 +1301,8 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
   /* USER CODE BEGIN Callback 0 */
 
   /* USER CODE END Callback 0 */
-  if (htim->Instance == TIM17) {
+  if (htim->Instance == TIM17)
+  {
     HAL_IncTick();
   }
   /* USER CODE BEGIN Callback 1 */
@@ -1324,8 +1324,7 @@ void Error_Handler(void)
   }
   /* USER CODE END Error_Handler_Debug */
 }
-
-#ifdef  USE_FULL_ASSERT
+#ifdef USE_FULL_ASSERT
 /**
   * @brief  Reports the name of the source file and the source line number
   *         where the assert_param error has occurred.
