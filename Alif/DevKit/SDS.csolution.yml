@@ -9,6 +9,8 @@ solution:
     - compiler: GCC
     - compiler: IAR
 
+  compiler: AC6 # select compiler for solution
+
   # This is a CMSIS-Toolbox Reference Application that requires a compatible board layer
   # Refer to https://open-cmsis-pack.github.io/cmsis-toolbox/ReferenceApplications/ for more information
 
@@ -48,6 +50,15 @@ solution:
       variables:
         - Board-Layer: $SolutionDir()$/Board/Corstone-300/Board.clayer.yml
         - SDSIO-Layer: $SolutionDir()$/sdsio/fvp/sdsio_fvp.clayer.yml
+      target-set:
+        - set:
+          images:
+            - project-context: DataTest.DebugRec
+          debugger:
+            name: AVH-FVP
+            model: FVP_Corstone_SSE-300_Ethos-U55
+            config: Board/Corstone-300/fvp_config.txt
+            args: []
 
   # List of different build configurations.
   build-types:
