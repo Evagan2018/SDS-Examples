@@ -1,6 +1,6 @@
 sds:
   name: ML Model Data Output
-  description: Clessification results
+  description: Classification results
   frequency: 0.417
   content:
   - value: idle
