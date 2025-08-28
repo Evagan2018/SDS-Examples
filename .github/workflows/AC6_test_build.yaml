@@ -69,7 +69,7 @@ jobs:
     - name: Activate vcpkg
       uses: ARM-software/cmsis-actions/vcpkg@v1
       with:
-        config: "./vcpkg-configuration.json"
+        config: ".ci/vcpkg-configuration.json"
 
     - name: Activate Arm tool license
       uses: ARM-software/cmsis-actions/armlm@v1
