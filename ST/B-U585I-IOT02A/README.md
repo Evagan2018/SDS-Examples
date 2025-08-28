@@ -1,6 +1,6 @@
 # SDS Application on STMicroelectronics B-U585I-IOT02A board with SDSIO using USB Interface
 
-This application is an example of using **Edge Impulse Continuous Motion Recognition ML algorithm** on a physical board.
+This application is an example of using [**Edge Impulse Continuous Motion Recognition ML algorithm**](https://studio.edgeimpulse.com/public/14299/latest) on a physical board.
 It enables recording and playback of real-world data streams using physical hardware or just playback using simulation models (Arm Virtual Hardware - FVP).
 The real-world data streams are captured in SDS data files.
 
@@ -14,26 +14,30 @@ To run this example:
 
 ## STMicroelectronics B-U585I-IOT02A board
 
-The [STMicroelectronics B-U585I-IOT02A](https://www.keil.arm.com/boards/stmicroelectronics-b-u585i-iot02a-revc-c3bc599/) board is based on a Cortex-M33 processor.
+The [STMicroelectronics B-U585I-IOT02A](https://www.keil.arm.com/boards/stmicroelectronics-b-u585i-iot02a-revc-c3bc599/) board is based on a Cortex-M33 processor. For using the integrated ST-Link install the [ST-Link USB driver](https://www.st.com/en/development-tools/stsw-link009.html) or your computer and update the firmware.
 
 ## Projects
 
-The `SDS.csolution.yml` application is configured for the targets [Alif AppKit-E7-AIML](https://www.keil.arm.com/boards/alif-semiconductor-appkit-e7-aiml-gen-2-140e28d/guide/) or [AVH-SSE-300](https://github.com/ARM-software/AVH) FVP simulation models. It contains wto projects.
+The `SDS.csolution.yml` application is configured for the targets [ST B-U585I-IOT02A board-E7-AIML](https://www.keil.arm.com/boards/alif-semiconductor-appkit-e7-aiml-gen-2-140e28d/guide/) or [AVH-SSE-300](https://github.com/ARM-software/AVH) FVP simulation models. It contains wto projects.
 
 - **`DataTest.cproject.yml`**: Verifies the SDSIO interface on hardware.
 - **`AlgorithmTest.cproject.yml`**: Verifies a Motion Recognition ML algorithm with recording and playback of SDS data files.
 
-## Layer Type: Board
+## Layer Type: Board and Layer Type: SDSIO
 
 The board layer implements the Hardware Abstraction Layer (HAL) layer. Depending on the active target that is selected, a different board layers with I/O interfaces is used:
 
-- `Board/B-U585I-IOT02A/Board.clayer.yml` uses the **USB Interface** for SDS file I/O on the development board.
-- `Board/Corstone-300/Board.clayer.yml' uses the **VSI Interface** for SDS file I/O on AVH.
+- `Board/B-U585I-IOT02A/Board.clayer.yml` and `sdsio_usb.clayer.yml` use the **USB Interface** for SDS file I/O on the development board.
+- `Board/Corstone-300/Board.clayer.yml` and `sdsio_fvp.clayer.yml` use the **VSI Interface** for SDS file I/O on AVH FVP simulation.
+
+## Layer Type: Edge Impulse layer
+
+This layer contains the ML model that is used in the `AlgorithmTest.cproject.yml`.
 
 ## Projects
 
 - **`DataTest.cproject.yml`**: Verifies SDSIO interface on hardware.
-- **`AlgorithmTest.cproject.yml`**: Verifies a EI Continuous Motion Recognition algorithm with recording (on hardware only) and playback of SDS data files.
+- **`AlgorithmTest.cproject.yml`**: Verifies a Continuous Motion Recognition algorithm with recording (on hardware only) and playback of SDS data files.
 
 ## Build Targets
 
@@ -52,9 +56,9 @@ The DataTest project allows you to verify the SDS I/O communication and it is re
 
 1. Use **Manage Solution Settings** and select as Active Project **DataTest** with Build Type **DebugRec**.
 2. **Build solution** creates the executable image.
-3. Connect the USB debug port (J2) of the Alif AppKit and configure jumpers for SETOOLS.
-5. **Load and Run** to download the application.
-6. Configure jumpers for UART4 and use the VS Code **Serial Monitor** to observe the output below.
+3. Connect to STLK USB connector of the ST B-U585I-IOT02A board and use the **`...`** menu **Target Information** to validate [ST-Link installation](https://www.st.com/en/development-tools/stsw-link009.html).
+4. **Load and Run** to download the application.
+5. Use the VS Code **Serial Monitor** to observe the output below.
 
 ```txt
 SDS initialization failed!
@@ -72,12 +76,12 @@ For Network and USB SDSIO Interfaces ensure that SDSIO Server is running and res
 
 For executing the **recording** test, follow the steps below:
 
-1. Connect a second USB cable between Host and Alif AppKit J1 connector.
+1. Connect a second USB cable between Host and ST B-U585I-IOT02A board USB-C connector.
 2. Open in VS Code a Terminal Window and start the [SDSIO-Server](https://arm-software.github.io/SDS-Framework/main/utilities.html#sdsio-server) with `sdsio-server.py usb`
 3. Open the VS Code **Serial Monitor** and Start Monitoring the UART output.
-4. **Load and Run** the application on the Alif AppKit.
-5. Press the joystick (SW2) on the Alif AppKit to start recording.
-6. Press the joystick (SW2) again to stop recording.
+4. **Load and Run** the application on the ST B-U585I-IOT02A board.
+5. Press the **User** button on the ST B-U585I-IOT02A board to start recording.
+6. Press the **User** button again to stop recording.
 
 **Output of SDSIO Server**
 
@@ -129,10 +133,10 @@ For executing the **playback** test, follow the steps below:
 
 1. Use **Manage Solution Settings** and select as Active Project **DataTest** with Build Type **DebugPlay**.
 2. **Build solution** creates the executable image.
-3. Connect a second USB cable between Host and Alif AppKit J1 connector.
+3. Connect a second USB cable between Host and ST B-U585I-IOT02A board STLK USB connector.
 4. Open in VS Code a Terminal Window and start the [SDSIO-Server](https://arm-software.github.io/SDS-Framework/main/utilities.html#sdsio-server) with `sdsio-server.py usb`
-5. **Load and Run** the application on the Alif AppKit hardware.
-6. Press a joystick (SW2) on the Alif AppKit to start playback of `DataInput` and recording of `DataOutput`.
+5. **Load and Run** the application on the ST B-U585I-IOT02A board hardware.
+6. Press a User button on the ST B-U585I-IOT02A board to start playback of `DataInput` and recording of `DataOutput`.
 7. Wait for playback to finish, it will finish automatically when all data from `DataInput.0.sds` SDS file was played back.
 
 The stream `DataInput.<n>.sds` is read back and the algorithm processes this data. The stream `DataOutput.<m>.sds` is written whereby `<m>` is the next available file index.
@@ -163,7 +167,7 @@ For **playback** test, follow the steps below:
 1. Connect USB cable between Host and development board
 2. Start the [SDSIO-Server](https://arm-software.github.io/SDS-Framework/main/utilities.html#sdsio-server):
    ```bash
-   python sdsio-server.py usb
+   sdsio-server usb
    ```
 3. Open `SDS.csolution.yml` in Visual Studio Code:
    - Select **Target Type**: `STM32U585AIIx`
@@ -224,5 +228,79 @@ SDS playback and recording started
 SDS playback and recording stopped
 99% idle
   :
+Info: /OSCI/SystemC: Simulation stopped by user.
+```
+
+## AlgorithmTest Project on ST B-U585I-IOT02A board
+
+The AlgorithmTest project includes a EdgeImpulse Motion Recognition algorithm that you can verify using the SDS-Framework.  Build and run this project in VS Code using the following steps:
+
+1. Use **Manage Solution Settings** and select Active Target `B-U585-IOT02A board`, Active Project **AlgorithmTest** with Build Type **DebugRec**.
+2. **Build solution** creates the executable image.
+3. Use a Terminal window and start `sdsio-server usb`.
+4. **Load and Run** to download the application.
+5. Use the VS Code **Serial Monitor** to observe the output below.
+6. On the B-U585-IOT02A board click on the User button to start/stop SDS recording
+
+**Terminal shows sdsio-server output**
+
+ToDo
+
+**Serial Monitor shows application output**
+
+ToDo
+
+## AlgorithmTest Playback on AVH-FVP Simulation
+
+To playback the recorded SDS data files use in VS Code the following steps:
+
+1. Use **Manage Solution Settings** and select Active Target `AVH-SSE-300`, Active Project **AlgorithmTest** with Build Type **DebugPlay**.
+2. **Build solution** creates the executable image.
+3. **Load and Run** to runs the application on the simulator and uses the SDS datafiles previous captured.
+
+**Terminal shows FVP simulation output**
+
+```txt
+Executing task: FVP_Corstone_SSE-300 -f Board/Corstone-300/fvp_config.txt -a out\AlgorithmTest\AVH-SSE-300\DebugPlay\AlgorithmTest.axf  
+
+100% idle
+100% idle
+SDS playback and recording started
+Predictions (DSP: 3.000000 ms., Classification: 0 ms., Anomaly: 0ms.): 
+#Classification results:
+    idle: 0.527344
+    snake: 0.472656
+    updown: 0.000000
+    wave: 0.000000
+Anomaly prediction: -0.008272
+Predictions (DSP: 3.000000 ms., Classification: 0 ms., Anomaly: 0ms.): 
+#Classification results:
+    idle: 0.007812
+    snake: 0.992188
+    updown: 0.000000
+    wave: 0.000000
+Anomaly prediction: -0.185833
+Predictions (DSP: 3.000000 ms., Classification: 0 ms., Anomaly: 0ms.): 
+#Classification results:
+    idle: 0.027344
+    snake: 0.964844
+    updown: 0.003906
+    wave: 0.000000
+Anomaly prediction: -0.294227
+SDS playback and recording stopped
+93% idle
+100% idle
+100% idle
+100% idle
+100% idle
+100% idle
+100% idle
+100% idle
+99% idle
+100% idle
+100% idle
+100% idle
+100% idle
+
 Info: /OSCI/SystemC: Simulation stopped by user.
 ```

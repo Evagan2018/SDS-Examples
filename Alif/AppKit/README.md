@@ -37,12 +37,12 @@ The `SDS.csolution.yml` application is configured for the targets [Alif AppKit-E
 - **`DataTest.cproject.yml`**: Verifies the SDSIO interface on hardware.
 - **`AlgorithmTest.cproject.yml`**: Verifies a user algorithm with recording and playback of SDS data files.
 
-## Layer Type: Board
+## Layer Type: Board and Layer Type: SDSIO
 
 The board layer implements the Hardware Abstraction Layer (HAL) layer. Depending on the active target that is selected, a different board layers with I/O interfaces is used:
 
-- `Board/AppKit-E7_M55_HP/Board_HP.clayer.yml`` uses the **USB Interface** for SDS file I/O on the Alif AppKit and is configured for the High-Performance (HP) core of the device.
-- `Board/Corstone-300/Board-U55.clayer.yml' uses the **VSI Interface** for SDS file I/O on AVH.
+- `Board/AppKit-E7_M55_HP/Board.clayer.yml` and `sdsio_usb.clayer.yml` use the **USB Interface** for SDS file I/O on the development board.
+- `Board/Corstone-300/Board.clayer.yml` and `sdsio_fvp.clayer.yml` use the **VSI Interface** for SDS file I/O on AVH FVP simulation.
 
 ## Build Types
 
