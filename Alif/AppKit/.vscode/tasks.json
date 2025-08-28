@@ -107,17 +107,6 @@
             "problemMatcher": []
         },
         {
-            "label": "AVH-FVP",
-            "type": "shell",
-            "command": "FVP_Corstone_SSE-300_Ethos-U55",
-            "args": [
-                "-f",
-                "Board/Corstone-300/fvp_config.txt",
-                "${command:cmsis-csolution.getBinaryFile}"
-            ],
-            "problemMatcher": []
-        },
-        {
             "label": "CMSIS Load+Run",
             "type": "shell",
             "command": "FVP_Corstone_SSE-300_Ethos-U55",

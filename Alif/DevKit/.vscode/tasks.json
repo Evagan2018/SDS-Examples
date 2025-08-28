@@ -107,169 +107,50 @@
             "problemMatcher": []
         },
         {
-            "label": "AVH-FVP",
+            "label": "CMSIS Load+Run",
             "type": "shell",
             "command": "FVP_Corstone_SSE-300_Ethos-U55",
+            "options": {
+                "cwd": "${workspaceFolder}/"
+            },
+            "windows": {
+                "options": {
+                    "shell": {
+                        "executable": "cmd.exe",
+                        "args": [
+                            "/d",
+                            "/c"
+                        ]
+                    }
+                }
+            },
+            "linux": {
+                "options": {
+                    "shell": {
+                        "executable": "/bin/bash",
+                        "args": [
+                            "-c"
+                        ]
+                    }
+                }
+            },
+            "osx": {
+                "options": {
+                    "shell": {
+                        "executable": "/bin/bash",
+                        "args": [
+                            "-c"
+                        ]
+                    }
+                }
+            },
             "args": [
                 "-f",
                 "Board/Corstone-300/fvp_config.txt",
-                "${command:cmsis-csolution.getBinaryFile}"
+                "-a",
+                "out\\DataTest\\AVH-SSE-300\\DebugRec\\DataTest.axf",
+                ""
             ],
-            "problemMatcher": []
-        },
-        {
-            "label": "CMSIS Erase",
-            "type": "shell",
-            "command": [
-                "echo Connect > .cmd.jlink &&",
-                "echo Erase >> .cmd.jlink &&",
-                "echo Exit >> .cmd.jlink &&",
-                "JLink.exe -device AE722F80F55D5LS_M55_HP -if SWD -speed 4000 -commandfile .cmd.jlink"
-            ],
-            "options": {
-                "cwd": "${workspaceFolder}/"
-            },
-            "windows": {
-                "options": {
-                    "shell": {
-                        "executable": "cmd.exe",
-                        "args": [
-                            "/d",
-                            "/c"
-                        ]
-                    }
-                }
-            },
-            "linux": {
-                "options": {
-                    "shell": {
-                        "executable": "/bin/bash",
-                        "args": [
-                            "-c"
-                        ]
-                    }
-                }
-            },
-            "osx": {
-                "options": {
-                    "shell": {
-                        "executable": "/bin/bash",
-                        "args": [
-                            "-c"
-                        ]
-                    }
-                }
-            },
-            "problemMatcher": []
-        },
-        {
-            "label": "CMSIS Load",
-            "type": "shell",
-            "command": [
-                "echo Connect > .cmd.jlink &&",
-                "echo LoadFile \"out\\DataTest\\AE722F80F55D5LS\\DebugRec\\DataTest.hex\" >> .cmd.jlink &&",
-                "echo Exit >> .cmd.jlink &&",
-                "JLink.exe -device AE722F80F55D5LS_M55_HP -if SWD -speed 4000 -commandfile .cmd.jlink"
-            ],
-            "options": {
-                "cwd": "${workspaceFolder}/"
-            },
-            "windows": {
-                "options": {
-                    "shell": {
-                        "executable": "cmd.exe",
-                        "args": [
-                            "/d",
-                            "/c"
-                        ]
-                    }
-                }
-            },
-            "linux": {
-                "options": {
-                    "shell": {
-                        "executable": "/bin/bash",
-                        "args": [
-                            "-c"
-                        ]
-                    }
-                }
-            },
-            "osx": {
-                "options": {
-                    "shell": {
-                        "executable": "/bin/bash",
-                        "args": [
-                            "-c"
-                        ]
-                    }
-                }
-            },
-            "problemMatcher": []
-        },
-        {
-            "label": "CMSIS Run",
-            "type": "shell",
-            "command": "JLinkGDBServerCL.exe",
-            "options": {
-                "cwd": "${workspaceFolder}/"
-            },
-            "windows": {
-                "options": {
-                    "shell": {
-                        "executable": "cmd.exe",
-                        "args": [
-                            "/d",
-                            "/c"
-                        ]
-                    }
-                }
-            },
-            "linux": {
-                "options": {
-                    "shell": {
-                        "executable": "/bin/bash",
-                        "args": [
-                            "-c"
-                        ]
-                    }
-                }
-            },
-            "osx": {
-                "options": {
-                    "shell": {
-                        "executable": "/bin/bash",
-                        "args": [
-                            "-c"
-                        ]
-                    }
-                }
-            },
-            "args": [
-                "-device",
-                "AE722F80F55D5LS_M55_HP",
-                "-endian",
-                "little",
-                "-if",
-                "SWD",
-                "-speed",
-                "4000",
-                "-nohalt",
-                "-noir",
-                "-nogui",
-                "-localhostonly",
-                "-port",
-                "3333"
-            ],
-            "problemMatcher": []
-        },
-        {
-            "label": "CMSIS Load+Run",
-            "dependsOn": [
-                "CMSIS Load",
-                "CMSIS Run"
-            ],
-            "dependsOrder": "sequence",
             "problemMatcher": []
         }
     ]
