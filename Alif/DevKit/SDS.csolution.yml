@@ -37,8 +37,10 @@ solution:
       target-set:
         - set:
           debugger:
-            name: JLink Server
-            start-pname: M55_HP
+            name: ULINKplus@pyOCD
+            port: 3333
+            protocol: swd
+            clock: 5000000
           images:
             - project-context: DataTest.DebugRec
 
@@ -55,10 +57,10 @@ solution:
           images:
             - project-context: DataTest.DebugRec
           debugger:
-            name: AVH-FVP
-            model: FVP_Corstone_SSE-300_Ethos-U55
-            config: Board/Corstone-300/fvp_config.txt
-            args: []
+            name: ULINKplus@pyOCD
+            port: 3333
+            protocol: swd
+            clock: 10000000
 
   # List of different build configurations.
   build-types:
