@@ -1,0 +1,8 @@
+290c7558c6f34a6852252ae89527a423f7b08e64 *./EdgeImpulse.Tutorial_Continuous_motion_recog.pdsc
+422534290fb7553668becf55c3bc6d6a3b780e9d *./edgeimpulse/model-parameters/model_metadata.h
+1bc5332011458cce5e7b04c86ce799ef0ab7c2bd *./edgeimpulse/model-parameters/model_variables.h
+fce19e3f0d7723f79f325b3b391b961eb263ef26 *./edgeimpulse/model-parameters/anomaly_metadata.h
+29729877123a3fc5ef2a757eb9a71d1a72c24bd4 *./edgeimpulse/tflite-model/tflite_learn_773121_35_compiled.h
+5cd7eecbc5e1dc1070a4e62322ede45fd46051ce *./edgeimpulse/tflite-model/tflite_learn_773121_35_compiled.cpp
+9189ae5caa55fb8c2001dfebb79a084c09541a57 *./edgeimpulse/tflite-model/trained_model_ops_define.h
+9d4dab3e540ebcd04f5da8a89c8834646a1af5d3 *./LICENSE.3-clause-bsd-clear
