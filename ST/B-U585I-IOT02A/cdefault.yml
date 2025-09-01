@@ -26,6 +26,7 @@ default:
         - -fomit-frame-pointer
         - -ffunction-sections
         - -fdata-sections
+        - -flax-vector-conversions
       C:
         - -std=gnu11
       Link:
