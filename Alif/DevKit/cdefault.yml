@@ -7,12 +7,10 @@ default:
         - -Wno-pragma-pack
         - -Wno-parentheses-equality
         - -Wno-license-management
-        - -gdwarf-5
       C:
         - -std=gnu11
       ASM:
         - -masm=auto
-        - -gdwarf-5
       Link:
         - --entry=Reset_Handler
         - --info summarysizes
@@ -20,14 +18,11 @@ default:
         - --diag_suppress=L6314W
 
     - for-compiler: GCC
-      ASM:
-        - -gdwarf-4
       C-CPP:
         - -masm-syntax-unified
         - -fomit-frame-pointer
         - -ffunction-sections
         - -fdata-sections
-        - -gdwarf-4
       C:
         - -std=gnu11
       Link:
@@ -38,13 +33,10 @@ default:
         - -Wl,--no-warn-rwx-segments   # suppress incorrect linker warning
 
     - for-compiler: CLANG
-      ASM:
-        - -gdwarf-4
       C-CPP:
         - -fomit-frame-pointer
         - -ffunction-sections
         - -fdata-sections
-        - -gdwarf-4
       C:
         - -std=gnu11
       Link:
