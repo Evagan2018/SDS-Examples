@@ -233,7 +233,7 @@ Info: /OSCI/SystemC: Simulation stopped by user.
 
 ## AlgorithmTest Project on ST B-U585I-IOT02A board
 
-The AlgorithmTest project includes a EdgeImpulse Motion Recognition algorithm that you can verify using the SDS-Framework.  Build and run this project in VS Code using the following steps:
+The AlgorithmTest project includes a EdgeImpulse Motion Recognition ML model that you can verify using the SDS-Framework.  Build and run this project in VS Code using the following steps:
 
 1. Use **Manage Solution Settings** and select Active Target `B-U585-IOT02A board`, Active Project **AlgorithmTest** with Build Type **DebugRec**.
 2. **Build solution** creates the executable image.

@@ -134,7 +134,7 @@
       <language name="C++" version="11"/>
     </languages>
 	<packages>
-      <package name="CMSIS" vendor="ARM" version="5.9.0:6.1.0"/>
+      <package name="CMSIS" vendor="ARM" version="5.9.0"/>
       <package name="CMSIS-DSP" vendor="ARM" version="1.11.0:1.15.0"/>
       <package name="CMSIS-NN" vendor="ARM" version="4.0.0:4.1.0"/>
     </packages>
