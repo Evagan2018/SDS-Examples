@@ -244,11 +244,11 @@ The AlgorithmTest project includes a EdgeImpulse Motion Recognition algorithm th
 
 **Terminal shows sdsio-server output**
 
-ToDo
+<img width="715" height="280" alt="sdsio-serverOutput" src="https://github.com/user-attachments/assets/a6091447-433a-4d9c-8ff6-fb42afdae64a" />
 
 **Serial Monitor shows application output**
 
-ToDo
+<img width="818" height="403" alt="SerialMonitor" src="https://github.com/user-attachments/assets/d4498a96-38b1-4f90-966d-164d46027c04" />
 
 ## AlgorithmTest Playback on AVH-FVP Simulation
 
