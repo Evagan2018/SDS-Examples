@@ -22,6 +22,7 @@
 #include "sds_rec_play.h"
 #include "sds_algorithm_config.h"
 #include "sds_data_in.h"
+#include "stdio.h"
 
 
 // Recorded data timestamp
@@ -74,6 +75,7 @@ int32_t GetInputData (uint8_t *buf, uint32_t max_len) {
   if (retv > 0) {
     SDS_ASSERT(retv == max_len);
   } else {
+//  printf ("SDS playback read error!\n");
     sdsStreamingState = SDS_STREAMING_STOP;
     retv = -1;
   }
