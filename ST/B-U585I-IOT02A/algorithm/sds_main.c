@@ -82,27 +82,33 @@ int32_t OpenStreams (void) {
   }
 #endif
 
-  // Open stream for recording of output data
-  recIdDataOutput = sdsRecOpen("DataOutput", sds_rec_buf_data_out, sizeof(sds_rec_buf_data_out));
-  SDS_ASSERT(recIdDataOutput != NULL);
-  if (recIdDataOutput == NULL) {
-    printf("Failed to open SDS stream for recording of output data!\n");
-    status = -1;
+  if (status == 0) {
+    // Open stream for recording of output data
+    recIdDataOutput = sdsRecOpen("DataOutput", sds_rec_buf_data_out, sizeof(sds_rec_buf_data_out));
+    SDS_ASSERT(recIdDataOutput != NULL);
+    if (recIdDataOutput == NULL) {
+      printf("ERROR: Failed to open SDS stream for recording of output data!\n");
+      status = -1;
+    }
   }
 
 #ifdef SDS_PLAY
   if (status == 0) {
     printf("SDS playback and recording (#%d) started\n", sequence_num);
   } else {
-    printf("ERROR: SDS playback and recording start failed!\n");
-    printf("For Network and USB SDSIO Interfaces ensure that SDSIO Server is running and restart the application!\n");
+    if (sequence_num == 0) {
+      printf("ERROR: SDS playback and recording start failed!\n");
+      printf("For Network and USB SDSIO Interfaces ensure that SDSIO Server is running and restart the application!\n");
+    } 
   }
 #else
   if (status == 0) {
     printf("SDS recording (#%d) started\n", sequence_num);
   } else {
-    printf("ERROR: SDS recording start failed!\n");
-    printf("For Network and USB SDSIO Interfaces ensure that SDSIO Server is running and restart the application!\n");
+    if (sequence_num == 0) {
+      printf("ERROR: SDS recording start failed!\n");
+      printf("For Network and USB SDSIO Interfaces ensure that SDSIO Server is running and restart the application!\n");
+    }
   }
 #endif
 
