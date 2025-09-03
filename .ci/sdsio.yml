@@ -1,0 +1,5 @@
+dir: ./algorithm/SDS Recordings
+idx-start: 5
+idx-end: 9
+#idx-list: [1, 3, 9]             # list of index to check (when applied, idx-start/end is ignored)
+#mode: overwrite           # overwrite output files, default next (for next free index).

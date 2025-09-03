@@ -58,16 +58,22 @@ static uint32_t simGetSignal (uint32_t mask) {
   static uint32_t key_cnt = 0U;
          uint32_t ret     = 0U;
 
+  switch (sdsStreamingState) {
+    case SDS_STREAMING_STOP:
+      ret = mask;                       // Simulate keypress
+      break;
+
+    case SDS_STREAMING_END:
+      putchar(0x04);                    // Send signal to simulator to shutdown
+      break;
+  }
+
   switch (key_cnt) {
-    case 20U:                           // At 2 seconds
+    case 10U:                           // At 1 second
       ret = mask;                       // Simulate keypress
       break;
-#ifndef SDS_PLAY
-    case 120U:                          // At 12 seconds
-      ret = mask;                       // Simulate keypress
-      break;
-#endif
-    case 150U:                          // At 15 seconds
+      
+    case 1000U:                         // At 1000 seconds
       putchar(0x04);                    // Send signal to simulator to shutdown
       break;
   }

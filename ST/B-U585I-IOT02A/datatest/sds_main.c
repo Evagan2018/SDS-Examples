@@ -75,6 +75,7 @@ int32_t OpenStreams (void) {
   recIdDataInput = sdsRecOpen("DataInput", sds_rec_buf_data_in, sizeof(sds_rec_buf_data_in));
   SDS_ASSERT(recIdDataInput != NULL);
   if (recIdDataInput == NULL) {
+    sdsStreamingState = SDS_STREAMING_END;      // end simulation
     printf("Failed to open SDS stream for recording of input data!\n");
     status = -1;
   }
