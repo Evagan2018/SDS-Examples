@@ -9,7 +9,7 @@ solution:
     - compiler: GCC
     - compiler: IAR
 
-  compiler: AC6
+  compiler: AC6 # select compiler for solution
 
   # This is a CMSIS-Toolbox Reference Application that requires a compatible board layer
   # Refer to https://open-cmsis-pack.github.io/cmsis-toolbox/ReferenceApplications/ for more information

@@ -57,10 +57,10 @@ solution:
           images:
             - project-context: DataTest.DebugRec
           debugger:
-            name: ULINKplus@pyOCD
-            port: 3333
-            protocol: swd
-            clock: 10000000
+            name: AVH-FVP
+            model: FVP_Corstone_SSE-300_Ethos-U55
+            config: Board/Corstone-300/fvp_config.txt
+            args: []
 
   # List of different build configurations.
   build-types:
