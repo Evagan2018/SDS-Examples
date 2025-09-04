@@ -59,6 +59,7 @@ static uint32_t key_cnt = 0U;
 static uint32_t simGetSignal (uint32_t mask) {
          uint32_t ret     = 0U;
 
+#if SDS_PLAY
   switch (key_cnt) {
     case 20U:                           // At 1 second
       ret = mask;                       // Simulate keypress
@@ -68,7 +69,21 @@ static uint32_t simGetSignal (uint32_t mask) {
       putchar(0x04);                    // Send signal to simulator to shutdown
       break;
   }
+#else
+switch (key_cnt) {
+    case 10U:                           // At 1 second
+      ret = mask;                       // Simulate keypress
+      break;
 
+    case 110U:                          // At 11 seconds
+      ret = mask;                       // Simulate keypress
+      break;
+
+    case 120U:                          // At 12 seconds
+      putchar(0x04);                    // Send signal to simulator to shutdown
+      break;
+  }
+#endif
   key_cnt++;
 
   return ret;

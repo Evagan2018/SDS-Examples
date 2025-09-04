@@ -25,7 +25,7 @@ The `SDS.csolution.yml` application is configured for the targets [ST B-U585I-IO
 
 ## Layer Type: Board and Layer Type: SDSIO
 
-The board layer implements the Hardware Abstraction Layer (HAL) layer. Depending on the active target that is selected, a different board layers with I/O interfaces is used:
+The board layer implements the Hardware Abstraction Layer (HAL) layer. Depending on the active target that is selected, a different board layer with I/O interfaces is used:
 
 - `Board/B-U585I-IOT02A/Board.clayer.yml` and `sdsio_usb.clayer.yml` use the **USB Interface** for SDS file I/O on the development board.
 - `Board/Corstone-300/Board.clayer.yml` and `sdsio_fvp.clayer.yml` use the **VSI Interface** for SDS file I/O on AVH FVP simulation.
@@ -233,7 +233,7 @@ Info: /OSCI/SystemC: Simulation stopped by user.
 
 ## AlgorithmTest Project on ST B-U585I-IOT02A board
 
-The AlgorithmTest project includes a EdgeImpulse Motion Recognition ML model that you can verify using the SDS-Framework.  Build and run this project in VS Code using the following steps:
+The AlgorithmTest project includes an EdgeImpulse Motion Recognition ML model that you can verify using the SDS-Framework.  Build and run this project in VS Code using the following steps:
 
 1. Use **Manage Solution Settings** and select Active Target `B-U585-IOT02A board`, Active Project **AlgorithmTest** with Build Type **DebugRec**.
 2. **Build solution** creates the executable image.
@@ -244,12 +244,79 @@ The AlgorithmTest project includes a EdgeImpulse Motion Recognition ML model tha
 
 **Terminal shows sdsio-server output**
 
-<img width="715" height="280" alt="sdsio-serverOutput" src="https://github.com/user-attachments/assets/a6091447-433a-4d9c-8ff6-fb42afdae64a" />
+```bash
+PS C:\SDS-Ex\SDS-Examples> sdsio-server usb
+Press Ctrl+C to exit.
+Starting USB Server...
+USB Server running.
+Stream opened: DataInput (DataInput.0.sds).
+Stream opened: DataOutput (DataOutput.0.sds).
+......
+Stream closed: DataInput (DataInput.0.sds).
+Stream closed: DataOutput (DataOutput.0.sds).
+```
+
 
 **Serial Monitor shows application output**
 
-<img width="818" height="403" alt="SerialMonitor" src="https://github.com/user-attachments/assets/d4498a96-38b1-4f90-966d-164d46027c04" />
-
+```bash
+---- Opened the serial port COM5 ----
+Predictions (DSP: 19.000000 ms., Classification: 0 ms., Anomaly: 1.000000ms.): 
+#Classification results:
+    idle: 0.996094
+    snake: 0.000000
+    updown: 0.000000
+    wave: 0.000000
+Anomaly prediction: -0.356135
+92% idle
+96% idle
+Predictions (DSP: 18.000000 ms., Classification: 1.000000 ms., Anomaly: 0ms.): 
+#Classification results:
+    idle: 0.996094
+    snake: 0.000000
+    updown: 0.000000
+    wave: 0.000000
+Anomaly prediction: -0.352785
+93% idle
+96% idle
+96% idle
+Predictions (DSP: 18.000000 ms., Classification: 1.000000 ms., Anomaly: 0ms.): 
+#Classification results:
+    idle: 0.003906
+    snake: 0.996094
+    updown: 0.000000
+    wave: 0.000000
+Anomaly prediction: -0.268574
+92% idle
+96% idle
+Predictions (DSP: 18.000000 ms., Classification: 1.000000 ms., Anomaly: 0ms.): 
+#Classification results:
+    idle: 0.000000
+    snake: 0.992188
+    updown: 0.007812
+    wave: 0.000000
+Anomaly prediction: 0.010583
+92% idle
+96% idle
+Predictions (DSP: 18.000000 ms., Classification: 1.000000 ms., Anomaly: 0ms.): 
+#Classification results:
+    idle: 0.000000
+    snake: 0.894531
+    updown: 0.101562
+    wave: 0.000000
+Anomaly prediction: -0.018911
+92% idle
+96% idle
+Predictions (DSP: 18.000000 ms., Classification: 1.000000 ms., Anomaly: 1.000000ms.): 
+#Classification results:
+    idle: 0.187500
+    snake: 0.812500
+    updown: 0.000000
+    wave: 0.000000
+Anomaly prediction: 0.209035
+92% idle
+96% idle
+```
 ## AlgorithmTest Playback on AVH-FVP Simulation
 
 To playback the recorded SDS data files use in VS Code the following steps:
