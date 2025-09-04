@@ -14,7 +14,7 @@
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
 
-name: Algorithm Test ST B-U585-IOT2A
+name: Algorithm Test ST B-U585I-IOT02A
 on:
 
   workflow_dispatch:
@@ -24,7 +24,6 @@ on:
   #  branches: [main]
   #schedule:
   #  - cron: '00 20 * * 6'
-
 
 jobs:
   CI:
@@ -37,24 +36,35 @@ jobs:
     - name: Activate vcpkg
       uses: ARM-software/cmsis-actions/vcpkg@v1
       with:
-        config: ".ci/vcpkg-configuration.json"
+        config: ".ci/vcpkg-configuration-AC6.json"
 
     - name: Activate Arm tool license
       uses: ARM-software/cmsis-actions/armlm@v1
 
+    - name: Install python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.9'
+
+    - name: Install PyYAML in .python_deps
+      run: |
+        mkdir -p .python_deps
+        python -m pip install --target .python_deps pyyaml
     - name: Cache downloaded packs
       uses: actions/cache@v4
       with:
-        key: Alif
+        key: SDS
         path: /home/runner/.cache/arm/packs/.Download
 
-    - name: Build AlgorithmTest for ST B-U585-IOT2A
-      working-directory: ./ST/B-U585-IOT02A
+    - name: Build AlgorithmTest for ST B-U585I-IOT2A
+      working-directory: ./ST/B-U585I-IOT02A
       run: |
-        cbuild sds.csolution.yml --context AlgorithmTest.DebugPlay+AVH-SSE-300 --packs
+        cbuild SDS.csolution.yml --context AlgorithmTest.DebugPlay+AVH-SSE-300 --packs
 
     - name: Execute Test cases
-      working-directory: ./ST/B-U585-IOT02A
+      working-directory: ./ST/B-U585I-IOT02A
+      env: 
+        PYTHONPATH: ${{ github.workspace }}/.python_deps
       run: |
-        cp ../../.ci/sdsio.yml                # configure test case execution
-        FVP_Corstone_SSE-300 -f Board/Corstone-300/fvp_config.txt -a out\DataTest\AVH-SSE-300\DebugRec\DataTest.axf  
+        cp ../../.ci/sdsio.yml .               # configure test case execution
+        FVP_Corstone_SSE-300 -f Board/Corstone-300/fvp_config.txt -a out/AlgorithmTest/AVH-SSE-300/DebugPlay/AlgorithmTest.axf
