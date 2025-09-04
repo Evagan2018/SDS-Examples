@@ -14,7 +14,7 @@
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
 
-name: Algorithm Test ST B-U585I-IOT2A
+name: Algorithm Test ST B-U585I-IOT02A
 on:
 
   workflow_dispatch:
@@ -41,6 +41,14 @@ jobs:
 
     - name: Activate Arm tool license
       uses: ARM-software/cmsis-actions/armlm@v1
+
+    - name: Install python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.9'
+
+    - name: Install PyYAML
+      run: pip install pyyaml
 
     - name: Cache downloaded packs
       uses: actions/cache@v4
