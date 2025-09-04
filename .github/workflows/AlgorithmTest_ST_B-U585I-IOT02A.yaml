@@ -25,7 +25,6 @@ on:
   #schedule:
   #  - cron: '00 20 * * 6'
 
-
 jobs:
   CI:
     runs-on: ubuntu-latest
@@ -47,9 +46,10 @@ jobs:
       with:
         python-version: '3.9'
 
-    - name: Install PyYAML
-      run: pip install pyyaml
-
+    - name: Install PyYAML in .python_deps
+      run: |
+        mkdir -p .python_deps
+        python -m pip install --target .python_deps pyyaml
     - name: Cache downloaded packs
       uses: actions/cache@v4
       with:
@@ -61,8 +61,10 @@ jobs:
       run: |
         cbuild SDS.csolution.yml --context AlgorithmTest.DebugPlay+AVH-SSE-300 --packs
 
-#    - name: Execute Test cases
-#      working-directory: ./ST/B-U585I-IOT02A
-#      run: |
-#        cp ../../.ci/sdsio.yml .               # configure test case execution
-#        FVP_Corstone_SSE-300 -f Board/Corstone-300/fvp_config.txt -a out/AlgorithmTest/AVH-SSE-300/DebugPlay/AlgorithmTest.axf  
+    - name: Execute Test cases
+      working-directory: ./ST/B-U585I-IOT02A
+      env: 
+        PYTHONPATH: ${{ github.workspace }}/.python_deps
+      run: |
+        cp ../../.ci/sdsio.yml .               # configure test case execution
+        FVP_Corstone_SSE-300 -f Board/Corstone-300/fvp_config.txt -a out/AlgorithmTest/AVH-SSE-300/DebugPlay/AlgorithmTest.axf
