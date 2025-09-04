@@ -109,7 +109,9 @@ __NO_RETURN void sdsControlThread (void *argument) {
   // Initialize SDS recorder/player
   if (sdsRecPlayInit(rec_play_event_callback) != SDS_REC_PLAY_OK) {
     printf("SDS initialization failed!\n");
-    printf("For Network and USB SDSIO Interfaces ensure that SDSIO Server is running and restart the application!\n");
+#ifndef SIMULATOR
+    printf("Ensure that SDSIO Server is running and restart the application!\n");
+#endif
   }
 
   // Create algorithm thread

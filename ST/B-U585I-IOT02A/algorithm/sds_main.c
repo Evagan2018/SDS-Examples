@@ -98,8 +98,10 @@ int32_t OpenStreams (void) {
   } else {
     if (sequence_num == 0) {
       printf("ERROR: SDS playback and recording start failed!\n");
-      printf("For Network and USB SDSIO Interfaces ensure that SDSIO Server is running and restart the application!\n");
-    } 
+#ifndef SIMULATOR
+      printf("Ensure that SDSIO Server is running and restart the application!\n");
+#endif
+    }
   }
 #else
   if (status == 0) {
@@ -107,7 +109,9 @@ int32_t OpenStreams (void) {
   } else {
     if (sequence_num == 0) {
       printf("ERROR: SDS recording start failed!\n");
-      printf("For Network and USB SDSIO Interfaces ensure that SDSIO Server is running and restart the application!\n");
+#ifndef SIMULATOR
+      printf("Ensure that SDSIO Server is running and restart the application!\n");
+#endif
     }
   }
 #endif
