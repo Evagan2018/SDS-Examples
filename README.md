@@ -1,3 +1,5 @@
+[![Algorithm Test ST/B-U585I-IOT02A](https://img.shields.io/github/actions/workflow/status/Arm-Examples/SDS-Examples/AlgorithmTest_ST_B-U585I-IOT02A.yaml?logo=arm&logoColor=0091bd&label=Algorithm%20Test%20ST/B-U585I-IOT02A)](https://img.shields.io/github/actions/workflow/status/Arm-Examples/SDS-Examples/AlgorithmTest_ST_B-U585I-IOT02A.yaml)
+
 # SDS-Examples
 
 This repository contains examples that show the usage of the [Synchronous Data Streaming (SDS) Framework](https://github.com/ARM-software/SDS-Framework).
