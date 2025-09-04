@@ -75,7 +75,7 @@ jobs:
     - name: Cache downloaded packs
       uses: actions/cache@v4
       with:
-        key: Alif
+        key: SDS
         path: /home/runner/.cache/arm/packs/.Download
 
     - name: ${{matrix.context.tool}} Build-Test for context ${{matrix.context.proj}}.${{matrix.context.build_type}}+${{matrix.context.target_type}}

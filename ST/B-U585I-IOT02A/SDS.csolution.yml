@@ -56,7 +56,7 @@ solution:
       target-set:
         - set:
           images:
-            - project-context: AlgorithmTest.DebugPlay
+            - project-context: DataTest.DebugPlay
           debugger:
             name: AVH-FVP
             model: FVP_Corstone_SSE-300
