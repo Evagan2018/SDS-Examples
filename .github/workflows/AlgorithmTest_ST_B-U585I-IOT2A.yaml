@@ -51,12 +51,10 @@ jobs:
     - name: Build AlgorithmTest for ST B-U585I-IOT2A
       working-directory: ./ST/B-U585I-IOT02A
       run: |
-        ls
         cbuild SDS.csolution.yml --context AlgorithmTest.DebugPlay+AVH-SSE-300 --packs
 
     - name: Execute Test cases
       working-directory: ./ST/B-U585I-IOT02A
       run: |
-        ls
-        cp ../../.ci/sdsio.yml                # configure test case execution
+        cp ../../.ci/sdsio.yml .               # configure test case execution
         FVP_Corstone_SSE-300 -f Board/Corstone-300/fvp_config.txt -a out/DataTest/AVH-SSE-300/DebugRec/DataTest.axf  
