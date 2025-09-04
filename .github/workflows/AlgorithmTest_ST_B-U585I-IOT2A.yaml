@@ -14,7 +14,7 @@
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
 
-name: Algorithm Test ST B-U585-IOT2A
+name: Algorithm Test ST B-U585I-IOT2A
 on:
 
   workflow_dispatch:
@@ -45,16 +45,16 @@ jobs:
     - name: Cache downloaded packs
       uses: actions/cache@v4
       with:
-        key: Alif
+        key: SDS
         path: /home/runner/.cache/arm/packs/.Download
 
-    - name: Build AlgorithmTest for ST B-U585-IOT2A
-      working-directory: ./ST/B-U585-IOT02A
+    - name: Build AlgorithmTest for ST B-U585I-IOT2A
+      working-directory: ./ST/B-U585I-IOT02A
       run: |
         cbuild sds.csolution.yml --context AlgorithmTest.DebugPlay+AVH-SSE-300 --packs
 
     - name: Execute Test cases
-      working-directory: ./ST/B-U585-IOT02A
+      working-directory: ./ST/B-U585I-IOT02A
       run: |
         cp ../../.ci/sdsio.yml                # configure test case execution
-        FVP_Corstone_SSE-300 -f Board/Corstone-300/fvp_config.txt -a out\DataTest\AVH-SSE-300\DebugRec\DataTest.axf  
+        FVP_Corstone_SSE-300 -f Board/Corstone-300/fvp_config.txt -a out/DataTest/AVH-SSE-300/DebugRec/DataTest.axf  
