@@ -18,11 +18,15 @@
 
 #include <stdio.h>
 #include <stdbool.h>
+#include <string.h>
 #include "cmsis_os2.h"
 #include "cmsis_vio.h"
 #include "sds_main.h"
 #include "sds_control.h"
 #include "sds_rec_play.h"
+#ifndef SIMULATOR
+#include "sdsio_config_socket.h"
+#endif
 
 
 // AlgorithmThread thread attributes
@@ -97,7 +101,14 @@ __NO_RETURN void sdsControlThread (void *argument) {
   // Initialize SDS recorder/player
   if (sdsRecPlayInit(rec_play_event_callback) != SDS_REC_PLAY_OK) {
     printf("SDS initialization failed!\n");
-    printf("For Network and USB SDSIO Interfaces ensure that SDSIO Server is running and restart the application!\n");
+#ifndef SIMULATOR
+    if (strcmp(SDSIO_SOCKET_SERVER_IP, "0.0.0.0") == 0) {
+      printf("SDSIO socket server IP address not configured!\n");
+    }
+    else {
+      printf("Ensure that SDSIO Server is running and restart the application!\n");
+    }
+#endif
   }
 
   // Create algorithm thread
