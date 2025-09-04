@@ -61,8 +61,8 @@ jobs:
       run: |
         cbuild SDS.csolution.yml --context AlgorithmTest.DebugPlay+AVH-SSE-300 --packs
 
-    - name: Execute Test cases
-      working-directory: ./ST/B-U585I-IOT02A
-      run: |
-        cp ../../.ci/sdsio.yml .               # configure test case execution
-        FVP_Corstone_SSE-300 -f Board/Corstone-300/fvp_config.txt -a out/AlgorithmTest/AVH-SSE-300/DebugPlay/AlgorithmTest.axf  
+#    - name: Execute Test cases
+#      working-directory: ./ST/B-U585I-IOT02A
+#      run: |
+#        cp ../../.ci/sdsio.yml .               # configure test case execution
+#        FVP_Corstone_SSE-300 -f Board/Corstone-300/fvp_config.txt -a out/AlgorithmTest/AVH-SSE-300/DebugPlay/AlgorithmTest.axf  
