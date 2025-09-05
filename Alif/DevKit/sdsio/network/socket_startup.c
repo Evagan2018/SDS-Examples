@@ -19,7 +19,6 @@
 #include <stdio.h>
 #include "cmsis_os2.h"
 #include "rl_net.h"
-#include "sdsio_config_socket.h"
 
 static uint8_t LinkUp;
 

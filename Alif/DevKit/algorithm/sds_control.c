@@ -103,11 +103,15 @@ __NO_RETURN void sdsControlThread (void *argument) {
     printf("SDS initialization failed!\n");
 #ifndef SIMULATOR
     if (strcmp(SDSIO_SOCKET_SERVER_IP, "0.0.0.0") == 0) {
-      printf("SDSIO socket server IP address not configured!\n");
+      printf("SDSIO_SOCKET_SERVER_IP address not configured (see sdsio_config_socket.h)\n");
     }
     else {
+      printf("'sdsio-server socket' on %s:%d not responding.\n", SDSIO_SOCKET_SERVER_IP, SDSIO_SOCKET_SERVER_PORT);
       printf("Ensure that SDSIO Server is running and restart the application!\n");
     }
+  }
+  else {
+    printf("Connected to %s:%d\n", SDSIO_SOCKET_SERVER_IP, SDSIO_SOCKET_SERVER_PORT);
 #endif
   }
 
