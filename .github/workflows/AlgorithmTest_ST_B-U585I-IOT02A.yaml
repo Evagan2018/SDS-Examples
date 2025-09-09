@@ -59,7 +59,11 @@ jobs:
 
     - name: Diagnosis
       run: |
+        pwd
+        shopt -s dotglob
+        ls -d */
         tree -L 4 -d
+        echo ${{ github.workspace }}
 
     - name: Build AlgorithmTest for ST B-U585I-IOT2A
       working-directory: ./ST/B-U585I-IOT02A
