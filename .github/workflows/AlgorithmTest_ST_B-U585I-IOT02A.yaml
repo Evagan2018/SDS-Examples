@@ -50,11 +50,16 @@ jobs:
       run: |
         mkdir -p .python_deps
         python -m pip install --target .python_deps pyyaml
+
     - name: Cache downloaded packs
       uses: actions/cache@v4
       with:
         key: SDS
         path: /home/runner/.cache/arm/packs/.Download
+
+    - name: Diagnosis
+      run: |
+        tree -L -4 -d
 
     - name: Build AlgorithmTest for ST B-U585I-IOT2A
       working-directory: ./ST/B-U585I-IOT02A
