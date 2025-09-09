@@ -59,7 +59,7 @@ jobs:
 
     - name: Diagnosis
       run: |
-        tree -L -4 -d
+        tree -L 4 -d
 
     - name: Build AlgorithmTest for ST B-U585I-IOT2A
       working-directory: ./ST/B-U585I-IOT02A
