@@ -147,7 +147,7 @@ class StreamManager:
             if p == os.pardir or p.startswith(os.pardir + os.sep):
                 return os.path.abspath(fname)
         except Exception:
-            # Different drives on Windows or other relpath issues → use absolute
+            # Different drives on Windows or other relpath issues -> use absolute
             return fname
 
         # p is relative here; add ./ or .\ for clarity if not already present
