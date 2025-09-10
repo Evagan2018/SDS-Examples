@@ -57,6 +57,32 @@ jobs:
         key: SDS
         path: /home/runner/.cache/arm/packs/.Download
 
+    - name: Rename DataOutput.N.sds -> DataOutput.N.ref.sds
+      working-directory: ./ST/B-U585I-IOT02A/algorithm/SDS Recordings
+      shell: bash
+      run: |
+        # Check if ref.sds files exist before the renaming.
+        ls DataOutput.*.ref.sds
+
+        # Show existing files.        
+        ls DataOutput.*.sds
+
+        for file in DataOutput.*.sds; do
+
+            # skip if no matching files
+            [ -e "$file" ] || continue
+    
+            # insert ".ref" before .sds
+            newname="${file%.sds}.ref.sds"
+    
+            echo "Renaming: $file -> $newname"
+            # use git mv so the rename is tracked; fall back to mv if file is untracked
+            git mv --force -- "$file" "$newname" 2>/dev/null || mv -- "$file" "$newname"
+        done
+
+        # Check if ref.sds files exist after the renaming.
+        ls DataOutput.*.ref.sds        ls -all
+
     - name: Diagnosis
       run: |
         pwd
