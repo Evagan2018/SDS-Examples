@@ -114,3 +114,13 @@ jobs:
       with:
         name: sds-diff-files
         path: ST/B-U585I-IOT02A/algorithm/diff_artifacts
+
+    - name: Fail if diffs found
+      working-directory: ./ST/B-U585I-IOT02A/algorithm
+      run: |
+        if [ -n "$(ls -A diff_artifacts)" ]; then
+          echo "❌ Differences found in SDS files!"
+          exit 1
+        else
+          echo "✅ No differences found."
+        fi
