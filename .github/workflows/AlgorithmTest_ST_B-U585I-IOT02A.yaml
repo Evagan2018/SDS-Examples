@@ -59,14 +59,7 @@ jobs:
 
     - name: Rename DataOutput.N.sds -> DataOutput.N.ref.sds
       working-directory: ./ST/B-U585I-IOT02A/algorithm/SDS Recordings
-      shell: bash
       run: |
-
-        # Show *.sds files before the renaming.
-        ls DataOutput.*.sds
-
-        # Show existing files.        
-        ls DataOutput.*.sds
 
         for file in DataOutput.*.sds; do
 
@@ -80,10 +73,6 @@ jobs:
             # use git mv so the rename is tracked; fall back to mv if file is untracked
             git mv --force -- "$file" "$newname" 2>/dev/null || mv -- "$file" "$newname"
         done
-
-        # Show *.sds files after the renaming.
-        ls DataOutput.*.sds
-
 
     - name: Diagnosis
       run: |
@@ -105,3 +94,9 @@ jobs:
       run: |
         cp ../../.ci/sdsio.yml .               # configure test case execution
         FVP_Corstone_SSE-300 -f Board/Corstone-300/fvp_config.txt -a out/AlgorithmTest/AVH-SSE-300/DebugPlay/AlgorithmTest.axf
+
+
+    - name: DIAGNOSIS: Show SDS files
+      working-directory: ./ST/B-U585I-IOT02A/algorithm/SDS Recordings
+      run: |
+        ls *.sds
