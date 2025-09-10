@@ -65,16 +65,16 @@ jobs:
 
             # skip if no matching files
             [ -e "$file" ] || continue
-    
+
             # insert ".ref" before .sds
             newname="${file%.sds}.ref.sds"
-    
+
             echo "Renaming: $file -> $newname"
             # use git mv so the rename is tracked; fall back to mv if file is untracked
             git mv --force -- "$file" "$newname" 2>/dev/null || mv -- "$file" "$newname"
         done
 
-    - name: Diagnosis
+    - name: DIAGNOSIS Show directories before build
       run: |
         pwd
         shopt -s dotglob
@@ -95,8 +95,25 @@ jobs:
         cp ../../.ci/sdsio.yml .               # configure test case execution
         FVP_Corstone_SSE-300 -f Board/Corstone-300/fvp_config.txt -a out/AlgorithmTest/AVH-SSE-300/DebugPlay/AlgorithmTest.axf
 
-
     - name: DIAGNOSIS Show SDS files
       working-directory: ./ST/B-U585I-IOT02A/algorithm/SDS Recordings
       run: |
         ls *.sds
+
+    - name: Compare SDS output files
+      working-directory: ./ST/B-U585I-IOT02A/algorithm/SDS Recordings
+      run: |
+
+        # Find all *.ref.sds files, sort them naturally (0,1,2,...10,11,...)
+        for file_ref in DataOutput.*.ref.sds; do
+            # Strip ".ref" to get the corresponding original file
+            file_orig="${file_ref/.ref/}"
+
+            echo "Comparing $file_ref with $file_orig ..."
+
+            if cmp -s "$file_ref" "$file_orig"; then
+                echo "  ✅ Files are identical"
+            else
+                echo "  ❌ Files differ"
+            fi
+        done
