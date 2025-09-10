@@ -74,14 +74,6 @@ jobs:
             git mv --force -- "$file" "$newname" 2>/dev/null || mv -- "$file" "$newname"
         done
 
-    - name: DIAGNOSIS Show directories before build
-      run: |
-        pwd
-        shopt -s dotglob
-        ls -d */
-        tree -L 4 -d
-        echo ${{ github.workspace }}
-
     - name: Build AlgorithmTest for ST B-U585I-IOT2A
       working-directory: ./ST/B-U585I-IOT02A
       run: |
@@ -95,16 +87,11 @@ jobs:
         cp ../../.ci/sdsio.yml .               # configure test case execution
         FVP_Corstone_SSE-300 -f Board/Corstone-300/fvp_config.txt -a out/AlgorithmTest/AVH-SSE-300/DebugPlay/AlgorithmTest.axf
 
-    - name: DIAGNOSIS Show SDS files
-      working-directory: ./ST/B-U585I-IOT02A/algorithm/SDS Recordings
-      run: |
-        ls *.sds
-
     - name: Compare SDS output files
       working-directory: ./ST/B-U585I-IOT02A/algorithm/SDS Recordings
       run: |
 
-        # Find all *.ref.sds files, sort them naturally (0,1,2,...10,11,...)
+        # Find all *.ref.sds files
         for file_ref in DataOutput.*.ref.sds; do
             # Strip ".ref" to get the corresponding original file
             file_orig="${file_ref/.ref/}"
