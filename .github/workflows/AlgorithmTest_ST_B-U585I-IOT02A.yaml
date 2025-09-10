@@ -63,14 +63,14 @@ jobs:
 
         for file in DataOutput.*.sds; do
 
-            # skip if no matching files
+            # Skip if no matching files
             [ -e "$file" ] || continue
 
-            # insert ".ref" before .sds
+            # Insert ".ref" before .sds
             newname="${file%.sds}.ref.sds"
 
             echo "Renaming: $file -> $newname"
-            # use git mv so the rename is tracked; fall back to mv if file is untracked
+            # Use git mv so the rename is tracked; fall back to mv if file is untracked
             git mv --force -- "$file" "$newname" 2>/dev/null || mv -- "$file" "$newname"
         done
 
@@ -91,6 +91,8 @@ jobs:
       working-directory: ./ST/B-U585I-IOT02A/algorithm/SDS Recordings
       run: |
 
+        mkdir -p ../diff_artifacts   # Create folder outside the recordings directory
+
         # Find all *.ref.sds files
         for file_ref in DataOutput.*.ref.sds; do
             # Strip ".ref" to get the corresponding original file
@@ -102,5 +104,13 @@ jobs:
                 echo "  ✅ Files are identical"
             else
                 echo "  ❌ Files differ"
+                # Copy both versions into the diff_artifacts folder
+                cp "$file_ref" "$file_orig" ../diff_artifacts/
             fi
         done
+
+    - name: Upload differing SDS files
+      uses: actions/upload-artifact@v4
+      with:
+        name: sds-diff-files
+        path: ST/B-U585I-IOT02A/algorithm/diff_artifacts
