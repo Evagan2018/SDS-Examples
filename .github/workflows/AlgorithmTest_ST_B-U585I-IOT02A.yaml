@@ -96,7 +96,7 @@ jobs:
         FVP_Corstone_SSE-300 -f Board/Corstone-300/fvp_config.txt -a out/AlgorithmTest/AVH-SSE-300/DebugPlay/AlgorithmTest.axf
 
 
-    - name: DIAGNOSIS: Show SDS files
+    - name: DIAGNOSIS Show SDS files
       working-directory: ./ST/B-U585I-IOT02A/algorithm/SDS Recordings
       run: |
         ls *.sds
