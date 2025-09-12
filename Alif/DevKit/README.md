@@ -1,4 +1,4 @@
-# SDS Application on Alif DevKit board with SDSIO using USB Interface
+# SDS Application on Alif DevKit board with SDSIO using Ethernet Interface
 
 This application shows how the SDS framework is used for testing DSP and ML algorithms. SDS enables recording and playback of real-world data streams using physical hardware
 or simulation models (Arm Virtual Hardware - FVP) to an user algorithm under test. The real-world data streams are captured in SDS data files.
