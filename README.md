@@ -17,6 +17,12 @@ Directory                                 | Content
 [ST/B-U585I-IOT02A](./ST/B-U585I-IOT02A)  | SDS Framework deployed to [ST B-U585I-IOT02A](https://www.keil.arm.com/boards/stmicroelectronics-b-u585i-iot02a-revc-c3bc599) using USB communication.
 [Jupyter](./Jupyter)                      | Display SDS Data Files using a Jupyter notebook.
 
+## Webinar
+
+The following webinar shows how to use the SDS framework and the examples in this repository:
+
+https://armkeil.blob.core.windows.net/developer/Files/videos/KeilStudio/20250916_SDS_Webinar.mp4
+
 ## Using VS Code
 
 The examples are configured for [Keil Studio for VS Code](https://www.keil.arm.com/). Install [Keil Studio for VS Code](https://marketplace.visualstudio.com/items?itemName=Arm.keil-studio-pack) from the VS Code marketplace and run a blinky example for the related board first to verify tool installation.
