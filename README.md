@@ -21,7 +21,8 @@ Directory                                 | Content
 
 The following webinar shows how to use the SDS framework and the examples in this repository:
 
-https://armkeil.blob.core.windows.net/developer/Files/videos/KeilStudio/20250916_SDS_Webinar.mp4
+[![Watch the video](SDS_preview.png)](https://armkeil.blob.core.windows.net/developer/Files/videos/KeilStudio/20250916_SDS_Webinar.mp4)
+
 
 ## Using VS Code
 
