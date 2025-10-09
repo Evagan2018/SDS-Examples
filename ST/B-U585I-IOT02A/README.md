@@ -109,7 +109,7 @@ SDS recording stopped
 SDS recording started
 ```
 
-Each run records two files: `DataInput.<n>.sds` and `DataOutput.<0>.sds` in the folder where SDSIO-Server was started. `<n>` is a sequential number.
+Each run records two files: `DataInput.<n>.sds` and `DataOutput.<n>.sds` in the folder where SDSIO-Server was started. `<n>` is a sequential number.
 
 **Check SDS Files**
 
@@ -139,8 +139,9 @@ For executing the **playback** test, follow the steps below:
 6. Press a User button on the ST B-U585I-IOT02A board to start playback of `DataInput` and recording of `DataOutput`.
 7. Wait for playback to finish, it will finish automatically when all data from `DataInput.0.sds` SDS file was played back.
 
-The stream `DataInput.<n>.sds` is read back and the algorithm processes this data. The stream `DataOutput.<m>.sds` is written whereby `<m>` is the next available file index.
-The files `DataOutput.<n>.sds` and `DataOutput.<m>.sds` should be identical. In this example the file pairs are `DataOutput.0.sds`/`DataOutput.2.sds`, and `DataOutput.1.sds`/`DataOutput.3.sds`.
+The stream `DataInput.<n>.sds` is read back and the algorithm processes this data. The stream `DataOutput.<m>.sds` is written whereby `<m>` is the next available file index. 
+
+To verify that the SDS component usage on hardware is reliable the two algorithm output data generated during recording and playback: the files `DataOutput.<n>.sds` and `DataOutput.<m>.sds` should be identical, e.g. `DataOutput.0.sds` and `DataOutput.1.sds` should be binary identical.
 
 **Output of SDSIO Server**
 
@@ -159,31 +160,6 @@ Stream opened: DataOutput (DataOutput.3.sds).
 Stream closed: DataInput (DataInput.1.sds).
 Stream closed: DataOutput (DataOutput.3.sds).
 ```
-
-#### Playback
-
-For **playback** test, follow the steps below:
-
-1. Connect USB cable between Host and development board
-2. Start the [SDSIO-Server](https://arm-software.github.io/SDS-Framework/main/utilities.html#sdsio-server):
-   ```bash
-   sdsio-server usb
-   ```
-3. Open `SDS.csolution.yml` in Visual Studio Code:
-   - Select **Target Type**: `STM32U585AIIx`
-   - Choose **Project Name**: `DataTest` and **Build Type**: `DebugPlay` to playback/record SDS data files.
-4. Build and run the application on the hardware.
-5. Press a blue button (B3 USER) to start playback and recording.
-6. Wait for playback to finish, it will finish automatically when all data from `DataInput.1.sds` SDS file was played back.
-
-**Results**
-
-Result should be one generated file `DataInput.1.sds` in the folder where SDSIO-Server was started.
-
-`DataOutput.1.sds` contains recorded output data of the algorithm using input data played from `DataInput.0.sds` file.
-
-To verify that the SDS component usage on hardware is reliable the two recordings of algorithm output data generated during recording and playback: 
-`DataOutput.0.sds` and `DataOutput.1.sds` should be binary identical.
 
 ## DataTest Project on AVH-FVP Simulation
 
