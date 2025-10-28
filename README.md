@@ -63,7 +63,7 @@ The following webinar shows how to use the SDS framework and the examples in thi
 ## Continuous Integration (CI)
 
 The repository uses [GitHub Actions](.github/workflows) to test project build with AC6 and GCC and execute algorithm tests.
-Refer to [Understanding GitHub Actions](https://docs.github.com/en/actions/get-started/understand-github-actions) and [Arm Virtual Hardware](https://arm-software.github.io/AVH/main/infrastructure/html/avh_gh_actions.html) documentation for more information.
+Refer to [Understanding GitHub Actions](https://docs.github.com/en/actions/get-started/understand-github-actions) and [Arm FVPs](https://arm-software.github.io/AVH/main/infrastructure/html/avh_gh_actions.html) documentation for more information.
 
 | <div style="width:150px"> CI Workflow </div>                  | Description |
 |---                                                            |---  |
