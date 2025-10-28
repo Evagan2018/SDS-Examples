@@ -49,7 +49,7 @@ Run a blinky example for the related board first to verify tool installation.
 | [Alif/AppKit](./Alif/AppKit)              | SDS Framework deployed to Alif AppKit using USB communication. |
 | [Alif/DevKit](./Alif/DevKit)              | SDS Framework deployed to Alif DevKit using Ethernet communication. |
 | [ST/B-U585I-IOT02A](./ST/B-U585I-IOT02A)  | SDS Framework deployed to [ST B-U585I-IOT02A](https://www.keil.arm.com/boards/stmicroelectronics-b-u585i-iot02a-revc-c3bc599) using USB communication. |
-| [Jupyter](./Jupyter)                      | Display SDS Data Files using a Jupyter notebook. |
+| [Jupyter](./Jupyter)                      | Display SDS data files using a Jupyter notebook. |
 
 
 
