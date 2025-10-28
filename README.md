@@ -69,7 +69,7 @@ Refer to [Understanding GitHub Actions](https://docs.github.com/en/actions/get-s
 |---                                                            |---  |
 | [AC6_test_build](./.github/workflows/AC6_test_build.yaml)     | Use Arm Compiler for Embedded (AC6) to create binaries for different configuration of targets, build types, and boards. After successful generation these are stored as artifacts. |
 | [GCC_test_build](./.github/workflows/GCC_test_build.yaml)     | Use GCC build tools to create binaries for different configuration of targets, build types, and boards. After successful generation these are stored as artifacts. |
-| [AlgorithmTest_ST_B-U585I-IOT02A](./.github/workflows/AlgorithmTest_ST_B-U585I-IOT02A.yaml)  | Build the binary of a Motion Recognition ML algorithm and execute a regression test by using an FVP model and prerecorded SDS files. Regressions are stored as artifacts. |
+| [AlgorithmTest_ST_B-U585I-IOT02A](./.github/workflows/AlgorithmTest_ST_B-U585I-IOT02A.yaml)  | Build the binary of a motion detection algorithm and execute a regression test by using an FVP model and prerecorded SDS files. Regressions are stored as artifacts. |
 
 
 ## Issues or Questions
