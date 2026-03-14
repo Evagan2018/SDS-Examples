@@ -1,13 +1,11 @@
 [![License](https://img.shields.io/github/license/Arm-Examples/Safety-Example-STM32?label)](https://github.com/Arm-Examples/Safety-Example-STM32/blob/main/LICENSE)
 [![Algorithm Test ST/B-U585I-IOT02A/MotionRecognition](https://img.shields.io/github/actions/workflow/status/Arm-Examples/SDS-Examples/AlgorithmTest_ST_B-U585I-IOT02A_MR.yaml?logo=arm&logoColor=0091bd&label=Algorithm%20Test%20ST/B-U585I-IOT02A/MotionRecognition)](./.github/workflows/AlgorithmTest_ST_B-U585I-IOT02A_MR.yaml)
-[![AC6 Test build](https://img.shields.io/github/actions/workflow/status/Arm-Examples/SDS-Examples/AC6_test_build.yaml?logo=arm&logoColor=0091bd&label=AC6_Test_build)](https://github.com/Arm-Examples/SDS-Examples/tree/main/.github/workflows/AC6_test_build.yaml)
-[![GCC Test build](https://img.shields.io/github/actions/workflow/status/Arm-Examples/SDS-Examples/GCC_test_build.yaml?logo=arm&logoColor=0091bd&label=GCC_Test_build)](https://github.com/Arm-Examples/SDS-Examples/tree/main/.github/workflows/GCC_test_build.yaml)
-
+[![AC6 Test build](https://img.shields.io/github/actions/workflow/status/Arm-Examples/SDS-Examples/ac6_test_build.yaml?logo=arm&logoColor=0091bd&label=AC6_Test_build)](https://github.com/Arm-Examples/SDS-Examples/tree/main/.github/workflows/ac6_test_build.yaml)
+[![GCC Test build](https://img.shields.io/github/actions/workflow/status/Arm-Examples/SDS-Examples/gcc_test_build.yaml?logo=arm&logoColor=0091bd&label=GCC_Test_build)](https://github.com/Arm-Examples/SDS-Examples/tree/main/.github/workflows/gcc_test_build.yaml)
 
 # SDS-Examples
 
 This repository contains examples that show the usage of the [Synchronous Data Streaming (SDS) Framework](https://github.com/ARM-software/SDS-Framework).
-
 
 ## Quick Start
 
@@ -21,8 +19,7 @@ This repository contains examples that show the usage of the [Synchronous Data S
    [Action buttons](https://github.com/ARM-software/vscode-cmsis-csolution?tab=readme-ov-file#action-buttons) to build,
    load and debug the example on the hardware.
 
-
-## Examples description
+## Example Description
 
 The SDS examples are configured for various Evaluation Boards and use the [MDK-Middleware](https://www.keil.arm.com/packs/mdk-middleware-keil/overview/) for the [SDSIO Interface](https://arm-software.github.io/SDS-Framework/main/sdsio.html). New hardware targets can be added using board layers that provide the required API interfaces.
 The examples are configured for [Keil Studio for VS Code](https://www.keil.arm.com/).
@@ -31,13 +28,12 @@ Run a blinky example for the related board first to verify tool installation.
 >
 > - Each example has a local VS Code configuration. Use in VS Code **Open Folder** to open the folder of each project individually.
 
-
-
 | Example name                                               | Description   |
 |---                                                         |---            |
-| [Alif/AppKit-E7_USB/ObjectDetection](./Alif/AppKit-E7_USB/SDS.csolution.yml)                   | [SDS Application for object detection on Alif AppKit-E7 board with SDSIO using USB interface](./Alif/AppKit-E7_USB/README.md).      [Alif AppKit-E7 board](https://www.keil.arm.com/boards/alif-semiconductor-appkit-e7-aiml-d1-34b5d51/guide/) |
-| [Alif/DevKit-E8_ETH/ObjectDetection](./Alif/DevKit-E8_ETH/SDS.csolution.yml)                   | [SDS Application for object detection on Alif DevKit-E8 board with SDSIO using Ethernet interface](./Alif/DevKit-E8_ETH/README.md). [Alif DevKit-E8 board](https://www.keil.arm.com/boards/alif-semiconductor-devkit-e8-a1-c8b9599/features/) |
-| [Alif/DevKit-E8_USB/ObjectDetection](./Alif/DevKit-E8_USB/SDS.csolution.yml)                   | [SDS Application for object detection on Alif DevKit-E8 board with SDSIO using USB interface](./Alif/DevKit-E8_USB/README.md).      [Alif DevKit-E8 board](https://www.keil.arm.com/boards/alif-semiconductor-devkit-e8-a1-c8b9599/features/) |
+| [Alif/AppKit-E7_USB](./Alif/AppKit-E7_USB/SDS.csolution.yml)                   | [SDS Application on Alif AppKit-E7 board with SDSIO using USB interface](./Alif/AppKit-E7_USB/README.md).      [Alif AppKit-E7 board](https://www.keil.arm.com/boards/alif-semiconductor-appkit-e7-aiml-d1-34b5d51/guide/) |
+| [Alif/AppKit-E8_USB](./Alif/AppKit-E8_USB/SDS.csolution.yml)                   | [SDS Application on Alif AppKit-E8 board with SDSIO using USB interface](./Alif/AppKit-E8_USB/README.md).      [Alif AppKit-E8 board](https://www.keil.arm.com/boards/alif-semiconductor-appkit-e8-aiml-a-b437af7/features/) |
+| [Alif/DevKit-E8_ETH](./Alif/DevKit-E8_ETH/SDS.csolution.yml)                   | [SDS Application on Alif DevKit-E8 board with SDSIO using Ethernet interface](./Alif/DevKit-E8_ETH/README.md). [Alif DevKit-E8 board](https://www.keil.arm.com/boards/alif-semiconductor-devkit-e8-a1-c8b9599/features/) |
+| [Alif/DevKit-E8_USB](./Alif/DevKit-E8_USB/SDS.csolution.yml)                   | [SDS Application on Alif DevKit-E8 board with SDSIO using USB interface](./Alif/DevKit-E8_USB/README.md).      [Alif DevKit-E8 board](https://www.keil.arm.com/boards/alif-semiconductor-devkit-e8-a1-c8b9599/features/) |
 | [ST/B-U585I-IOT02A/MotionRecognition](./ST/B-U585I-IOT02A/MotionRecognition/SDS.csolution.yml) | [SDS application for motion recognition on STMicroelectronics B-U585I-IOT02A board with SDSIO using the USB interface](./ST/B-U585I-IOT02A/MotionRecognition/README.md). [STMicroelectronics B-U585I-IOT02A board](https://www.keil.arm.com/boards/stmicroelectronics-b-u585i-iot02a-revc-c3bc599/features/) |
 | [ST/B-U585I-IOT02A/KeywordSpotting](./ST/B-U585I-IOT02A/KeywordSpotting/SDS.csolution.yml)     | [SDS application for keyword spotting on STMicroelectronics B-U585I-IOT02A board with SDSIO using the USB interface](./ST/B-U585I-IOT02A/KeywordSpotting/README.md). [STMicroelectronics B-U585I-IOT02A board](https://www.keil.arm.com/boards/stmicroelectronics-b-u585i-iot02a-revc-c3bc599/features/) |
 
@@ -55,14 +51,11 @@ Run a blinky example for the related board first to verify tool installation.
 | [ST/B-U585I-IOT02A/KeywordSpotting](./ST/B-U585I-IOT02A/KeywordSpotting)      | SDS Framework deployed to [ST B-U585I-IOT02A](https://www.keil.arm.com/boards/stmicroelectronics-b-u585i-iot02a-revc-c3bc599) using USB communication. |
 | [Jupyter](./Jupyter)                      | Display SDS data files using a Jupyter notebook. |
 
-
-
 ## Webinar
 
 The following webinar shows how to use the SDS framework and the examples in this repository:
 
 [![Watch the video](SDS_preview.png)](https://armkeil.blob.core.windows.net/developer/Files/videos/KeilStudio/20250916_SDS_Webinar.mp4)
-
 
 ## Continuous Integration (CI)
 
@@ -74,7 +67,6 @@ Refer to [Understanding GitHub Actions](https://docs.github.com/en/actions/get-s
 | [AC6_test_build](./.github/workflows/AC6_test_build.yaml)     | Use Arm Compiler for Embedded (AC6) to create binaries for different configuration of targets, build types, and boards. After successful generation these are stored as artifacts. |
 | [GCC_test_build](./.github/workflows/GCC_test_build.yaml)     | Use GCC build tools to create binaries for different configuration of targets, build types, and boards. After successful generation these are stored as artifacts. |
 | [AlgorithmTest_ST_B-U585I-IOT02A_MR](./.github/workflows/AlgorithmTest_ST_B-U585I-IOT02A_MR.yaml)  | Build the binary of a motion recognition algorithm and execute a regression test by using an FVP model and prerecorded SDS files. Regressions are stored as artifacts. |
-
 
 ## Issues or Questions
 
