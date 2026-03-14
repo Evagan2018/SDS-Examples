@@ -1,6 +1,7 @@
 [![License](https://img.shields.io/github/license/Arm-Examples/Safety-Example-STM32?label)](https://github.com/Arm-Examples/Safety-Example-STM32/blob/main/LICENSE)
 [![Algorithm Test ST/B-U585I-IOT02A/MotionRecognition](https://img.shields.io/github/actions/workflow/status/Arm-Examples/SDS-Examples/AlgorithmTest_ST_B-U585I-IOT02A_MR.yaml?logo=arm&logoColor=0091bd&label=Algorithm%20Test%20ST/B-U585I-IOT02A/MotionRecognition)](./.github/workflows/AlgorithmTest_ST_B-U585I-IOT02A_MR.yaml)
-[![Test build](https://img.shields.io/github/actions/workflow/status/Arm-Examples/SDS-Examples/test_build.yaml?logo=arm&logoColor=0091bd&label=Test_build)](https://github.com/Arm-Examples/SDS-Examples/tree/main/.github/workflows/test_build.yaml)
+[![AC6 Test build](https://img.shields.io/github/actions/workflow/status/Arm-Examples/SDS-Examples/ac6_test_build.yaml?logo=arm&logoColor=0091bd&label=AC6_Test_build)](https://github.com/Arm-Examples/SDS-Examples/tree/main/.github/workflows/ac6_test_build.yaml)
+[![GCC Test build](https://img.shields.io/github/actions/workflow/status/Arm-Examples/SDS-Examples/gcc_test_build.yaml?logo=arm&logoColor=0091bd&label=GCC_Test_build)](https://github.com/Arm-Examples/SDS-Examples/tree/main/.github/workflows/gcc_test_build.yaml)
 
 # SDS-Examples
 
