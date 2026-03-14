@@ -14,7 +14,7 @@
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
 
-name: SDS-Examples build test
+name: SDS-Examples AC6 build test
 on:
 
   workflow_dispatch:
