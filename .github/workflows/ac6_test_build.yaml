@@ -47,7 +47,7 @@ jobs:
     steps:
 
     - name: Checkout repository
-      uses: actions/checkout@v4
+      uses: actions/checkout@v6
 
     - name: Activate vcpkg
       uses: ARM-software/cmsis-actions/vcpkg@v1
@@ -58,7 +58,7 @@ jobs:
       uses: ARM-software/cmsis-actions/armlm@v1
 
     - name: Cache downloaded packs
-      uses: actions/cache@v4
+      uses: actions/cache@v5
       with:
         key: SDS
         path: /home/runner/.cache/arm/packs/.Download
@@ -69,7 +69,7 @@ jobs:
         cbuild ${{matrix.context.proj}}.csolution.yml --toolchain ${{matrix.context.tool}} --packs
 
     - name: Upload output for context ${{matrix.context.proj}}
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v7
       with:
         name: ${{matrix.context.tool}}_build_${{matrix.context.art_name}}
         path: ${{matrix.context.dir}}/out

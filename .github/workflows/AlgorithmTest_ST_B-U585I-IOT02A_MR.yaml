@@ -31,7 +31,7 @@ jobs:
 
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v4
+      uses: actions/checkout@v6
 
     - name: Activate vcpkg
       uses: ARM-software/cmsis-actions/vcpkg@v1
@@ -52,7 +52,7 @@ jobs:
         python -m pip install --target .python_deps pyyaml
 
     - name: Cache downloaded packs
-      uses: actions/cache@v4
+      uses: actions/cache@v5
       with:
         key: SDS
         path: /home/runner/.cache/arm/packs/.Download
@@ -110,7 +110,7 @@ jobs:
         done
 
     - name: Upload differing SDS files
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v7
       with:
         name: sds-diff-files
         path: ST/B-U585I-IOT02A/MotionRecognition/algorithm/diff_artifacts
