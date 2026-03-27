@@ -13,6 +13,6 @@
         "arm:compilers/arm/llvm-embedded": "^20.1.0",
         "arm:tools/kitware/cmake": "^3.31.5",
         "arm:tools/ninja-build/ninja": "^1.12.1",
-        "arm:models/arm/avh-fvp": "^11.29.27"
+        "arm:models/arm/avh-fvp": "11.27.31"
     }
 }
