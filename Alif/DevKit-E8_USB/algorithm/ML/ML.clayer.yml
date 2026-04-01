@@ -8,11 +8,11 @@ layer:
 
     - pack: ARM::ml-embedded-eval-kit-uc-api@^24.8.0
 
-    - pack: tensorflow::flatbuffers@^1.25.2
-    - pack: tensorflow::gemmlowp@^1.25.2
-    - pack: tensorflow::kissfft@^1.25.2
-    - pack: tensorflow::ruy@^1.25.2
-    - pack: tensorflow::tensorflow-lite-micro@^1.25.2
+    - pack: tensorflow::flatbuffers@1.25.2
+    - pack: tensorflow::gemmlowp@1.25.2
+    - pack: tensorflow::kissfft@1.25.2
+    - pack: tensorflow::ruy@1.25.2
+    - pack: tensorflow::tensorflow-lite-micro@1.25.2
 
   connections:
     - connect: Layer with CMSIS-RTOS2
